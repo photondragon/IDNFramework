@@ -10,6 +10,8 @@
 		945DB6851AD8FC8800C13526 /* IDNFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 945DB6841AD8FC8800C13526 /* IDNFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		945DB68B1AD8FC8800C13526 /* IDNFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945DB67F1AD8FC8800C13526 /* IDNFramework.framework */; };
 		945DB6921AD8FC8800C13526 /* IDNFrameworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 945DB6911AD8FC8800C13526 /* IDNFrameworkTests.m */; };
+		945DB69F1AD8FCA600C13526 /* IDNImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 945DB69D1AD8FCA600C13526 /* IDNImagePickerController.h */; };
+		945DB6A01AD8FCA600C13526 /* IDNImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945DB69E1AD8FCA600C13526 /* IDNImagePickerController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		945DB68A1AD8FC8800C13526 /* IDNFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IDNFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		945DB6901AD8FC8800C13526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		945DB6911AD8FC8800C13526 /* IDNFrameworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDNFrameworkTests.m; sourceTree = "<group>"; };
+		945DB69D1AD8FCA600C13526 /* IDNImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNImagePickerController.h; sourceTree = "<group>"; };
+		945DB69E1AD8FCA600C13526 /* IDNImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNImagePickerController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,8 @@
 		945DB6811AD8FC8800C13526 /* IDNFramework */ = {
 			isa = PBXGroup;
 			children = (
+				945DB69B1AD8FCA600C13526 /* IDNFoundation */,
+				945DB69C1AD8FCA600C13526 /* IDNKit */,
 				945DB6841AD8FC8800C13526 /* IDNFramework.h */,
 				945DB6821AD8FC8800C13526 /* Supporting Files */,
 			);
@@ -102,6 +108,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		945DB69B1AD8FCA600C13526 /* IDNFoundation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = IDNFoundation;
+			sourceTree = "<group>";
+		};
+		945DB69C1AD8FCA600C13526 /* IDNKit */ = {
+			isa = PBXGroup;
+			children = (
+				945DB69D1AD8FCA600C13526 /* IDNImagePickerController.h */,
+				945DB69E1AD8FCA600C13526 /* IDNImagePickerController.m */,
+			);
+			path = IDNKit;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -109,6 +131,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				945DB69F1AD8FCA600C13526 /* IDNImagePickerController.h in Headers */,
 				945DB6851AD8FC8800C13526 /* IDNFramework.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				945DB6A01AD8FCA600C13526 /* IDNImagePickerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
