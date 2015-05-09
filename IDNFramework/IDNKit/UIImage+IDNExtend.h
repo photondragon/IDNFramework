@@ -12,6 +12,7 @@
 
 - (UIImage *)resizedImageWithSize:(CGSize)size;
 - (UIImage *)resizedImageWithAspectFitSize:(CGSize)size;
+- (UIImage *)resizedImageWithAspectFillSize:(CGSize)size;
 - (UIImage *)imageWithoutOrientation;
 
 @end

@@ -128,4 +128,16 @@
 	return [self resizedImageWithSize:newSize];
 }
 
+- (UIImage *)resizedImageWithAspectFillSize:(CGSize)size
+{
+	if(size.width<=0 || size.height<=0)
+		return nil;
+	CGSize originSize = self.size;
+	CGFloat wRatio = size.width/originSize.width;
+	CGFloat hRatio = size.height/originSize.height;
+	CGFloat ratio = wRatio>hRatio ? wRatio : hRatio;
+	CGSize newSize = CGSizeMake((int)(originSize.width*ratio), (int)(originSize.height*ratio));
+	return [self resizedImageWithSize:newSize];
+}
+
 @end
