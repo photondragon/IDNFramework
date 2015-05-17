@@ -27,6 +27,10 @@
 		947400BB1AFE53E80082C404 /* UIBezierPath+IDNExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 947400B51AFE53E80082C404 /* UIBezierPath+IDNExtend.m */; };
 		947400BC1AFE53E80082C404 /* UIImage+IDNExtend.h in Headers */ = {isa = PBXBuildFile; fileRef = 947400B61AFE53E80082C404 /* UIImage+IDNExtend.h */; };
 		947400BD1AFE53E80082C404 /* UIImage+IDNExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 947400B71AFE53E80082C404 /* UIImage+IDNExtend.m */; };
+		94DFE7DB1B07A43A009EC679 /* UIViewController+IDNPrompt.h in Headers */ = {isa = PBXBuildFile; fileRef = 94DFE7D91B07A43A009EC679 /* UIViewController+IDNPrompt.h */; };
+		94DFE7DC1B07A43A009EC679 /* UIViewController+IDNPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DFE7DA1B07A43A009EC679 /* UIViewController+IDNPrompt.m */; };
+		94DFE7FD1B07ABC5009EC679 /* IDNRefreshControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 94DFE7FB1B07ABC5009EC679 /* IDNRefreshControl.h */; };
+		94DFE7FE1B07ABC5009EC679 /* IDNRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DFE7FC1B07ABC5009EC679 /* IDNRefreshControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +67,10 @@
 		947400B51AFE53E80082C404 /* UIBezierPath+IDNExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+IDNExtend.m"; sourceTree = "<group>"; };
 		947400B61AFE53E80082C404 /* UIImage+IDNExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+IDNExtend.h"; sourceTree = "<group>"; };
 		947400B71AFE53E80082C404 /* UIImage+IDNExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+IDNExtend.m"; sourceTree = "<group>"; };
+		94DFE7D91B07A43A009EC679 /* UIViewController+IDNPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+IDNPrompt.h"; sourceTree = "<group>"; };
+		94DFE7DA1B07A43A009EC679 /* UIViewController+IDNPrompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+IDNPrompt.m"; sourceTree = "<group>"; };
+		94DFE7FB1B07ABC5009EC679 /* IDNRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNRefreshControl.h; sourceTree = "<group>"; };
+		94DFE7FC1B07ABC5009EC679 /* IDNRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNRefreshControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +173,10 @@
 				947400B51AFE53E80082C404 /* UIBezierPath+IDNExtend.m */,
 				947400B61AFE53E80082C404 /* UIImage+IDNExtend.h */,
 				947400B71AFE53E80082C404 /* UIImage+IDNExtend.m */,
+				94DFE7D91B07A43A009EC679 /* UIViewController+IDNPrompt.h */,
+				94DFE7DA1B07A43A009EC679 /* UIViewController+IDNPrompt.m */,
+				94DFE7FB1B07ABC5009EC679 /* IDNRefreshControl.h */,
+				94DFE7FC1B07ABC5009EC679 /* IDNRefreshControl.m */,
 			);
 			path = IDNKit;
 			sourceTree = "<group>";
@@ -180,12 +192,14 @@
 				947400BA1AFE53E80082C404 /* UIBezierPath+IDNExtend.h in Headers */,
 				947400B81AFE53E80082C404 /* IDNImagePickerController.h in Headers */,
 				947400AF1AFE53BE0082C404 /* NSString+IDNExtend.h in Headers */,
+				94DFE7FD1B07ABC5009EC679 /* IDNRefreshControl.h in Headers */,
 				947400AD1AFE53BE0082C404 /* NSPointerArray+IDNExtend.h in Headers */,
 				947400AB1AFE53BE0082C404 /* NSFileManager+IDNExtend.h in Headers */,
 				947400A71AFE53BE0082C404 /* NSData+IDNExtend.h in Headers */,
 				947400A61AFE53BE0082C404 /* IDNFoundation.h in Headers */,
 				947400A91AFE53BE0082C404 /* NSDate+IDNExtend.h in Headers */,
 				945DB6851AD8FC8800C13526 /* IDNFramework.h in Headers */,
+				94DFE7DB1B07A43A009EC679 /* UIViewController+IDNPrompt.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,8 +304,10 @@
 				947400B01AFE53BE0082C404 /* NSString+IDNExtend.m in Sources */,
 				947400A81AFE53BE0082C404 /* NSData+IDNExtend.m in Sources */,
 				947400BB1AFE53E80082C404 /* UIBezierPath+IDNExtend.m in Sources */,
+				94DFE7FE1B07ABC5009EC679 /* IDNRefreshControl.m in Sources */,
 				947400BD1AFE53E80082C404 /* UIImage+IDNExtend.m in Sources */,
 				947400AC1AFE53BE0082C404 /* NSFileManager+IDNExtend.m in Sources */,
+				94DFE7DC1B07A43A009EC679 /* UIViewController+IDNPrompt.m in Sources */,
 				947400AA1AFE53BE0082C404 /* NSDate+IDNExtend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
