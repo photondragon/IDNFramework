@@ -512,7 +512,7 @@ static char associatedObjectKeyIDNRefreshControl = 0;
 	IDNRefreshControl* refreshControl = dic[@"topRefreshControl"];
 	if(refreshControl==nil)
 	{
-		IDNRefreshControl* refreshControl = [[IDNRefreshControl alloc] init];
+		refreshControl = [[IDNRefreshControl alloc] init];
 		refreshControl.containerView = self;
 		dic[@"topRefreshControl"] = refreshControl;
 	}
@@ -525,7 +525,7 @@ static char associatedObjectKeyIDNRefreshControl = 0;
 	IDNRefreshControl* refreshControl = dic[@"bottomRefreshControl"];
 	if(refreshControl==nil)
 	{
-		IDNRefreshControl* refreshControl = [[IDNRefreshControl alloc] initAtBottom:YES];
+		refreshControl = [[IDNRefreshControl alloc] initAtBottom:YES];
 		refreshControl.containerView = self;
 		dic[@"bottomRefreshControl"] = refreshControl;
 	}
