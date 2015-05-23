@@ -14,4 +14,8 @@
 
 + (NSString*)documentsPathWithFileName:(NSString*)fileName;
 
+#pragma mark hash
+
+- (NSString *)md5;
+
 @end

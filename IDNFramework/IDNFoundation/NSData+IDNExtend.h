@@ -12,4 +12,8 @@
 
 - (BOOL)writeToDocumentFile:(NSString *)file; //将数据保存到Documents目录下，文件名为file（相对路径，可以包含子目录，如果子目录不存在，会自动创建）
 
+#pragma mark hash
+
+- (NSString *)md5;
+
 @end
