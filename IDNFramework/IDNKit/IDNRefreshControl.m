@@ -377,11 +377,11 @@ enum IDNRefreshPullState
 	}
 }
 
-- (void)setPullState:(enum IDNRefreshPullState)mkstate
+- (void)setPullState:(enum IDNRefreshPullState)state
 {
-	if(_pullState==mkstate)
+	if(_pullState==state)
 		return;
-	_pullState = mkstate;
+	_pullState = state;
 	if(_pullState==IDNRefreshControlStateNormal)
 		self.pullLabelView.attributedText = self.normalTitle;
 	else if(_pullState==IDNRefreshControlStatePulling)
