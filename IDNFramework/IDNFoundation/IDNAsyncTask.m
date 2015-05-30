@@ -262,10 +262,17 @@ enum AsyncTaskState
 }
 
 #pragma mark Load/Cancel
+
+static int nextTaskId = 0;
+
 -(void) putTaskWithKey:(id)taskKey group:(id)group taskBlock:(IDNAsyncTaskBlock)taskBlock finishedBlock:(IDNAsyncTaskFinishedBlock)finishedBlock cancelledBlock:(IDNAsyncTaskCancelledBlock)cancelledBlock
 {
-	if(taskKey==nil || taskBlock==nil)
+	if(taskBlock==nil)
 		return;
+	if(taskKey==nil)
+	{
+		taskKey = [NSString stringWithFormat:@"^$&IDNAsyncTask%d",nextTaskId++];
+	}
 	if(group==nil)
 		group = [NSNull null];
 	AsyncTaskTask* task	= [[AsyncTaskTask alloc] init];
@@ -400,6 +407,14 @@ enum AsyncTaskState
 
 #pragma mark class methods
 
++ (void)putTask:(IDNAsyncTaskBlock)taskBlock finished:(IDNAsyncTaskFinishedBlock)finishedBlock cancelled:(IDNAsyncTaskCancelledBlock)cancelledBlock
+{
+	[[IDNAsyncTask taskManager] putTaskWithKey:nil group:nil taskBlock:taskBlock finishedBlock:finishedBlock cancelledBlock:cancelledBlock];
+}
++ (void)putTask:(IDNAsyncTaskBlock)taskBlock finished:(IDNAsyncTaskFinishedBlock)finishedBlock cancelled:(IDNAsyncTaskCancelledBlock)cancelledBlock group:(id)group
+{
+	[[IDNAsyncTask taskManager] putTaskWithKey:nil group:group taskBlock:taskBlock finishedBlock:finishedBlock cancelledBlock:cancelledBlock];
+}
 +(void) putTaskWithKey:(id)taskKey group:(id)group task:(IDNAsyncTaskBlock)taskBlock finished:(IDNAsyncTaskFinishedBlock)finishedBlock cancelled:(IDNAsyncTaskCancelledBlock)cancelledBlock
 {
 	[[IDNAsyncTask taskManager] putTaskWithKey:taskKey group:group taskBlock:taskBlock finishedBlock:finishedBlock cancelledBlock:cancelledBlock];
