@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIScreen+IDNSizeType.h"
+#import "UIScreen+IDNExtend.h"
 
 @interface UIViewController(IDNScreenAdapt)
 

@@ -1,5 +1,5 @@
 //
-//  UIScreen+IDNSizeType.h
+//  UIScreen+IDNExtend.h
 //  IDNFramework
 //
 //  Created by photondragon on 15/5/30.
@@ -16,8 +16,9 @@ typedef enum _ScreenSizeType{
 	ScreenSizeType55, //5.5寸
 }ScreenSizeType;
 
-@interface UIScreen(IDNSizeType)
+@interface UIScreen(IDNExtend)
 
++ (CGFloat)pixelWidth; //一个像素宽度
 + (ScreenSizeType)mainScreenSizeType;
 
 @end

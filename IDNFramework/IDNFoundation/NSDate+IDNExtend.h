@@ -10,6 +10,8 @@
 
 @interface NSDate(IDNExtend)
 
-- (NSString*)stringWithFormat:(NSString*)format;
++ (NSString*)dateFormatGMT; //@"EEE, dd MMM yyyy HH:mm:ss Z"
+- (NSString*)stringWithFormat:(NSString*)format; //format示例：@"yyyyMMddHHmmssFFF"
++ (NSDate*)dateFromString:(NSString*)dateString format:(NSString*)format; //0时区
 
 @end

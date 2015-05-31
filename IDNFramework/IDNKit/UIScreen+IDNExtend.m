@@ -1,14 +1,22 @@
 //
-//  UIScreen+IDNSizeType.h
+//  UIScreen+IDNExtend.h
 //  IDNFramework
 //
 //  Created by photondragon on 15/5/30.
 //  Copyright (c) 2015年 iosdev.net. All rights reserved.
 //
 
-#import "UIScreen+IDNSizeType.h"
+#import "UIScreen+IDNExtend.h"
 
-@implementation UIScreen(IDNSizeType)
+@implementation UIScreen(IDNExtend)
+
++ (CGFloat)pixelWidth //一个像素宽度
+{
+	static CGFloat pixelWidth = 0;
+	if(pixelWidth==0)
+		pixelWidth = 1.0/[UIScreen mainScreen].scale;
+	return pixelWidth;
+}
 
 + (ScreenSizeType)mainScreenSizeType
 {
