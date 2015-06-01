@@ -22,6 +22,9 @@ UIImagePickerControllerDelegate>
 @end
 
 @implementation IDNImagePickerController
+{
+	UIStatusBarStyle saveStatusBarStyle;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -66,11 +69,20 @@ UIImagePickerControllerDelegate>
 			[self changeSourceType];
 		});
 	}
+
+	saveStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
 }
 
 - (void)changeSource:(id)sender
 {
 	[self changeSourceType];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+
+	[UIApplication sharedApplication].statusBarStyle = saveStatusBarStyle;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
