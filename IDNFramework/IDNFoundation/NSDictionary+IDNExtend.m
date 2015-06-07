@@ -16,9 +16,10 @@
 		return nil;
 	NSMutableArray* arr = [NSMutableArray array];
 	for (id obj in array) {
-		if ([obj isKindOfClass:[NSDictionary class]]) {
+		if ([obj isKindOfClass:[NSDictionary class]])
 			[arr addObject:[self dictionaryWithoutNSNull:obj]];
-		}
+		else if([obj isKindOfClass:[NSArray class]])
+			[arr addObject:[self arrayWithoutNSNull:obj]];
 		else
 			[arr addObject:obj];
 	}
@@ -35,9 +36,9 @@
 		if([value isKindOfClass:[NSNull class]])
 			continue;
 		else if([value isKindOfClass:[NSArray class]])
-		{
 			dic[key] = [self arrayWithoutNSNull:value];
-		}
+		else if([value isKindOfClass:[NSDictionary class]])
+			dic[key] = [self dictionaryWithoutNSNull:value];
 		else
 			dic[key] = value;
 	}
