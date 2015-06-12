@@ -18,7 +18,7 @@
 #define CakeColor [UIColor colorWithWhite:0.7 alpha:1.0]
 
 #define RefreshControlHeight 60 //刷新控件的默认高度
-#define ProgressViewSize 20 //进度提示View（饼视图）的大小
+#define ProgressViewSize 17 //进度提示View（饼视图）的大小
 
 enum IDNRefreshPullState
 {
@@ -52,18 +52,29 @@ enum IDNRefreshPullState
 }
 - (void)drawRect:(CGRect)rect
 {
-	CGRect frame = self.frame;
-	UIBezierPath* path = [UIBezierPath bezierPath];//WithRect:CGRectMake(0, 0, 1.0, 1.0)];
-	[path addArcWithCenter:CGPointMake(0.5, 0.5)
-					radius:0.5
+	CGSize framesize = self.frame.size;
+	CGFloat pixelWidth = 1.0/[UIScreen mainScreen].scale;
+	CGFloat lineWidth = 1.0;
+	CGFloat length = framesize.width < framesize.height ? framesize.width : framesize.height;
+	CGFloat radius = length/2-pixelWidth-lineWidth/2;
+	CGPoint center = CGPointMake(framesize.width/2, framesize.height/2);
+
+	[_color set];
+
+	UIBezierPath* path = [UIBezierPath bezierPath];
+	[path addArcWithCenter:center
+					radius:radius
 				startAngle:DEGREES_TO_RADIANS(-90)
 				  endAngle:DEGREES_TO_RADIANS(-90+360.0*self.ratio)
 				 clockwise:YES];
-	[path addLineToPoint:CGPointMake(0.5, 0.5)];
-	[path addLineToPoint:CGPointMake(0.5, 0)];
-	[path applyTransform:CGAffineTransformMakeScale(frame.size.width, frame.size.height)];
-	[_color setFill];
+	[path addLineToPoint:center];
+	[path addLineToPoint:CGPointMake(center.x, center.y-radius)];
 	[path fill];
+
+	[path removeAllPoints];
+	[path addArcWithCenter:center radius:radius startAngle:0 endAngle:M_PI*2 clockwise:YES];
+	path.lineWidth = lineWidth;
+	[path stroke];
 }
 @end
 

@@ -18,10 +18,10 @@
 	return pixelWidth;
 }
 
-+ (ScreenSizeType)mainScreenSizeType
++ (IDNScreenSizeType)mainScreenSizeType
 {
-	static ScreenSizeType sizeType = (ScreenSizeType)-1;
-	if(sizeType==(ScreenSizeType)-1)
+	static IDNScreenSizeType sizeType = (IDNScreenSizeType)-1;
+	if(sizeType==(IDNScreenSizeType)-1)
 	{
 		CGSize screenSize = [UIScreen mainScreen].bounds.size;
 		if(screenSize.width>screenSize.height)
@@ -34,21 +34,21 @@
 		if(screenSize.width==320)
 		{
 			if(screenSize.height==480)
-				sizeType = ScreenSizeType35;
+				sizeType = IDNScreenSizeType35;
 			else
-				sizeType = ScreenSizeType40;
+				sizeType = IDNScreenSizeType40;
 		}
 		else if(screenSize.width == 375)
 		{
-			sizeType = ScreenSizeType47;
+			sizeType = IDNScreenSizeType47;
 		}
 		else if(screenSize.width == 414)
 		{
-			sizeType = ScreenSizeType55;
+			sizeType = IDNScreenSizeType55;
 		}
 		else
 		{
-			sizeType = ScreenSizeTypeUnknown;
+			sizeType = IDNScreenSizeTypeUnknown;
 		}
 	}
 	return sizeType;

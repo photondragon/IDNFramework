@@ -7,15 +7,19 @@
 //
 
 #import "UIViewController+IDNPrompt.h"
+#import "IDNActivityIndicator.h"
 
-#define PromptFrameWidth 120
-#define PromptFrameHeight 80
+#define ActivityIndicator IDNActivityIndicator
+//#define ActivityIndicator UIActivityIndicatorView
+
+#define PromptFrameWidth 110
+#define PromptFrameHeight 90
 #define LoadingIndicatorLength 30
 
 @interface UIViewControllerPromptView : UIView
 @property(nonatomic,weak) UIView* frameView;
 @property(nonatomic,weak) UILabel* labelPrompt;
-@property(nonatomic,strong) UIActivityIndicatorView* loadingIndicator;
+@property(nonatomic,strong) ActivityIndicator* loadingIndicator;
 - (void)showLoadingIndicator;//显示旋转菊花
 @end
 @implementation UIViewControllerPromptView
@@ -28,7 +32,7 @@
 		UIView* frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, PromptFrameWidth, PromptFrameHeight)];//这里设置frame是为了后面设置labelPrompt.autoresizingMask方便
 		frameView.translatesAutoresizingMaskIntoConstraints = NO;
 		frameView.layer.cornerRadius = 6;
-		frameView.layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.35].CGColor;
+		frameView.layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8].CGColor;
 		[self addSubview:frameView];
 		self.frameView = frameView;
 
@@ -36,12 +40,13 @@
 		[frameView addConstraint:[NSLayoutConstraint constraintWithItem:frameView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:PromptFrameWidth]];
 		[frameView addConstraint:[NSLayoutConstraint constraintWithItem:frameView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:PromptFrameHeight]];
 		[self addConstraint:[NSLayoutConstraint constraintWithItem:frameView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:frameView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:0.4 constant:0]];
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:frameView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:-32]];
+
 
 		UILabel* labelPrompt = [[UILabel alloc] initWithFrame:CGRectMake(8, 4, PromptFrameWidth-16, PromptFrameHeight-8)];
 		labelPrompt.numberOfLines = 4;
 		labelPrompt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		labelPrompt.font = [UIFont systemFontOfSize:14];
+		labelPrompt.font = [UIFont boldSystemFontOfSize:14];
 		labelPrompt.textColor = [UIColor whiteColor];//colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
 		labelPrompt.textAlignment = NSTextAlignmentCenter;
 		[frameView addSubview:labelPrompt];
@@ -50,12 +55,13 @@
 	return self;
 }
 
-- (UIActivityIndicatorView*)loadingIndicator
+- (ActivityIndicator*)loadingIndicator
 {
 	if(_loadingIndicator==nil)
 	{
-		_loadingIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(PromptFrameWidth/2.0-15, 8, LoadingIndicatorLength, LoadingIndicatorLength)];
+		_loadingIndicator = [[ActivityIndicator alloc] initWithFrame:CGRectMake(PromptFrameWidth/2.0-15, 16, LoadingIndicatorLength, LoadingIndicatorLength)];
 		_loadingIndicator.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		_loadingIndicator.color = [UIColor colorWithRed:21/255.0 green:138/255.0 blue:228/255.0 alpha:1];
 	}
 	return _loadingIndicator;
 }
@@ -85,7 +91,7 @@
 }
 @end
 
-@implementation UIViewController(IDNPrompt)
+@implementation UIViewController(Prompt)
 
 + (NSMutableDictionary*)dictionaryOfPromptInfos
 {

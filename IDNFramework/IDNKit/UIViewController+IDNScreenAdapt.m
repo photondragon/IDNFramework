@@ -19,16 +19,16 @@
 {
 	NSString* nibName = nil;
 	switch ([UIScreen mainScreenSizeType]) {
-		case ScreenSizeType55:
+		case IDNScreenSizeType55:
 			nibName = [NSString stringWithFormat:@"%@-iPhone55",viewClassName];
 			break;
-		case ScreenSizeType47:
+		case IDNScreenSizeType47:
 			nibName = [NSString stringWithFormat:@"%@-iPhone47",viewClassName];
 			break;
-		case ScreenSizeType40:
+		case IDNScreenSizeType40:
 			nibName = [NSString stringWithFormat:@"%@-iPhone40",viewClassName];
 			break;
-		case ScreenSizeType35:
+		case IDNScreenSizeType35:
 			nibName = [NSString stringWithFormat:@"%@-iPhone35",viewClassName];
 			break;
 		default:

@@ -10,6 +10,7 @@
 
 typedef NS_OPTIONS(NSUInteger, DrawEdgeLine) {
 	DrawEdgeLineNone = 0,
+	DrawEdgeLineAll = -1,
 	DrawEdgeLineLeft = 1<<0,
 	DrawEdgeLineRight = 1<<1,
 	DrawEdgeLineTop = 1<<2,
