@@ -13,7 +13,7 @@
 
 static char bindDataKey = 0;
 
-- (NSMutableDictionary*)dictionaryOfBindData
+- (NSMutableDictionary*)dictionaryOfUIViewIDNKeyboardBindData
 {
 	NSMutableDictionary* dic = objc_getAssociatedObject(self, &bindDataKey);
 	if(dic==nil)
@@ -26,7 +26,7 @@ static char bindDataKey = 0;
 
 - (void)willMoveToWindow:(UIWindow *)newWindow
 {
-	NSMutableDictionary* dic = [self dictionaryOfBindData];
+	NSMutableDictionary* dic = [self dictionaryOfUIViewIDNKeyboardBindData];
 	if(dic[@"block"]==nil)
 		return;
 	if(newWindow)
@@ -41,13 +41,13 @@ static char bindDataKey = 0;
 
 - (void (^)(CGFloat,double,UIViewAnimationCurve))keyboardFrameWillChangeBlock
 {
-	NSMutableDictionary* dic = [self dictionaryOfBindData];
+	NSMutableDictionary* dic = [self dictionaryOfUIViewIDNKeyboardBindData];
 	return dic[@"block"];
 }
 
 - (void)setKeyboardFrameWillChangeBlock:(void (^)(CGFloat, double, UIViewAnimationCurve))keyboardFrameWillChangeBlock
 {
-	NSMutableDictionary* dic = [self dictionaryOfBindData];
+	NSMutableDictionary* dic = [self dictionaryOfUIViewIDNKeyboardBindData];
 	if(keyboardFrameWillChangeBlock)
 	{
 		if(dic[@"block"]==nil && self.window)//之前没有设置Block而self已经在视图树中显示
@@ -80,7 +80,7 @@ static char bindDataKey = 0;
 	CGRect containerRect = self.bounds;
 	CGFloat bottomDistance = containerRect.size.height - keyboardRect.origin.y;
 	
-	NSMutableDictionary* dic = [self dictionaryOfBindData];
+	NSMutableDictionary* dic = [self dictionaryOfUIViewIDNKeyboardBindData];
 	if(dic[@"block"])
 	{
 		void (^keyboardFrameWillChangeBlock)(CGFloat,double,UIViewAnimationCurve) = dic[@"block"];
