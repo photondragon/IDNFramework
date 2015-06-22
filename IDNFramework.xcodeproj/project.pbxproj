@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		945DB68B1AD8FC8800C13526 /* IDNFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945DB67F1AD8FC8800C13526 /* IDNFramework.framework */; };
-		945DB6921AD8FC8800C13526 /* IDNFrameworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 945DB6911AD8FC8800C13526 /* IDNFrameworkTests.m */; };
 		947400A61AFE53BE0082C404 /* IDNFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9474009B1AFE53BE0082C404 /* IDNFoundation.h */; };
 		947400A71AFE53BE0082C404 /* NSData+IDNExtend.h in Headers */ = {isa = PBXBuildFile; fileRef = 9474009C1AFE53BE0082C404 /* NSData+IDNExtend.h */; };
 		947400A81AFE53BE0082C404 /* NSData+IDNExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 9474009D1AFE53BE0082C404 /* NSData+IDNExtend.m */; };
@@ -20,6 +19,10 @@
 		947400AE1AFE53BE0082C404 /* NSPointerArray+IDNExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 947400A31AFE53BE0082C404 /* NSPointerArray+IDNExtend.m */; };
 		947400AF1AFE53BE0082C404 /* NSString+IDNExtend.h in Headers */ = {isa = PBXBuildFile; fileRef = 947400A41AFE53BE0082C404 /* NSString+IDNExtend.h */; };
 		947400B01AFE53BE0082C404 /* NSString+IDNExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 947400A51AFE53BE0082C404 /* NSString+IDNExtend.m */; };
+		94AA6DF11B37C69200778B21 /* IDNFileCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 94AA6DEF1B37C69200778B21 /* IDNFileCache.h */; };
+		94AA6DF21B37C69200778B21 /* IDNFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AA6DF01B37C69200778B21 /* IDNFileCache.m */; };
+		94AA6DF81B38077E00778B21 /* IDNFileCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AA6DF71B38077E00778B21 /* IDNFileCacheTest.m */; };
+		94AA6DF91B38085F00778B21 /* IDNFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AA6DF01B37C69200778B21 /* IDNFileCache.m */; };
 		94D4A0E11B1ABA8000F2230E /* SegmentQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 94D4A0DF1B1ABA8000F2230E /* SegmentQuery.h */; };
 		94D4A0E21B1ABA8000F2230E /* SegmentQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D4A0E01B1ABA8000F2230E /* SegmentQuery.m */; };
 		94D64C2A1B10EC6A00C3143C /* IDNAsyncTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 94D64C261B10EC6A00C3143C /* IDNAsyncTask.h */; };
@@ -101,7 +104,6 @@
 		945DB6831AD8FC8800C13526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		945DB68A1AD8FC8800C13526 /* IDNFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IDNFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		945DB6901AD8FC8800C13526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		945DB6911AD8FC8800C13526 /* IDNFrameworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDNFrameworkTests.m; sourceTree = "<group>"; };
 		9474009B1AFE53BE0082C404 /* IDNFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNFoundation.h; sourceTree = "<group>"; };
 		9474009C1AFE53BE0082C404 /* NSData+IDNExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+IDNExtend.h"; sourceTree = "<group>"; };
 		9474009D1AFE53BE0082C404 /* NSData+IDNExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+IDNExtend.m"; sourceTree = "<group>"; };
@@ -113,6 +115,9 @@
 		947400A31AFE53BE0082C404 /* NSPointerArray+IDNExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPointerArray+IDNExtend.m"; sourceTree = "<group>"; };
 		947400A41AFE53BE0082C404 /* NSString+IDNExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+IDNExtend.h"; sourceTree = "<group>"; };
 		947400A51AFE53BE0082C404 /* NSString+IDNExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+IDNExtend.m"; sourceTree = "<group>"; };
+		94AA6DEF1B37C69200778B21 /* IDNFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNFileCache.h; sourceTree = "<group>"; };
+		94AA6DF01B37C69200778B21 /* IDNFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNFileCache.m; sourceTree = "<group>"; };
+		94AA6DF71B38077E00778B21 /* IDNFileCacheTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNFileCacheTest.m; sourceTree = "<group>"; };
 		94D4A0DF1B1ABA8000F2230E /* SegmentQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentQuery.h; sourceTree = "<group>"; };
 		94D4A0E01B1ABA8000F2230E /* SegmentQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentQuery.m; sourceTree = "<group>"; };
 		94D64C261B10EC6A00C3143C /* IDNAsyncTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNAsyncTask.h; sourceTree = "<group>"; };
@@ -238,7 +243,7 @@
 		945DB68E1AD8FC8800C13526 /* IDNFrameworkTests */ = {
 			isa = PBXGroup;
 			children = (
-				945DB6911AD8FC8800C13526 /* IDNFrameworkTests.m */,
+				94AA6DF61B38077E00778B21 /* IDNFoundationTest */,
 				945DB68F1AD8FC8800C13526 /* Supporting Files */,
 			);
 			path = IDNFrameworkTests;
@@ -278,8 +283,18 @@
 				94E899511B19BEB600E3008B /* NSDictionary+IDNExtend.m */,
 				94D4A0DF1B1ABA8000F2230E /* SegmentQuery.h */,
 				94D4A0E01B1ABA8000F2230E /* SegmentQuery.m */,
+				94AA6DEF1B37C69200778B21 /* IDNFileCache.h */,
+				94AA6DF01B37C69200778B21 /* IDNFileCache.m */,
 			);
 			path = IDNFoundation;
+			sourceTree = "<group>";
+		};
+		94AA6DF61B38077E00778B21 /* IDNFoundationTest */ = {
+			isa = PBXGroup;
+			children = (
+				94AA6DF71B38077E00778B21 /* IDNFileCacheTest.m */,
+			);
+			path = IDNFoundationTest;
 			sourceTree = "<group>";
 		};
 		94EFCEE21B2B50B2002AD9F9 /* IDNKit */ = {
@@ -374,6 +389,7 @@
 				947400A71AFE53BE0082C404 /* NSData+IDNExtend.h in Headers */,
 				94EFCF3D1B2B50B2002AD9F9 /* UIView+IDNCountBadge.h in Headers */,
 				94EFCF201B2B50B2002AD9F9 /* IDNInputHelperView.h in Headers */,
+				94AA6DF11B37C69200778B21 /* IDNFileCache.h in Headers */,
 				94EFCF1C1B2B50B2002AD9F9 /* IDNGradientView.h in Headers */,
 				94EFCF3B1B2B50B2002AD9F9 /* UIScreen+IDNExtend.h in Headers */,
 				947400A61AFE53BE0082C404 /* IDNFoundation.h in Headers */,
@@ -520,6 +536,7 @@
 				947400AA1AFE53BE0082C404 /* NSDate+IDNExtend.m in Sources */,
 				94EFCF421B2B50B2002AD9F9 /* UIView+IDNKeyboard.m in Sources */,
 				94EFCF2E1B2B50B2002AD9F9 /* IDNSideMenuController.m in Sources */,
+				94AA6DF21B37C69200778B21 /* IDNFileCache.m in Sources */,
 				94EFCF3A1B2B50B2002AD9F9 /* UIPickerView+IDNTap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,7 +545,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				945DB6921AD8FC8800C13526 /* IDNFrameworkTests.m in Sources */,
+				94AA6DF91B38085F00778B21 /* IDNFileCache.m in Sources */,
+				94AA6DF81B38077E00778B21 /* IDNFileCacheTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,6 +654,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = IDNFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -651,6 +670,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = IDNFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
