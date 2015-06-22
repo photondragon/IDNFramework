@@ -67,5 +67,6 @@
 - (void)clear; ///< 清空所有缓存文件
 - (void)removeFileForKey:(NSString*)key; ///< 根据key删除缓存文件
 - (void)removeFilesWithCacheAge:(NSTimeInterval)cacheAge; ///< 删除缓存时间超过cacheAge的所有文件。如果cacheAge==0，相当于clear；如果cacheAge<0，则什么也不会发生
+- (void)removeFilesOnBackgroundWithCacheAge:(NSTimeInterval)cacheAge; ///< 使用background task 执行清理工作。建议在applicationDidEnterBackground:方法中调用
 
 @end

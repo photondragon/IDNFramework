@@ -8,6 +8,7 @@
 
 #import "IDNFileCache.h"
 #import <CommonCrypto/CommonCrypto.h>
+#import <UIKit/UIKit.h>
 
 @implementation IDNFileCache
 
@@ -197,16 +198,7 @@
 
 - (void)clear
 {
-	NSFileManager* defaultManager = [NSFileManager defaultManager];
-
-	@synchronized(self)
-	{
-		NSArray* files = [defaultManager contentsOfDirectoryAtPath:_localCacheDir error:nil];
-		for (NSString*file in files) {
-			NSString* path = [NSString stringWithFormat:@"%@/%@", _localCacheDir, file];
-			[defaultManager removeItemAtPath:path error:nil];
-		}
-	}
+	[self removeFilesWithCacheAge:0];
 }
 - (void)removeFileForKey:(NSString*)key
 {
@@ -220,10 +212,24 @@
 	}
 }
 
+- (void)removeFilesOnBackgroundWithCacheAge:(NSTimeInterval)cacheAge
+{
+	__block UIBackgroundTaskIdentifier taskID = UIBackgroundTaskInvalid;
+
+	taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+		[[UIApplication sharedApplication] endBackgroundTask:taskID];
+	}];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		[self removeFilesWithCacheAge:cacheAge];
+		[[UIApplication sharedApplication] endBackgroundTask:taskID];
+	});
+}
+
 - (void)removeFilesWithCacheAge:(NSTimeInterval)cacheAge
 {
 	if(cacheAge<0)
 		return;
+
 	NSFileManager* defaultManager = [NSFileManager defaultManager];
 
 	@synchronized(self)
