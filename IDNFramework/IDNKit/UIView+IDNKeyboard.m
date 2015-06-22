@@ -26,8 +26,8 @@ static char bindDataKey = 0;
 
 - (void)willMoveToWindow:(UIWindow *)newWindow
 {
-	NSMutableDictionary* dic = [self dictionaryOfUIViewIDNKeyboardBindData];
-	if(dic[@"block"]==nil)
+	NSMutableDictionary* dic = objc_getAssociatedObject(self, &bindDataKey);
+	if(dic==nil || dic[@"block"]==nil)
 		return;
 	if(newWindow)
 	{
