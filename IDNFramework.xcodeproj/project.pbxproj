@@ -23,6 +23,8 @@
 		94AA6DF21B37C69200778B21 /* IDNFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AA6DF01B37C69200778B21 /* IDNFileCache.m */; };
 		94AA6DF81B38077E00778B21 /* IDNFileCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AA6DF71B38077E00778B21 /* IDNFileCacheTest.m */; };
 		94AA6DF91B38085F00778B21 /* IDNFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AA6DF01B37C69200778B21 /* IDNFileCache.m */; };
+		94AA6DFC1B39B0D200778B21 /* UIPickerView+IDNPickDate.h in Headers */ = {isa = PBXBuildFile; fileRef = 94AA6DFA1B39B0D200778B21 /* UIPickerView+IDNPickDate.h */; };
+		94AA6DFE1B39C68200778B21 /* UIPickerView+IDNPickDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AA6DFB1B39B0D200778B21 /* UIPickerView+IDNPickDate.m */; };
 		94D4A0E11B1ABA8000F2230E /* SegmentQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 94D4A0DF1B1ABA8000F2230E /* SegmentQuery.h */; };
 		94D4A0E21B1ABA8000F2230E /* SegmentQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D4A0E01B1ABA8000F2230E /* SegmentQuery.m */; };
 		94D64C2A1B10EC6A00C3143C /* IDNAsyncTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 94D64C261B10EC6A00C3143C /* IDNAsyncTask.h */; };
@@ -118,6 +120,8 @@
 		94AA6DEF1B37C69200778B21 /* IDNFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNFileCache.h; sourceTree = "<group>"; };
 		94AA6DF01B37C69200778B21 /* IDNFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNFileCache.m; sourceTree = "<group>"; };
 		94AA6DF71B38077E00778B21 /* IDNFileCacheTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNFileCacheTest.m; sourceTree = "<group>"; };
+		94AA6DFA1B39B0D200778B21 /* UIPickerView+IDNPickDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPickerView+IDNPickDate.h"; sourceTree = "<group>"; };
+		94AA6DFB1B39B0D200778B21 /* UIPickerView+IDNPickDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPickerView+IDNPickDate.m"; sourceTree = "<group>"; };
 		94D4A0DF1B1ABA8000F2230E /* SegmentQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentQuery.h; sourceTree = "<group>"; };
 		94D4A0E01B1ABA8000F2230E /* SegmentQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentQuery.m; sourceTree = "<group>"; };
 		94D64C261B10EC6A00C3143C /* IDNAsyncTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNAsyncTask.h; sourceTree = "<group>"; };
@@ -351,6 +355,8 @@
 				94EFCF131B2B50B2002AD9F9 /* UIViewController+IDNScreenAdapt.m */,
 				94EFCF141B2B50B2002AD9F9 /* UIViewController+IDNTransition.h */,
 				94EFCF151B2B50B2002AD9F9 /* UIViewController+IDNTransition.m */,
+				94AA6DFA1B39B0D200778B21 /* UIPickerView+IDNPickDate.h */,
+				94AA6DFB1B39B0D200778B21 /* UIPickerView+IDNPickDate.m */,
 			);
 			path = IDNKit;
 			sourceTree = "<group>";
@@ -369,6 +375,7 @@
 				94EFCF161B2B50B2002AD9F9 /* IDNActivityIndicator.h in Headers */,
 				94EFCF2F1B2B50B2002AD9F9 /* IDNSplitMainController.h in Headers */,
 				94EFCF471B2B50B2002AD9F9 /* UIViewController+IDNTransition.h in Headers */,
+				94AA6DFC1B39B0D200778B21 /* UIPickerView+IDNPickDate.h in Headers */,
 				94D4A0E11B1ABA8000F2230E /* SegmentQuery.h in Headers */,
 				94EFCF4A1B2B5366002AD9F9 /* IDNFramework.h in Headers */,
 				94EFCF411B2B50B2002AD9F9 /* UIView+IDNKeyboard.h in Headers */,
@@ -520,6 +527,7 @@
 				94EFCF301B2B50B2002AD9F9 /* IDNSplitMainController.m in Sources */,
 				94EFCF1D1B2B50B2002AD9F9 /* IDNGradientView.m in Sources */,
 				94E899531B19BEB600E3008B /* NSDictionary+IDNExtend.m in Sources */,
+				94AA6DFE1B39C68200778B21 /* UIPickerView+IDNPickDate.m in Sources */,
 				94E8994B1B19BCD900E3008B /* IDNNetwork.m in Sources */,
 				94E8995B1B19E1D900E3008B /* Reachability.m in Sources */,
 				94EFCF341B2B50B2002AD9F9 /* IDNViewControllerAnimatedTransitioningLeftRight.m in Sources */,
