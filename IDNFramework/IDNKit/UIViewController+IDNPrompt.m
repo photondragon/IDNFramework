@@ -7,10 +7,12 @@
 //
 
 #import "UIViewController+IDNPrompt.h"
-#import "IDNActivityIndicator.h"
+//#import "IDNActivityIndicator.h"
 
-#define ActivityIndicator IDNActivityIndicator
-//#define ActivityIndicator UIActivityIndicatorView
+//#define ActivityIndicator IDNActivityIndicator
+//#define ActivityIndicatorColor [UIColor colorWithRed:21/255.0 green:138/255.0 blue:228/255.0 alpha:1]
+#define ActivityIndicator UIActivityIndicatorView
+#define ActivityIndicatorColor nil
 
 #define PromptFrameWidth 110
 #define PromptFrameHeight 90
@@ -32,7 +34,7 @@
 		UIView* frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, PromptFrameWidth, PromptFrameHeight)];//这里设置frame是为了后面设置labelPrompt.autoresizingMask方便
 		frameView.translatesAutoresizingMaskIntoConstraints = NO;
 		frameView.layer.cornerRadius = 6;
-		frameView.layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8].CGColor;
+		frameView.layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor;
 		[self addSubview:frameView];
 		self.frameView = frameView;
 
@@ -61,7 +63,7 @@
 	{
 		_loadingIndicator = [[ActivityIndicator alloc] initWithFrame:CGRectMake(PromptFrameWidth/2.0-15, 16, LoadingIndicatorLength, LoadingIndicatorLength)];
 		_loadingIndicator.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		_loadingIndicator.color = [UIColor colorWithRed:21/255.0 green:138/255.0 blue:228/255.0 alpha:1];
+		_loadingIndicator.color = ActivityIndicatorColor;
 	}
 	return _loadingIndicator;
 }

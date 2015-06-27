@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ 在controller.view上居中显示提示内容，比如“正在加载”、“操作成功”之类的。
+ */
 @interface UIViewController(IDNPrompt)
 
 @property(nonatomic,readonly) BOOL prompting;//是否正在显示提示框

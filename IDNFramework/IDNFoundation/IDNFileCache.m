@@ -23,7 +23,7 @@
 			{
 				NSArray *cacPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 				NSString *cachePath = [cacPath objectAtIndex:0];
-				sharedCache = [[IDNFileCache alloc] initWithLoalCacheDir:cachePath];
+				sharedCache = [[IDNFileCache alloc] initWithLoalCacheDir:[NSString stringWithFormat:@"%@/defaultIDNFileCacheDir",cachePath]];
 			}
 		}
 	}
@@ -53,7 +53,7 @@
 				NSLog(@"指定的缓存目录是个文件: %@", cacheDir);
 				return nil;
 			}
-			if([[NSFileManager defaultManager] isWritableFileAtPath:cacheDir]==NO &&
+			if([[NSFileManager defaultManager] isWritableFileAtPath:cacheDir]==NO ||
 			   [[NSFileManager defaultManager] isExecutableFileAtPath:cacheDir]==NO)
 			{
 				NSLog(@"缓存目录没有写权限: %@", cacheDir);
