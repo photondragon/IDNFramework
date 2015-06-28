@@ -29,6 +29,8 @@
 		94D4A0E21B1ABA8000F2230E /* SegmentQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D4A0E01B1ABA8000F2230E /* SegmentQuery.m */; };
 		94D64C2A1B10EC6A00C3143C /* IDNAsyncTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 94D64C261B10EC6A00C3143C /* IDNAsyncTask.h */; };
 		94D64C2B1B10EC6A00C3143C /* IDNAsyncTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D64C271B10EC6A00C3143C /* IDNAsyncTask.m */; };
+		94E2C74D1B406C1C00FB3A5B /* UIView+IDNZoom.h in Headers */ = {isa = PBXBuildFile; fileRef = 94E2C74B1B406C1C00FB3A5B /* UIView+IDNZoom.h */; };
+		94E2C74E1B406C1C00FB3A5B /* UIView+IDNZoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E2C74C1B406C1C00FB3A5B /* UIView+IDNZoom.m */; };
 		94E8994A1B19BCD900E3008B /* IDNNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 94E899481B19BCD900E3008B /* IDNNetwork.h */; };
 		94E8994B1B19BCD900E3008B /* IDNNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E899491B19BCD900E3008B /* IDNNetwork.m */; };
 		94E8994E1B19BDB900E3008B /* NSError+IDNExtend.h in Headers */ = {isa = PBXBuildFile; fileRef = 94E8994C1B19BDB900E3008B /* NSError+IDNExtend.h */; };
@@ -126,6 +128,8 @@
 		94D4A0E01B1ABA8000F2230E /* SegmentQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentQuery.m; sourceTree = "<group>"; };
 		94D64C261B10EC6A00C3143C /* IDNAsyncTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNAsyncTask.h; sourceTree = "<group>"; };
 		94D64C271B10EC6A00C3143C /* IDNAsyncTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNAsyncTask.m; sourceTree = "<group>"; };
+		94E2C74B1B406C1C00FB3A5B /* UIView+IDNZoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+IDNZoom.h"; sourceTree = "<group>"; };
+		94E2C74C1B406C1C00FB3A5B /* UIView+IDNZoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+IDNZoom.m"; sourceTree = "<group>"; };
 		94E899481B19BCD900E3008B /* IDNNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNNetwork.h; sourceTree = "<group>"; };
 		94E899491B19BCD900E3008B /* IDNNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNNetwork.m; sourceTree = "<group>"; };
 		94E8994C1B19BDB900E3008B /* NSError+IDNExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+IDNExtend.h"; sourceTree = "<group>"; };
@@ -349,6 +353,8 @@
 				94EFCF0D1B2B50B2002AD9F9 /* UIView+IDNExtend.m */,
 				94EFCF0E1B2B50B2002AD9F9 /* UIView+IDNKeyboard.h */,
 				94EFCF0F1B2B50B2002AD9F9 /* UIView+IDNKeyboard.m */,
+				94E2C74B1B406C1C00FB3A5B /* UIView+IDNZoom.h */,
+				94E2C74C1B406C1C00FB3A5B /* UIView+IDNZoom.m */,
 				94EFCF101B2B50B2002AD9F9 /* UIViewController+IDNPrompt.h */,
 				94EFCF111B2B50B2002AD9F9 /* UIViewController+IDNPrompt.m */,
 				94EFCF121B2B50B2002AD9F9 /* UIViewController+IDNScreenAdapt.h */,
@@ -376,6 +382,7 @@
 				94EFCF2F1B2B50B2002AD9F9 /* IDNSplitMainController.h in Headers */,
 				94EFCF471B2B50B2002AD9F9 /* UIViewController+IDNTransition.h in Headers */,
 				94AA6DFC1B39B0D200778B21 /* UIPickerView+IDNPickDate.h in Headers */,
+				94E2C74D1B406C1C00FB3A5B /* UIView+IDNZoom.h in Headers */,
 				94D4A0E11B1ABA8000F2230E /* SegmentQuery.h in Headers */,
 				94EFCF4A1B2B5366002AD9F9 /* IDNFramework.h in Headers */,
 				94EFCF411B2B50B2002AD9F9 /* UIView+IDNKeyboard.h in Headers */,
@@ -522,6 +529,7 @@
 				94EFCF191B2B50B2002AD9F9 /* IDNColorButton.m in Sources */,
 				94EFCF461B2B50B2002AD9F9 /* UIViewController+IDNScreenAdapt.m in Sources */,
 				94EFCF261B2B50B2002AD9F9 /* IDNProgressView.m in Sources */,
+				94E2C74E1B406C1C00FB3A5B /* UIView+IDNZoom.m in Sources */,
 				94EFCF1F1B2B50B2002AD9F9 /* IDNImagePickerController.m in Sources */,
 				94D4A0E21B1ABA8000F2230E /* SegmentQuery.m in Sources */,
 				94EFCF301B2B50B2002AD9F9 /* IDNSplitMainController.m in Sources */,
