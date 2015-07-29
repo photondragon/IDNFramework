@@ -543,4 +543,37 @@ static char associatedObjectKeyIDNRefreshControl = 0;
 	return refreshControl;
 }
 
+- (void)refreshRowsDeleted:(NSArray*)deleted added:(NSArray*)added modified:(NSArray*)modified inSection:(NSInteger)section
+{
+	if(section<0)
+		return;
+	else if(section>=self.numberOfSections)
+		return;
+	[self beginUpdates];
+	if (deleted.count)
+	{
+		NSMutableArray* indexPathes = [NSMutableArray array];
+		for (NSNumber* index in deleted) {
+			[indexPathes addObject:[NSIndexPath indexPathForRow:[index integerValue] inSection:section]];
+		}
+		[self deleteRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationAutomatic];
+	}
+	if (added.count)
+	{
+		NSMutableArray* indexPathes = [NSMutableArray array];
+		for (NSNumber* index in added) {
+			[indexPathes addObject:[NSIndexPath indexPathForRow:[index integerValue] inSection:section]];
+		}
+		[self insertRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationAutomatic];
+	}
+	if (modified)
+	{
+		NSMutableArray* indexPathes = [NSMutableArray array];
+		for (NSNumber* index in modified) {
+			[indexPathes addObject:[NSIndexPath indexPathForRow:[index integerValue] inSection:section]];
+		}
+		[self reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationAutomatic];
+	}
+	[self endUpdates];
+}
 @end

@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>15F94EFE-6E65-47F5-8C7D-02253805397D</string>
 	<key>IDESourceControlProjectName</key>
-	<string>IDNFramework</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>4676E2D284E443F55FA52247992E7244530E456D</key>
 		<string>github.com:photondragon/IDNFramework.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>IDNFramework.xcodeproj</string>
+	<string>IDNFramework.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>4676E2D284E443F55FA52247992E7244530E456D</key>
