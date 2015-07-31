@@ -5,8 +5,13 @@
 #import "IDNFixedList.h"
 #import "NSPointerArray+IDNExtend.h"
 
+@interface IDNFixedList()
+@property(nonatomic) BOOL needsSave;
+@end
+
 @implementation IDNFixedList
 {
+	NSArray* inmutablelist; //固定列表。是对listIDs的拷贝。主要是考虑多线程的问题，在读取列表内容的同时，后台可能会修改列表。每当列表被修改时，inmutablelist会设为nil，然后当访问list属性时，会重新生成inmutablelist
 	NSMutableArray* listIDs;
 	
 	BOOL loadingHead;
@@ -15,22 +20,50 @@
 	NSMutableArray* tailFinishedBlocks;
 
 	NSPointerArray* observers;
+	
+	NSMutableDictionary* persistDict;
 }
 
-- (instancetype)init
+- (instancetype)initWithPersistFilePath:(NSString *)persistFilePath
 {
 	self = [super init];
 	if (self) {
-		listIDs = [NSMutableArray new];
+		_persistFilePath = [persistFilePath copy];
+		if([[NSFileManager defaultManager] fileExistsAtPath:_persistFilePath])
+		{
+			persistDict = [NSKeyedUnarchiver unarchiveObjectWithFile:_persistFilePath];
+			if(persistDict[@"list"] && persistDict[@"custom"])
+				listIDs = persistDict[@"list"];
+			else //无效的文件。
+				persistDict = nil;
+		}
+		if(persistDict==nil)
+		{
+			listIDs = [NSMutableArray new];
+			persistDict = [NSMutableDictionary new];
+			persistDict[@"custom"] = [NSMutableDictionary new];
+			persistDict[@"list"] = listIDs;
+		}
+		
 		headFinishedBlocks = [NSMutableArray new];
 		tailFinishedBlocks = [NSMutableArray new];
 		observers = [NSPointerArray weakObjectsPointerArray];
 	}
 	return self;
 }
+- (instancetype)init
+{
+	return [self initWithPersistFilePath:nil];
+}
 
 - (NSArray*)list{
-	return listIDs;
+	@synchronized(self)
+	{
+		if (inmutablelist==nil) {
+			inmutablelist = [listIDs copy];
+		}
+		return inmutablelist;
+	}
 }
 
 - (void)refreshWithFinishedBlock:(void (^)(NSError* error))finishedBlock
@@ -124,6 +157,9 @@
 					[deleted addObject:@(i)];
 				}
 				[listIDs removeAllObjects];
+				inmutablelist = nil;
+				self.needsSave = YES;
+				
 				_reachEnd = NO;
 				if(ids.count)
 					[listIDs addObjectsFromArray:ids];
@@ -131,6 +167,8 @@
 			else if(ids.count)
 			{
 				[listIDs replaceObjectsInRange:NSMakeRange(0, 0) withObjectsFromArray:ids];
+				inmutablelist = nil;
+				self.needsSave = YES;
 			}
 			
 			for (NSInteger i = 0; i<ids.count; i++)
@@ -188,6 +226,8 @@
 			}
 			
 			[listIDs addObjectsFromArray:ids];
+			inmutablelist = nil;
+			self.needsSave = YES;
 		}
 		
 		if(queryTailID==nil && loadingHead)//首次加载，是由refresh方法发起的
@@ -219,6 +259,58 @@
 {
 	for (void (^finishedBlock)(NSError*error) in finishedBlocks) {
 		finishedBlock(error);
+	}
+}
+
+#pragma mark 持久化
+
+- (void)setNeedsSave:(BOOL)needsSave
+{
+	@synchronized(self)
+	{
+		if(needsSave && _persistFilePath.length==0)
+			needsSave = NO;
+		if(_needsSave==needsSave)
+			return;
+		_needsSave = needsSave;
+	}
+	if(needsSave)
+	{
+		__weak __typeof(self) wself = self;
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+			__typeof(self) sself = wself;
+			[sself saveOnBackground];
+		});
+	}
+}
+
+- (void)saveOnBackground
+{
+	NSData* data;
+	@synchronized(self)
+	{
+		_needsSave = NO;
+		data = [NSKeyedArchiver archivedDataWithRootObject:persistDict];
+	}
+	[data writeToFile:_persistFilePath atomically:YES];
+}
+- (id)persistObjectForName:(NSString*)name
+{
+	if(name==nil)
+		return nil;
+	@synchronized(self)
+	{
+		return persistDict[@"custom"][name];
+	}
+}
+- (void)setPersistObject:(id)object forName:(NSString*)name
+{
+	if(name==nil || object==nil)
+		return;
+	@synchronized(self)
+	{
+		persistDict[@"custom"][name] = object;
+		self.needsSave = YES;
 	}
 }
 

@@ -6,7 +6,11 @@
 
 @protocol IDNFixedListObserver;
 
-// 封装了分段获取固定列表的算法的类。适用于只在列表首部增加条目，不会修改删除条目，顺序不变的列表
+/**
+ 封装了“分段获取固定列表”算法的类，并且有自动持久化功能。
+ 适用于只在列表首部增加条目，不会修改删除条目，顺序不变的列表
+ 子类只要重载两个方法，实现具体数据的提取即可。
+ */
 @interface IDNFixedList : NSObject
 
 @property(nonatomic,strong,readonly) NSArray* list;
@@ -14,6 +18,8 @@
 
 - (void)refreshWithFinishedBlock:(void (^)(NSError* error))finishedBlock; //获取列表前一段
 - (void)moreWithFinishedBlock:(void (^)(NSError* error))finishedBlock; //获取列表后一段
+
+#pragma mark 观察者
 
 // observers未加锁，只能在主线程添加或删除观察者，也不得在观察者通知方法里添加删除观察者。
 - (void)addFixedListObserver:(id<IDNFixedListObserver>)observer; //对observer是weak型弱引用，所以无需手动删除fixedListObserver。
@@ -34,6 +40,44 @@
  @param callback 子类的实现中，当获取到数据（或失败）时，必须调用callback，传入获取到的条目或者error，否则列表会永远处于loadingTail状态，无法再发出新的refresh请求。
  */
 - (void)queryBeforeHeadID:(id)headID callback:(void (^)(NSArray* ids, BOOL needsReload, NSError* error))callback;
+
+#pragma mark 持久化
+
+@property(nonatomic,copy,readonly) NSString* persistFilePath; //持久化文件路径。每当列表内容改变后，会自动保存到这个文件中。不可更改，只能在初始化时设置。
+- (instancetype)initWithPersistFilePath:(NSString*)persistFilePath; //persistFilePath可以为nil
+
+/**
+ 持久化默认只保存list中的数据，要想保存额外的数据，需要在子类的初始化方法中设置和获取这些额外的数据
+ 
+ 以下示例是某个子类的init方法
+ @code
+ - (instancetype)init
+ {
+	self = [super initWithPersistFilePath:[NSString documentsPathWithFileName:@"string.dat"]];
+	if (self) {
+		string = [self persistObjectForName:@"string"];
+		if(string==nil)
+		{
+			string = [NSString stringWithString:@"Hello, world!"];
+			[self setPersistObject:string forName:@"string"];
+		}
+	}
+	return self;
+ }
+ @endcode
+ 
+ 保存额外数据应该是一个极少要用到的功能，要慎用；
+ 如果产生了这个需求，首先应该考虑这个需求是否合理，也就是说这个额外数据是否和列表数据是强相关的，
+ 如果不是强相关的，尽可能把这些额外数据保存在其它地方，而不是和列表数据保存在一起。
+
+ */
+- (id)persistObjectForName:(NSString*)name;
+
+/**
+ 保存需要持久化的数据
+ @param object 要持久化的对象。注意这个对象应该是不可变的，或者是在保存了以后就不再改变。
+ */
+- (void)setPersistObject:(id)object forName:(NSString*)name;
 
 @end
 
