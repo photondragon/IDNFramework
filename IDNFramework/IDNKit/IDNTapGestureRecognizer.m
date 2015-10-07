@@ -85,7 +85,7 @@
 		return;
 	}
 	self.state = UIGestureRecognizerStateFailed;
-	objc_msgSend(tapTarget, tapSelector, self);
+	((void (*)(id, SEL, id))objc_msgSend)(tapTarget, tapSelector, self);
 }
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {

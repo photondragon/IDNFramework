@@ -6,6 +6,8 @@
 
 #import "NSObject+IDNEventHandle.h"
 #import <objc/runtime.h>
+#import "NSObject+IDNDeallocBlock.h"
+#import "NSObject+IDNPerformSelectorNoWarning.h"
 
 @interface NSObjectIDNEventHandleWeakTarget : NSObject
 @property (nonatomic,weak) id weakTarget;

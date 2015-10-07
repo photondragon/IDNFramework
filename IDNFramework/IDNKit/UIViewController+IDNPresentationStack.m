@@ -7,6 +7,7 @@
 #import "UIViewController+IDNPresentationStack.h"
 #import <objc/runtime.h>
 #import "NSObject+IDNDeallocBlock.h"
+#import "NSPointerArray+IDNExtend.h"
 
 //正在Presenting的视图控制器的信息
 @interface IDNPresentingVCInfo : NSObject

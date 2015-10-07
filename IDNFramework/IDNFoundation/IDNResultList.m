@@ -3,6 +3,7 @@
 //
 
 #import "IDNResultList.h"
+#import "NSPointerArray+IDNExtend.h"
 
 #define DefaultSegmentLength 20
 
