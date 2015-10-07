@@ -14,9 +14,14 @@
 #define ActivityIndicator UIActivityIndicatorView
 #define ActivityIndicatorColor nil
 
-#define PromptFrameWidth 110
-#define PromptFrameHeight 90
-#define LoadingIndicatorLength 30
+//中间框体透明度
+//#define FrameColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]
+#define FrameColor [UIColor colorWithRed:26/255.0 green:36/255.0 blue:49/255.0 alpha:1] //XiangYue
+
+#define PromptFrameWidth 120
+#define PromptFrameHeight 120
+#define LoadingIndicatorLength 40
+#define TextFontSize 17
 
 @interface UIViewControllerPromptView : UIView
 @property(nonatomic,weak) UIView* frameView;
@@ -33,8 +38,8 @@
 		//框
 		UIView* frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, PromptFrameWidth, PromptFrameHeight)];//这里设置frame是为了后面设置labelPrompt.autoresizingMask方便
 		frameView.translatesAutoresizingMaskIntoConstraints = NO;
-		frameView.layer.cornerRadius = 6;
-		frameView.layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor;
+		frameView.layer.cornerRadius = 12;
+		frameView.layer.backgroundColor = FrameColor.CGColor;
 		[self addSubview:frameView];
 		self.frameView = frameView;
 
@@ -48,7 +53,7 @@
 		UILabel* labelPrompt = [[UILabel alloc] initWithFrame:CGRectMake(8, 4, PromptFrameWidth-16, PromptFrameHeight-8)];
 		labelPrompt.numberOfLines = 4;
 		labelPrompt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		labelPrompt.font = [UIFont boldSystemFontOfSize:14];
+		labelPrompt.font = [UIFont boldSystemFontOfSize:TextFontSize];
 		labelPrompt.textColor = [UIColor whiteColor];//colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
 		labelPrompt.textAlignment = NSTextAlignmentCenter;
 		[frameView addSubview:labelPrompt];
@@ -61,9 +66,10 @@
 {
 	if(_loadingIndicator==nil)
 	{
-		_loadingIndicator = [[ActivityIndicator alloc] initWithFrame:CGRectMake(PromptFrameWidth/2.0-15, 16, LoadingIndicatorLength, LoadingIndicatorLength)];
+		_loadingIndicator = [[ActivityIndicator alloc] initWithFrame:CGRectMake(roundf(PromptFrameWidth/2.0-LoadingIndicatorLength/2.0), 20, LoadingIndicatorLength, LoadingIndicatorLength)];
 		_loadingIndicator.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		_loadingIndicator.color = ActivityIndicatorColor;
+		_loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
 	}
 	return _loadingIndicator;
 }
@@ -93,7 +99,7 @@
 }
 @end
 
-@implementation UIViewController(Prompt)
+@implementation UIView(Prompt)
 
 + (NSMutableDictionary*)dictionaryOfPromptInfos
 {
@@ -108,12 +114,12 @@
 - (NSMutableDictionary*)promptInfo
 {
 	NSValue* controllerKey = [NSValue valueWithNonretainedObject:self];
-	NSMutableDictionary* dicPromptInfos = [UIViewController dictionaryOfPromptInfos];
+	NSMutableDictionary* dicPromptInfos = [UIView dictionaryOfPromptInfos];
 	NSMutableDictionary* dicPromptInfo = dicPromptInfos[controllerKey];
 	return dicPromptInfo;
 }
 
-- (BOOL)prompting
+- (BOOL)isPrompting
 {
 	if([self promptInfo])
 		return TRUE;
@@ -162,7 +168,7 @@
 		dicPromptInfo[@"text"] = text;
 	if(finishedHandler)
 		dicPromptInfo[@"finishedHandler"] = finishedHandler;
-	NSMutableDictionary* dicPromptInfos = [UIViewController dictionaryOfPromptInfos];
+	NSMutableDictionary* dicPromptInfos = [UIView dictionaryOfPromptInfos];
 	dicPromptInfos[[NSValue valueWithNonretainedObject:self]] = dicPromptInfo;
 
 	[self performSelector:@selector(addPromptView) withObject:nil afterDelay:delay];
@@ -171,15 +177,15 @@
 - (void)addPromptView
 {
 	NSValue* controllerKey = [NSValue valueWithNonretainedObject:self];
-	NSMutableDictionary* dicPromptInfos = [UIViewController dictionaryOfPromptInfos];
+	NSMutableDictionary* dicPromptInfos = [UIView dictionaryOfPromptInfos];
 	NSMutableDictionary* dicPromptInfo = dicPromptInfos[controllerKey];
 	if(dicPromptInfo==nil)
 		return;
 	UIView* view = dicPromptInfo[@"view"];
-	CGRect frame = self.view.frame;
+	CGRect frame = self.frame;
 	frame.origin = CGPointZero;
 	view.frame = frame;
-	[self.view addSubview:view];
+	[self addSubview:view];
 
 	NSTimeInterval duration = [dicPromptInfo[@"duration"] doubleValue];
 	if(duration>0)
@@ -197,7 +203,7 @@
 - (void)removePromptView
 {
 	NSValue* controllerKey = [NSValue valueWithNonretainedObject:self];
-	NSMutableDictionary* dicPromptInfos = [UIViewController dictionaryOfPromptInfos];
+	NSMutableDictionary* dicPromptInfos = [UIView dictionaryOfPromptInfos];
 	NSMutableDictionary* dicPromptInfo = dicPromptInfos[controllerKey];
 	if(dicPromptInfo==nil)
 		return;
@@ -208,6 +214,35 @@
 	finishedHandler = dicPromptInfo[@"finishedHandler"];
 	if(finishedHandler)
 		finishedHandler();
+}
+
+@end
+
+@implementation UIViewController(IDNPrompt)
+
+- (BOOL)isPrompting
+{
+	return self.view.isPrompting;
+}
+
+- (void)prompt:(NSString*)text duration:(NSTimeInterval)duration
+{
+	[self.view prompt:text duration:duration];
+}
+
+- (void)prompt:(NSString*)text duration:(NSTimeInterval)duration blockTouches:(BOOL)blockTouches finishedHandle:(void(^)())finishedHandler
+{
+	[self.view prompt:text duration:duration blockTouches:blockTouches finishedHandle:finishedHandler];
+}
+
+- (void)prompting:(NSString*)text
+{
+	[self.view prompting:text];
+}
+
+- (void)stopPrompt
+{
+	[self.view stopPrompt];
 }
 
 @end

@@ -14,6 +14,8 @@
 + (NSString*)documentsPath;
 
 + (NSString*)documentsPathWithFileName:(NSString*)fileName;
+- (BOOL)mkdir; //创建目录（会创建中间目录）
+- (NSDictionary*)parseURLParameters; //把self当作URL地址中的参数部分来解析，返回的字典中的key和value均为字符串。解析形如res=user&uid=123456的字符串。
 
 #pragma mark hash
 

@@ -14,4 +14,6 @@
 - (NSString*)stringWithFormat:(NSString*)format; //format示例：@"yyyyMMddHHmmssFFF"
 + (NSDate*)dateFromString:(NSString*)dateString format:(NSString*)format; //0时区
 
++ (void)measureCode:(void(^)())codeBlock logTitle:(NSString*)title;
+
 @end

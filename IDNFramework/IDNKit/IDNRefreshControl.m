@@ -543,13 +543,21 @@ static char associatedObjectKeyIDNRefreshControl = 0;
 	return refreshControl;
 }
 
-- (void)refreshRowsDeleted:(NSArray*)deleted added:(NSArray*)added modified:(NSArray*)modified inSection:(NSInteger)section
+- (void)refreshRowsModified:(NSArray*)modified deleted:(NSArray*)deleted added:(NSArray*)added inSection:(NSInteger)section
 {
 	if(section<0)
 		return;
 	else if(section>=self.numberOfSections)
 		return;
 	[self beginUpdates];
+	if (modified.count)
+	{
+		NSMutableArray* indexPathes = [NSMutableArray array];
+		for (NSNumber* index in modified) {
+			[indexPathes addObject:[NSIndexPath indexPathForRow:[index integerValue] inSection:section]];
+		}
+		[self reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationAutomatic]; // 在beginUpdates和endUpdates之间调用此方法，indics应该是基于原列表的index。而
+	}
 	if (deleted.count)
 	{
 		NSMutableArray* indexPathes = [NSMutableArray array];
@@ -565,14 +573,6 @@ static char associatedObjectKeyIDNRefreshControl = 0;
 			[indexPathes addObject:[NSIndexPath indexPathForRow:[index integerValue] inSection:section]];
 		}
 		[self insertRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationAutomatic];
-	}
-	if (modified)
-	{
-		NSMutableArray* indexPathes = [NSMutableArray array];
-		for (NSNumber* index in modified) {
-			[indexPathes addObject:[NSIndexPath indexPathForRow:[index integerValue] inSection:section]];
-		}
-		[self reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationAutomatic];
 	}
 	[self endUpdates];
 }

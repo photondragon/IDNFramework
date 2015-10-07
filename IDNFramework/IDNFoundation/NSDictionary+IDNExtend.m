@@ -16,7 +16,9 @@
 		return nil;
 	NSMutableArray* arr = [NSMutableArray array];
 	for (id obj in array) {
-		if ([obj isKindOfClass:[NSDictionary class]])
+		if([obj isKindOfClass:[NSNull class]])
+			continue;
+		else if ([obj isKindOfClass:[NSDictionary class]])
 			[arr addObject:[self dictionaryWithoutNSNull:obj]];
 		else if([obj isKindOfClass:[NSArray class]])
 			[arr addObject:[self arrayWithoutNSNull:obj]];

@@ -11,8 +11,8 @@
 
 @implementation IDNFixedList
 {
-	NSArray* inmutablelist; //固定列表。是对listIDs的拷贝。主要是考虑多线程的问题，在读取列表内容的同时，后台可能会修改列表。每当列表被修改时，inmutablelist会设为nil，然后当访问list属性时，会重新生成inmutablelist
-	NSMutableArray* listIDs;
+	NSArray* inmutablelist; //固定列表。是对listRecords的拷贝。主要是考虑多线程的问题，在读取列表内容的同时，后台可能会修改列表。每当列表被修改时，inmutablelist会设为nil，然后当访问list属性时，会重新生成inmutablelist
+	NSMutableArray* listRecords;
 	
 	BOOL loadingHead;
 	BOOL loadingTail;
@@ -33,16 +33,16 @@
 		{
 			persistDict = [NSKeyedUnarchiver unarchiveObjectWithFile:_persistFilePath];
 			if(persistDict[@"list"] && persistDict[@"custom"])
-				listIDs = persistDict[@"list"];
+				listRecords = persistDict[@"list"];
 			else //无效的文件。
 				persistDict = nil;
 		}
 		if(persistDict==nil)
 		{
-			listIDs = [NSMutableArray new];
+			listRecords = [NSMutableArray new];
 			persistDict = [NSMutableDictionary new];
 			persistDict[@"custom"] = [NSMutableDictionary new];
-			persistDict[@"list"] = listIDs;
+			persistDict[@"list"] = listRecords;
 		}
 		
 		headFinishedBlocks = [NSMutableArray new];
@@ -60,7 +60,7 @@
 	@synchronized(self)
 	{
 		if (inmutablelist==nil) {
-			inmutablelist = [listIDs copy];
+			inmutablelist = [listRecords copy];
 		}
 		return inmutablelist;
 	}
@@ -68,7 +68,7 @@
 
 - (void)refreshWithFinishedBlock:(void (^)(NSError* error))finishedBlock
 {
-	id headID;
+	id headRecord;
 	@synchronized(self)
 	{
 		if(finishedBlock)
@@ -79,8 +79,8 @@
 		
 		loadingHead = YES;
 		
-		headID = [listIDs firstObject];
-		if(headID==nil) //如果是首次加载，转为调用more
+		headRecord = [listRecords firstObject];
+		if(headRecord==nil) //如果是首次加载，转为调用more
 		{
 			[self moreWithFinishedBlock:nil];
 			return;
@@ -90,16 +90,16 @@
 	// 异步发送loadHead请求
 	__weak __typeof(self) wself = self;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		[self queryBeforeHeadID:headID callback:^(NSArray *ids, BOOL needsReload, NSError *error) {
+		[self queryBeforeHeadRecord:headRecord callback:^(NSArray *records, BOOL needsReload, NSError *error) {
 			__typeof(self) sself = wself;
-			[sself preposeIDs:ids needsReload:needsReload error:error];
+			[sself preposeRecords:records needsReload:needsReload error:error];
 		}];
 	});
 }
 
 - (void)moreWithFinishedBlock:(void (^)(NSError* error))finishedBlock
 {
-	id tailID;
+	id tailRecord;
 	@synchronized(self)
 	{
 		if(finishedBlock)
@@ -110,38 +110,63 @@
 		
 		loadingTail = YES;
 		
-		tailID = [listIDs lastObject];
+		tailRecord = [listRecords lastObject];
 	}
 	
 	// 异步发送loadTail请求
 	__weak __typeof(self) wself = self;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		[self queryAfterTailID:tailID callback:^(NSArray *ids, BOOL reachEnd, NSError *error) {
-			if(error)
-				return;
+		[self queryAfterTailRecord:tailRecord callback:^(NSArray *records, BOOL reachEnd, NSError *error) {
 			__typeof(self) sself = wself;
-			[sself appendIDs:ids reachEnd:reachEnd error:error queryTailID:tailID];
+			[sself appendRecords:records reachEnd:reachEnd error:error queryTailRecord:tailRecord];
 		}];
 	});
 }
 
-- (void)preposeIDs:(NSArray*)ids needsReload:(BOOL)needsReload error:(NSError*)error
+- (void)replaceRecord:(id)newRecord
 {
-	// 保证preposeIDsOnMainThread:总是在主线程完成
+	if(newRecord==nil)
+		return;
+	@synchronized(self)
+	{
+		for (NSInteger i=0;i<listRecords.count;i++) {
+			id record = listRecords[i];
+			if([self doesRecord:record hasSameIDWithRecord:newRecord]==YES)
+			{
+				[listRecords replaceObjectAtIndex:i withObject:newRecord];
+				inmutablelist = nil;
+				self.needsSave = YES;
+				if([NSThread currentThread]==[NSThread mainThread])
+					[self notifyObserversOnMainThreadWithModified:@[@(i)] deleted:nil added:nil];
+				else
+				{
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[self notifyObserversOnMainThreadWithModified:@[@(i)] deleted:nil added:nil];
+					});
+				}
+				break;
+			}
+		}
+	}
+}
+
+- (void)preposeRecords:(NSArray*)records needsReload:(BOOL)needsReload error:(NSError*)error
+{
+	// 保证preposeRecordsOnMainThread:总是在主线程完成
 	if([NSThread currentThread] == [NSThread mainThread])
-		[self preposeIDsOnMainThread:ids needsReload:needsReload error:error];
+		[self preposeRecordsOnMainThread:records needsReload:needsReload error:error];
 	else
 	{
 		__weak __typeof(self) wself = self;
 		dispatch_async(dispatch_get_main_queue(), ^{
 			__typeof(self) sself = wself;
-			[sself preposeIDsOnMainThread:ids needsReload:needsReload error:error];
+			[sself preposeRecordsOnMainThread:records needsReload:needsReload error:error];
 		});
 	}
 }
 
 // 在主线程进行列表修改，同时发送列表修改通知和finishedBlock调用。这三步必须连接调用，不可打断。因为加载列表头和加载列表尾可同时进行，如果这三步可拆分，可能会出现调用顺序混乱，导致列表修改通知不正确。
-- (void)preposeIDsOnMainThread:(NSArray*)ids needsReload:(BOOL)needsReload error:(NSError*)error
+- (void)preposeRecordsOnMainThread:(NSArray*)records needsReload:(BOOL)needsReload error:(NSError*)error
 {
 	NSMutableArray* added = [NSMutableArray new];
 	NSMutableArray* deleted = [NSMutableArray new];
@@ -152,26 +177,26 @@
 		{
 			if(needsReload)
 			{
-				for(NSInteger i = 0; i<listIDs.count; i++)
+				for(NSInteger i = 0; i<listRecords.count; i++)
 				{
 					[deleted addObject:@(i)];
 				}
-				[listIDs removeAllObjects];
+				[listRecords removeAllObjects];
 				inmutablelist = nil;
 				self.needsSave = YES;
 				
 				_reachEnd = NO;
-				if(ids.count)
-					[listIDs addObjectsFromArray:ids];
+				if(records.count)
+					[listRecords addObjectsFromArray:records];
 			}
-			else if(ids.count)
+			else if(records.count)
 			{
-				[listIDs replaceObjectsInRange:NSMakeRange(0, 0) withObjectsFromArray:ids];
+				[listRecords replaceObjectsInRange:NSMakeRange(0, 0) withObjectsFromArray:records];
 				inmutablelist = nil;
 				self.needsSave = YES;
 			}
 			
-			for (NSInteger i = 0; i<ids.count; i++)
+			for (NSInteger i = 0; i<records.count; i++)
 			{
 				[added addObject:@(i)];
 			}
@@ -183,29 +208,29 @@
 	}
 	
 	if(added.count || deleted.count)
-		[self notifyObserversOnMainThreadWithDeleted:deleted added:added modified:nil];
+		[self notifyObserversOnMainThreadWithModified:nil deleted:deleted added:added];
 	
 	if(finishedBlocks.count)
 		[self notifyFinishedBlocksOnMainThread:finishedBlocks error:error];
 }
 
-- (void)appendIDs:(NSArray*)ids reachEnd:(BOOL)reachEnd error:(NSError*)error queryTailID:(id)queryTailID
+- (void)appendRecords:(NSArray*)records reachEnd:(BOOL)reachEnd error:(NSError*)error queryTailRecord:(id)queryTailRecord
 {
-	// 保证preposeIDsOnMainThread:总是在主线程完成
+	// 保证preposeRecordsOnMainThread:总是在主线程完成
 	if([NSThread currentThread] == [NSThread mainThread])
-		[self appendIDsOnMainThread:ids reachEnd:reachEnd error:error queryTailID:queryTailID];
+		[self appendRecordsOnMainThread:records reachEnd:reachEnd error:error queryTailRecord:queryTailRecord];
 	else
 	{
 		__weak __typeof(self) wself = self;
 		dispatch_async(dispatch_get_main_queue(), ^{
 			__typeof(self) sself = wself;
-			[sself appendIDsOnMainThread:ids reachEnd:reachEnd error:error queryTailID:queryTailID];
+			[sself appendRecordsOnMainThread:records reachEnd:reachEnd error:error queryTailRecord:queryTailRecord];
 		});
 	}
 }
 
-// queryTailID用于检测这次Query是否被取消。
-- (void)appendIDsOnMainThread:(NSArray*)ids reachEnd:(BOOL)reachEnd error:(NSError*)error queryTailID:(id)queryTailID
+// queryTailRecord用于检测这次Query是否被取消。
+- (void)appendRecordsOnMainThread:(NSArray*)records reachEnd:(BOOL)reachEnd error:(NSError*)error queryTailRecord:(id)queryTailRecord
 {
 	NSMutableArray* added = nil;
 	NSMutableArray* deleted = nil;
@@ -213,24 +238,24 @@
 	NSArray* tailFinished;
 	@synchronized(self)
 	{
-		if(queryTailID == [listIDs lastObject] && //如果queryTailID与当前tailID不一样，说明列表经过一次reload，本次queryTail被取消了。
-		   error==nil && ids.count)
+		if(queryTailRecord == [listRecords lastObject] && //如果queryTailRecord与当前tailRecord不一样，说明列表经过一次reload，本次queryTail被取消了。
+		   error==nil && records.count)
 		{
 			added = [NSMutableArray new];
 			deleted = [NSMutableArray new];
 			
-			NSInteger prevCount = listIDs.count;
-			for (NSInteger i = 0; i<ids.count; i++)
+			NSInteger prevCount = listRecords.count;
+			for (NSInteger i = 0; i<records.count; i++)
 			{
 				[added addObject:@(i+prevCount)];
 			}
 			
-			[listIDs addObjectsFromArray:ids];
+			[listRecords addObjectsFromArray:records];
 			inmutablelist = nil;
 			self.needsSave = YES;
 		}
 		
-		if(queryTailID==nil && loadingHead)//首次加载，是由refresh方法发起的
+		if(queryTailRecord==nil && loadingHead)//首次加载，是由refresh方法发起的
 		{
 			loadingHead = NO;
 			headFinished = [headFinishedBlocks copy];
@@ -246,7 +271,7 @@
 	}
 	
 	if(added.count || deleted.count)
-		[self notifyObserversOnMainThreadWithDeleted:deleted added:added modified:@[]];
+		[self notifyObserversOnMainThreadWithModified:nil deleted:deleted added:added];
 	
 	if(headFinished.count)
 		[self notifyFinishedBlocksOnMainThread:headFinished error:error];
@@ -320,7 +345,7 @@
 {
 	if([observers containsPointer:(__bridge void *)(observer)])//已经是观察者了
 		return;
-	if([observer respondsToSelector:@selector(fixedList:deletedIndics:addedIndics:modifiedIndics:)]==NO)//观察者没有实现指定方法
+	if([observer respondsToSelector:@selector(fixedList:modifiedIndics:deletedIndics:addedIndics:)]==NO)//观察者没有实现指定方法
 		return;
 	[observers addPointer:(__bridge void *)(observer)];
 }
@@ -329,7 +354,7 @@
 	[observers removePointerIdentically:(__bridge void *)(observer)];
 }
 
-- (void)notifyObserversOnMainThreadWithDeleted:(NSArray*)deleted added:(NSArray*)added modified:(NSArray*)modified
+- (void)notifyObserversOnMainThreadWithModified:(NSArray*)modified deleted:(NSArray*)deleted added:(NSArray*)added
 {
 	BOOL needsCompact = NO;
 	for (id<IDNFixedListObserver> observer in observers) {
@@ -338,23 +363,27 @@
 			needsCompact = YES;
 			continue;
 		}
-		[observer fixedList:self deletedIndics:deleted addedIndics:added modifiedIndics:modified];
+		[observer fixedList:self modifiedIndics:modified deletedIndics:deleted addedIndics:added];
 	}
 	[observers compact];
 }
 
 #pragma mark 需要重载的方法
 
-// callback必须要被调用，否则会永远处于loadingTail状态。tailID==nil表示首次调用，获取列表第一段。
-- (void)queryAfterTailID:(id)tailID callback:(void (^)(NSArray* ids, BOOL reachEnd, NSError* error))callback
+// callback必须要被调用，否则会永远处于loadingTail状态。tailRecord==nil表示首次调用，获取列表第一段。
+- (void)queryAfterTailRecord:(id)tailRecord callback:(void (^)(NSArray* records, BOOL reachEnd, NSError* error))callback
 {
 	@throw @"子类应该重载此方法";
 }
 
-// callback必须要被调用，否则会永远处于loadingHead状态。headID不可能为nil
-- (void)queryBeforeHeadID:(id)headID callback:(void (^)(NSArray* ids, BOOL needsReload, NSError* error))callback
+// callback必须要被调用，否则会永远处于loadingHead状态。headRecord不可能为nil
+- (void)queryBeforeHeadRecord:(id)headRecord callback:(void (^)(NSArray* records, BOOL needsReload, NSError* error))callback
 {
 	@throw @"子类应该重载此方法";
 }
 
+- (BOOL)doesRecord:(id)record hasSameIDWithRecord:(id)anotherRecord
+{
+	@throw @"子类应该重载此方法";
+}
 @end

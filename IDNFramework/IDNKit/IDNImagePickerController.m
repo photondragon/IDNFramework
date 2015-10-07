@@ -141,7 +141,7 @@ UIImagePickerControllerDelegate>
 		{
 			if([viewController respondsToSelector:@selector(edgesForExtendedLayout)])
 				viewController.edgesForExtendedLayout = 0;
-			if(self.navigationBar.hidden==YES)
+			if(self.navigationBarHidden==YES)
 			{
 				[[UIApplication sharedApplication] setStatusBarHidden:NO];//这句必须在下一句之前，否则在某些情况下会出现状态栏和导航条重叠的情况
 				[self setNavigationBarHidden:NO animated:NO];

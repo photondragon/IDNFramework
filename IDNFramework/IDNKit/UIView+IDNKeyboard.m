@@ -8,6 +8,12 @@
 
 #import "UIView+IDNKeyboard.h"
 #import <objc/runtime.h>
+#import "IDNTapGestureRecognizer.h"
+
+@interface UIViewIDNKeyboardTapDelegator : NSObject
+@property(nonatomic,weak) UIView* tapView;
+- (void)tap:(UITapGestureRecognizer*)tap;
+@end
 
 @implementation UIView(IDNKeyboard)
 
@@ -39,13 +45,13 @@ static char bindDataKey = 0;
 	}
 }
 
-- (void (^)(CGFloat,double,UIViewAnimationCurve))keyboardFrameWillChangeBlock
+- (void (^)(CGFloat bottomDistance, double animationDuration, UIViewAnimationCurve animationCurve))keyboardFrameWillChangeBlock
 {
 	NSMutableDictionary* dic = [self dictionaryOfUIViewIDNKeyboardBindData];
 	return dic[@"block"];
 }
 
-- (void)setKeyboardFrameWillChangeBlock:(void (^)(CGFloat, double, UIViewAnimationCurve))keyboardFrameWillChangeBlock
+- (void)setKeyboardFrameWillChangeBlock:(void (^)(CGFloat bottomDistance, double animationDuration, UIViewAnimationCurve animationCurve))keyboardFrameWillChangeBlock
 {
 	NSMutableDictionary* dic = [self dictionaryOfUIViewIDNKeyboardBindData];
 	if(keyboardFrameWillChangeBlock)
@@ -86,6 +92,54 @@ static char bindDataKey = 0;
 		void (^keyboardFrameWillChangeBlock)(CGFloat,double,UIViewAnimationCurve) = dic[@"block"];
 		keyboardFrameWillChangeBlock(bottomDistance,animationDuration,animationCurve);
 	}
+}
+
+- (BOOL)autoResignFirstResponder
+{
+	NSMutableDictionary* dic = [self dictionaryOfUIViewIDNKeyboardBindData];
+	return [dic[@"autoResign"] boolValue];
+}
+
+- (void)setAutoResignFirstResponder:(BOOL)autoResignFirstResponder
+{
+	NSMutableDictionary* dic = [self dictionaryOfUIViewIDNKeyboardBindData];
+	dic[@"autoResign"] = @(autoResignFirstResponder);
+	if(autoResignFirstResponder)
+	{
+		UIViewIDNKeyboardTapDelegator* tapDelegator = [UIViewIDNKeyboardTapDelegator new];
+		tapDelegator.tapView = self;
+		IDNTapGestureRecognizer* tap = [[IDNTapGestureRecognizer alloc] init];
+		[tap setTapTarget:tapDelegator tapSelector:@selector(tap:)];
+//		tap.delaysTouchesBegan = NO;
+//		tap.delaysTouchesEnded = NO;
+		[self addGestureRecognizer:tap];
+		dic[@"tapDelegator"] = tapDelegator;
+		dic[@"tap"] = tap;
+	}
+	else
+	{
+		UITapGestureRecognizer* tap = dic[@"tap"];
+		[self removeGestureRecognizer:tap];
+		[dic removeObjectForKey:@"tapDelegator"];
+		[dic removeObjectForKey:@"tap"];
+	}
+}
+
+@end
+
+@implementation UIViewIDNKeyboardTapDelegator
+
+- (void)tap:(IDNTapGestureRecognizer*)tap
+{
+	UIView* tapView = self.tapView;
+	if(tapView==nil)
+		return;
+	UIView* hitView = [tapView hitTest:[tap locationInView:tapView] withEvent:nil];
+	if([hitView canBecomeFirstResponder])
+		return;
+
+	// 点到其它区域则resignFirstResponder
+	[tapView endEditing:YES];
 }
 
 @end

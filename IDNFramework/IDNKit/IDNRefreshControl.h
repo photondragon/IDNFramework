@@ -35,6 +35,6 @@
 @interface UITableView(IDNRefreshControl)
 @property(nonatomic,strong,readonly) IDNRefreshControl* topRefreshControl;//首次访问此属性时，会在tableView中创建刷新控件，无法移除，只能设置topRefreshControl.hidden = YES将其隐藏。
 @property(nonatomic,strong,readonly) IDNRefreshControl* bottomRefreshControl;//首次访问此属性时，会在tableView中创建刷新控件，无法移除，只能设置bottomRefreshControl.hidden = YES将其隐藏。
-- (void)refreshRowsDeleted:(NSArray*)deleted added:(NSArray*)added modified:(NSArray*)modified inSection:(NSInteger)section;
+- (void)refreshRowsModified:(NSArray*)modified deleted:(NSArray*)deleted added:(NSArray*)added inSection:(NSInteger)section;
 
 @end

@@ -204,7 +204,6 @@
 				for (NSInteger i = 0; i<count; i++) {
 					added[@(i)] = records[i];
 				}
-				
 			}
 		}
 	

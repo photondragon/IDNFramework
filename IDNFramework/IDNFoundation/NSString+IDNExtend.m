@@ -26,6 +26,34 @@
 	return [NSString stringWithFormat:@"%@/%@", [self documentsPath], fileName];
 }
 
+- (BOOL)mkdir
+{
+	if (![[NSFileManager defaultManager] fileExistsAtPath:self]) {
+		return [[NSFileManager defaultManager] createDirectoryAtPath:self withIntermediateDirectories:YES attributes:nil error:nil];
+	}
+	return NO;
+}
+
+- (NSDictionary*)parseURLParameters
+{
+	if(self.length==0)
+		return nil;
+	NSArray* array = [self componentsSeparatedByString:@"&"];
+	if(array.count==0)
+		return nil;
+	NSMutableDictionary* dic = [NSMutableDictionary new];
+	for (NSString* str in array) {
+		NSString* str1 = [str stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		NSInteger equalLoc = [str1 rangeOfString:@"="].location;
+		if(equalLoc==NSNotFound) //等于号的位置
+			continue;
+		dic[[str1 substringToIndex:equalLoc]] = [str1 substringFromIndex:equalLoc+1];
+	}
+	if(dic.count)
+		return [dic copy];
+	return nil;
+}
+
 #pragma mark hash
 
 - (NSString*)md2

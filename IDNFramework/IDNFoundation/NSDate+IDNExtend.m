@@ -8,6 +8,12 @@
 
 #import "NSDate+IDNExtend.h"
 
+#ifdef DDLogVerbose
+#define NSDateIDNLog DDLogVerbose
+#else
+#define NSDateIDNLog NSLog
+#endif
+
 @implementation NSDate(IDNExtend)
 
 + (NSString*)dateFormatGMT
@@ -38,6 +44,19 @@
 	[formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
 	formatter.dateFormat = format;
 	return [formatter dateFromString:dateString];
+}
+
++ (void)measureCode:(void(^)())codeBlock logTitle:(NSString*)title
+{
+	if(codeBlock==nil)
+		return;
+	NSTimeInterval startTime = [NSDate timeIntervalSinceReferenceDate];
+	codeBlock();
+	NSTimeInterval elapsedTime = [NSDate timeIntervalSinceReferenceDate] - startTime;
+	if(title)
+		NSDateIDNLog(@"%@elapsed time = %.3f", title, elapsedTime);
+	else
+		NSDateIDNLog(@"elapsed time = %.3f", elapsedTime);
 }
 
 @end
