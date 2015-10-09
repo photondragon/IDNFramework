@@ -55,11 +55,11 @@
 
 - (void)delSubscriberTarget:(id)target selector:(SEL)selector
 {
-	if(target==nil)
+	if(target==nil && selector==0)
 		return;
 	for (NSInteger i = _subscribers.count-1; i>=0; i--) {
 		NSObjectIDNNoticeSubscriber* subscriber = _subscribers[i];
-		if(target!=subscriber.target || (selector && selector!=subscriber.selector))
+		if((target && target!=subscriber.target) || (selector && selector!=subscriber.selector))
 			continue;
 		[_subscribers removeObjectAtIndex:i];
 	}
@@ -99,6 +99,19 @@ static char bindDictionaryKey = 0;
 	return dic;
 }
 
+static char bindObjectKey = 0;
+
+- (NSLock*)bindedLockOfNSObjectIDNNotice
+{
+	NSLock* lock = objc_getAssociatedObject(self, &bindObjectKey);
+	if(lock==nil)
+	{
+		lock = [NSLock new];
+		objc_setAssociatedObject(self, &bindObjectKey, lock, OBJC_ASSOCIATION_RETAIN);
+	}
+	return lock;
+}
+
 #pragma mark 发出通知
 
 - (void)notice:(NSString*)noticeName customInfo:(id)customInfo;
@@ -106,11 +119,17 @@ static char bindDictionaryKey = 0;
 	if(noticeName==nil)
 		return;
 	
+	NSLock* lock = [self bindedLockOfNSObjectIDNNotice];
+	[lock lock];
 	NSMutableDictionary* dicNotices = [self bindedDictOfNSObjectIDNNotice];
 	NSObjectIDNNotice* notice = dicNotices[noticeName];
 	if(notice==nil)
+	{
+		[lock unlock];
 		return;
+	}
 	[notice noticeWithCustomInfo:customInfo];
+	[lock unlock];
 }
 
 #pragma mark 订阅/取消订阅Notice
@@ -120,6 +139,8 @@ static char bindDictionaryKey = 0;
 	if(noticeName==nil || subscriber==nil || selector==0)
 		return;
 	
+	NSLock* lock = [self bindedLockOfNSObjectIDNNotice];
+	[lock lock];
 	NSMutableDictionary* dicNotices = [self autoBindedDictOfNSObjectIDNNotice];
 	NSObjectIDNNotice* notice = dicNotices[noticeName];
 	if(notice==nil)
@@ -129,6 +150,7 @@ static char bindDictionaryKey = 0;
 		dicNotices[noticeName] = notice;
 	}
 	[notice addSubscriberTarget:subscriber selector:selector];
+	[lock unlock];
 }
 
 - (void)unsubscribeNotice:(NSString*)noticeName
@@ -143,20 +165,31 @@ static char bindDictionaryKey = 0;
 {
 	if(noticeName==nil)
 		return;
+
+	NSLock* lock = [self bindedLockOfNSObjectIDNNotice];
+	[lock lock];
 	NSMutableDictionary* dicNotices = [self bindedDictOfNSObjectIDNNotice];
 	if(dicNotices==nil)
+	{
+		[lock unlock];
 		return;
+	}
 	
-	if(subscriber==nil)
+	if(subscriber==nil && selector==0)
 	{
 		[dicNotices removeObjectForKey:noticeName];
+		[lock unlock];
 		return;
 	}
 	
 	NSObjectIDNNotice* notice = dicNotices[noticeName];
 	if(notice==nil)
+	{
+		[lock unlock];
 		return;
+	}
 	[notice delSubscriberTarget:subscriber selector:selector];
+	[lock unlock];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 /**
  *  在NSObject上实现观察者模式
+ *  线程安全。不要在通知处理方法中订阅或取消订阅通知，否则会造成死锁
  */
 @interface NSObject(IDNNotice)
 

@@ -17,6 +17,7 @@
 #import "NSObject+IDNDeallocBlock.h"
 #import "NSObject+IDNPerformSelectorNoWarning.h"
 #import "NSObject+IDNEventHandle.h"
+#import "NSObject+IDNNotice.h"
 #import "NSTimer+IDNWeakTarget.h"
 
 #ifndef Contacts_IDNFoundation_h

@@ -9,14 +9,36 @@
 #import <XCTest/XCTest.h>
 #import "NSObject+IDNNotice.h"
 
+@interface Subject : NSObject
+
+@end
+@implementation Subject
+
+- (void)receivedHelloNotice1:(NSString*)text
+{
+	NSLog(@"%s: %@", __func__, text);
+}
+- (void)receivedHelloNotice2:(NSString*)text
+{
+	NSLog(@"%s: %@", __func__, text);
+}
+- (void)receivedHelloNotice3:(NSString*)text
+{
+	NSLog(@"%s: %@", __func__, text);
+}
+
+- (void)dealloc
+{
+	NSLog(@"%s", __func__);
+}
+
+@end
+
 @interface IDNNoticeTest : XCTestCase
 
 @end
 
 @implementation IDNNoticeTest
-{
-	
-}
 
 - (void)setUp {
     [super setUp];
@@ -52,6 +74,18 @@
 	[self notice:@"HelloNotice" customInfo:@"jerry"];
 }
 
+- (void)testExample2 {
+	Subject* subject = [Subject new];
+	[subject subscribeNotice:@"HelloNotice1" subscriber:subject selector:@selector(receivedHelloNotice1:)];
+	[subject subscribeNotice:@"HelloNotice" subscriber:subject selector:@selector(receivedHelloNotice2:)];
+	[subject subscribeNotice:@"HelloNotice" subscriber:self selector:@selector(receivedHelloNotice3:)];
+	[subject notice:@"HelloNotice1" customInfo:@"world"];
+	[subject notice:@"HelloNotice" customInfo:@"world"];
+	[subject unsubscribeNotice:@"HelloNotice" subscriber:subject selector:@selector(receivedHelloNotice2:)];
+	[subject notice:@"HelloNotice1" customInfo:@"jerry"];
+	[subject notice:@"HelloNotice" customInfo:@"jerry"];
+}
+
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{
@@ -59,4 +93,8 @@
     }];
 }
 
+- (void)dealloc
+{
+	NSLog(@"%s", __func__);
+}
 @end

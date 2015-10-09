@@ -9,6 +9,7 @@
 /**
  *  为NSObject加上自定义事件处理机制，类似于UIControl的target-action机制。
  *  但同一时间一个事件只能设置一个处理方法或处理Block
+ *  线程不安全，建议只在主线程调用
  */
 @interface NSObject(IDNEventHandle)
 
