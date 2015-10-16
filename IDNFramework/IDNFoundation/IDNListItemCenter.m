@@ -409,26 +409,6 @@
 		[localItemsLock unlock];
 }
 
-- (void)localQueryWithParams:(NSDictionary*)params callback:(void (^)(NSArray* items))callback
-{
-	if(callback==nil)
-		return;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		[localItemsLock lock];
-		NSArray* items = [self queryItemsFromLocalWithParams:params];
-		[localItemsLock unlock];
-#ifdef DEBUG
-		if(items && [items isKindOfClass:[NSArray class]]==NO)
-		{
-			NSString* errstr = [NSString stringWithFormat:@"[%@ fetchItemsFromServerWithIDs:callback:]回调返回的参数dicItems不是NSArray，而是%@", NSStringFromClass(self.class), NSStringFromClass(items.class)];
-			NSLog(@"%@", errstr);
-			items = nil;
-		}
-#endif
-		callback(items);
-	});
-}
-
 - (NSUInteger)memoryCacheCountLimit
 {
 	return cache.countLimit;
@@ -490,14 +470,6 @@
 // 此函数需要加锁
 // 执行本地查询。如果有的ID有，有的ID没有，那么只返回本地有的Items
 - (NSDictionary*)itemsFromLocalWithIDs:(NSArray*)ids
-{
-	@throw @"子类应该重载此方法";
-	return nil;
-}
-
-// 此函数需要加锁
-// 执行本地自定义查询
-- (NSArray*)queryItemsFromLocalWithParams:(NSDictionary*)params
 {
 	@throw @"子类应该重载此方法";
 	return nil;

@@ -21,8 +21,6 @@
 - (void)checkAndUpdateLocalItems:(NSArray*)items; // 手动更新。检测items（是否修改、过期）并保存到本地
 - (void)forceReload; //强制刷新（从服务器获取）
 
-- (void)localQueryWithParams:(NSDictionary*)params callback:(void (^)(NSArray* items))callback; //查询本地Items。查询结果通过callback异步返回，callback总是在主线程被调用。这个操作不使用内存缓存。内部调用- (NSArray*)queryItemsFromLocalWithParams:(NSDictionary*)params来执行实际查询操作
-
 @property NSUInteger memoryCacheCountLimit; //内部自带的内存缓存的最大可存储的items的个数。0表示无限制。默认0
 
 #pragma mark Observers
@@ -38,13 +36,6 @@
  @return 返回包含items的字典，key为itemID，value为item
  */
 - (NSDictionary*)itemsFromLocalWithIDs:(NSArray*)itemIDs;
-
-/* 子类应该重载此方法，实现本地自定义查询（根据ID以外字段查询）。
- 当外部调用 - (void)localQueryWithParams:callback: 方法时，此方法会被调用。
- 此方法总是在后台线程中被调用，已加锁。
- @param params 查询参数，就是外部调用 - (void)localQueryWithParams:callback: 方法时传入的parmas参数
- */
-- (NSArray*)queryItemsFromLocalWithParams:(NSDictionary*)params;
 
 - (void)clearAllLocalItems;
 
