@@ -159,7 +159,7 @@ UIImagePickerControllerDelegate>
 	if([self.outsideDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)])
 		[self.outsideDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
 }
-- (NSUInteger)navigationControllerSupportedInterfaceOrientations:(UINavigationController *)navigationController{
+- (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController *)navigationController{
 	if([self.outsideDelegate respondsToSelector:@selector(navigationControllerSupportedInterfaceOrientations:)])
 		return [self.outsideDelegate navigationControllerSupportedInterfaceOrientations:navigationController];
 	return UIInterfaceOrientationMaskAll;

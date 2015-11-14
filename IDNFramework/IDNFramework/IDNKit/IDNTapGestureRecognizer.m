@@ -1,9 +1,9 @@
 //
 //  IDNTapGestureRecognizer.m
-//  xiangyue
+//  IDNFramework
 //
-//  Created by mahj on 15/7/23.
-//  Copyright (c) 2015年 shendou. All rights reserved.
+//  Created by photondragon on 15/7/23.
+//  Copyright (c) 2015年 iosdev.net. All rights reserved.
 //
 
 #import "IDNTapGestureRecognizer.h"
