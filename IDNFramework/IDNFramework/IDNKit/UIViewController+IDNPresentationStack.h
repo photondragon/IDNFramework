@@ -1,8 +1,8 @@
 //
 //  UIViewController+IDNPresentationStack.h
 //
-//  Created by mahj on 15/8/26.
-//  Copyright (c) 2015年 shendou. All rights reserved.
+//  Created by photondragon on 15/8/26.
+//  Copyright (c) 2015年 iosdev.net. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -1,7 +1,7 @@
 //
 //  UIViewController+IDNPresentationStack.m
 //
-//  Created by mahj on 15/8/26.
+//  Created by photondragon on 15/8/26.
 //
 
 #import "UIViewController+IDNPresentationStack.h"

@@ -1,7 +1,7 @@
 //
 //  UINavigationController+IDNNavBarHidden.h
 //
-//  Created by mahj on 15/9/28.
+//  Created by photondragon on 15/9/28.
 
 #import <UIKit/UIKit.h>
 

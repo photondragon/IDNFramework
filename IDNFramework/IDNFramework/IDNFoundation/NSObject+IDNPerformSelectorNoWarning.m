@@ -1,7 +1,7 @@
 //
 //  NSObject+IDNPerformSelectorNoWarning.m
 //
-//  Created by mahj on 15/9/10.
+//  Created by photondragon on 15/9/10.
 //
 
 #import "NSObject+IDNPerformSelectorNoWarning.h"
