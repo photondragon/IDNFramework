@@ -391,11 +391,7 @@
 }
 - (void)setSelectedIndex:(NSInteger)selectedIndex
 {
-	[self setSelectedIndex:selectedIndex animated:NO];
-}
-- (void)setSelectedIndex:(NSInteger)selectedIndex animated:(BOOL)animated
-{
-	[self setSelectedIndex:selectedIndex animated:animated onlyTitle:NO];
+	[self setSelectedIndex:selectedIndex animated:NO onlyTitle:NO];
 }
 - (void)setSelectedIndex:(NSInteger)selectedIndex animated:(BOOL)animated onlyTitle:(BOOL)onlyTitle
 {
@@ -426,16 +422,16 @@
 		}
 		IDNPCCInfo* info = controllerInfos[_selectedIndex];
 		info.label.textColor = _selectedTitleColor;
-//		if(animated)
+		if(animated)
 		{
 			[UIView animateWithDuration:0.2 animations:^{
 				selectIndicator.frame = CGRectMake(info.labelOriginX, barHeight-indicatorHeight, info.labelWidth, indicatorHeight);
 			}];
 		}
-//		else
-//		{
-//			selectIndicator.frame = CGRectMake(info.labelOriginX, barHeight-indicatorHeight, info.labelWidth, indicatorHeight);
-//		}
+		else
+		{
+			selectIndicator.frame = CGRectMake(info.labelOriginX, barHeight-indicatorHeight, info.labelWidth, indicatorHeight);
+		}
 
 		if([_delegate respondsToSelector:@selector(pageController:didSelectViewControllerAtIndex:)])
 			[_delegate pageController:self didSelectViewControllerAtIndex:_selectedIndex];
@@ -511,7 +507,10 @@
 {
 	NSInteger i = scrollView.contentOffset.x / pageSize.width + 0.5;
 	if(i!=_selectedIndex)
+	{
 		[self setSelectedIndex:i animated:YES onlyTitle:YES];
+		[self makeSelectedTitleVisibleAnimated:YES];
+	}
 }
 
 #pragma mark 
