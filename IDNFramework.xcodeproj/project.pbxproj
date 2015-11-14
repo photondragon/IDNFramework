@@ -122,6 +122,8 @@
 		945DB68B1AD8FC8800C13526 /* IDNFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945DB67F1AD8FC8800C13526 /* IDNFramework.framework */; };
 		9486C8A81BF753AA00CBB6FB /* IDNTouchGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9486C8A61BF753AA00CBB6FB /* IDNTouchGestureRecognizer.h */; };
 		9486C8A91BF753AA00CBB6FB /* IDNTouchGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9486C8A71BF753AA00CBB6FB /* IDNTouchGestureRecognizer.m */; };
+		9486C9591BF7B37900CBB6FB /* NSObject+IDNNotice.h in Headers */ = {isa = PBXBuildFile; fileRef = 9486C9571BF7B37900CBB6FB /* NSObject+IDNNotice.h */; };
+		9486C95A1BF7B37900CBB6FB /* NSObject+IDNNotice.m in Sources */ = {isa = PBXBuildFile; fileRef = 9486C9581BF7B37900CBB6FB /* NSObject+IDNNotice.m */; };
 		94AA6DF81B38077E00778B21 /* IDNFileCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AA6DF71B38077E00778B21 /* IDNFileCacheTest.m */; };
 /* End PBXBuildFile section */
 
@@ -254,6 +256,8 @@
 		945DB6901AD8FC8800C13526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9486C8A61BF753AA00CBB6FB /* IDNTouchGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNTouchGestureRecognizer.h; sourceTree = "<group>"; };
 		9486C8A71BF753AA00CBB6FB /* IDNTouchGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNTouchGestureRecognizer.m; sourceTree = "<group>"; };
+		9486C9571BF7B37900CBB6FB /* NSObject+IDNNotice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+IDNNotice.h"; sourceTree = "<group>"; };
+		9486C9581BF7B37900CBB6FB /* NSObject+IDNNotice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+IDNNotice.m"; sourceTree = "<group>"; };
 		94AA6DF71B38077E00778B21 /* IDNFileCacheTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNFileCacheTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -323,6 +327,8 @@
 				942C7C321BDFBAD300E8F41F /* NSObject+IDNDeallocBlock.m */,
 				942C7C331BDFBAD300E8F41F /* NSObject+IDNEventHandle.h */,
 				942C7C341BDFBAD300E8F41F /* NSObject+IDNEventHandle.m */,
+				9486C9571BF7B37900CBB6FB /* NSObject+IDNNotice.h */,
+				9486C9581BF7B37900CBB6FB /* NSObject+IDNNotice.m */,
 				942C7C351BDFBAD300E8F41F /* NSObject+IDNPerformSelectorNoWarning.h */,
 				942C7C361BDFBAD300E8F41F /* NSObject+IDNPerformSelectorNoWarning.m */,
 				942C7C371BDFBAD300E8F41F /* NSPointerArray+IDNExtend.h */,
@@ -521,6 +527,7 @@
 				942C7CC51BDFBAD400E8F41F /* IDNScanCodeView.h in Headers */,
 				942C7C851BDFBAD400E8F41F /* IDNFileCache.h in Headers */,
 				942C7CAA1BDFBAD400E8F41F /* NSString+IDNExtend.h in Headers */,
+				9486C9591BF7B37900CBB6FB /* NSObject+IDNNotice.h in Headers */,
 				942C7CB41BDFBAD400E8F41F /* IDNFrameView.h in Headers */,
 				942C7CDB1BDFBAD400E8F41F /* UIPickerView+IDNPickDate.h in Headers */,
 				942C7CE31BDFBAD400E8F41F /* UIView+IDNCountBadge.h in Headers */,
@@ -658,6 +665,7 @@
 				942C7CA11BDFBAD400E8F41F /* NSFileManager+IDNExtend.m in Sources */,
 				942C7C9D1BDFBAD400E8F41F /* NSDictionary+IDNExtend.m in Sources */,
 				942C7CB71BDFBAD400E8F41F /* IDNGradientView.m in Sources */,
+				9486C95A1BF7B37900CBB6FB /* NSObject+IDNNotice.m in Sources */,
 				942C7CA51BDFBAD400E8F41F /* NSObject+IDNEventHandle.m in Sources */,
 				942C7CBB1BDFBAD400E8F41F /* IDNInputHelperView.m in Sources */,
 				942C7CD21BDFBAD400E8F41F /* IDNViewControllerAnimatedTransitioningLeftRight.m in Sources */,

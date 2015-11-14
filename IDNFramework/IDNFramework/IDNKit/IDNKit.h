@@ -20,7 +20,6 @@
 #import "UIViewController+IDNScreenAdapt.h"
 #import "UIViewController+IDNTransition.h"
 #import "UIViewController+IDNPresentationStack.h"
-#import "UINavigationController+IDNNavBarHidden.h"
 
 #ifndef IDNFramework_IDNKit_h
 #define IDNFramework_IDNKit_h
