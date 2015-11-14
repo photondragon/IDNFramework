@@ -17,7 +17,7 @@
 
 - (void)getItemWithID:(id)objID callback:(void (^)(id item, NSError* error))callback; //item通过callback异步返回，callback总是在主线程被调用
 
-- (void)deleteItemWithItemIDs:(NSArray*)itemIDs; //只删除本地的，不会发起网络请求
+//- (void)deleteItemWithItemIDs:(NSArray*)itemIDs; //只删除本地的，不会发起网络请求
 - (void)checkAndUpdateLocalItems:(NSArray*)items; // 手动更新。检测items（是否修改、过期）并保存到本地
 - (void)forceReload; //强制刷新（从服务器获取）
 
