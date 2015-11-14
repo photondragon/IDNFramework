@@ -55,10 +55,7 @@
 
 - (CGSize)sizeOfString:(NSString*)string
 {
-	if([string respondsToSelector:@selector(sizeWithAttributes:)])
-		return [string sizeWithAttributes:@{NSFontAttributeName:self.titleFont}];
-	else
-		return [string sizeWithFont:self.titleFont];
+	return [string sizeWithAttributes:@{NSFontAttributeName:self.titleFont}];
 }
 
 - (void)initializer

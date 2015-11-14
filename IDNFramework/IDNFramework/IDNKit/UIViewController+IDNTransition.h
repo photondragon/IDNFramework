@@ -11,5 +11,6 @@
 @interface UIViewController(IDNTransition)
 
 - (void)presentViewControllerFromLeft:(UIViewController *)viewController completion:(void (^)(void))completion; //从左向右出现新界面。
+- (void)presentViewControllerFromRight:(UIViewController *)viewController completion:(void (^)(void))completion; //从右向左出现新界面。
 
 @end

@@ -180,6 +180,46 @@
 	}
 }
 
+- (id)itemWithID:(id)itemID callback:(void (^)(id item, NSError* error))callback
+{
+	NSAssert(itemID, @"%s: 参数itemID不可为nil", __FUNCTION__);
+	
+	id item;
+	item = [cache objectForKey:itemID];
+	if(item==nil)//内存中没有item
+	{
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+			[localItemsLock lock];
+			id item = [self itemFromLocalWithID:itemID];
+			[localItemsLock unlock];
+			
+			if(item)
+				[cache setObject:item forKey:itemID]; //更新内存缓存
+			
+			if(item==nil || [self isItemExpired:item])//本地没有item，或者本地item已经过期
+			{
+				if(item==nil && callback) //本地没有item，需要注册回调，在获取到最新数据后调用（通知调用者）。
+					[self createRequestWithItemID:itemID registerCallback:callback];
+				else
+					[self createRequestWithItemID:itemID registerCallback:nil]; //从服务器获取最新信息
+			}
+			
+			if(item && callback) //本地有item，异步调用finishedBlock（通知调用者）
+			{
+				dispatch_async(dispatch_get_main_queue(), ^{
+					callback(item, nil);
+				});
+			}
+		});
+	}
+	else if([self isItemExpired:item]) //内存item已经过期
+	{
+		[self createRequestWithItemID:itemID registerCallback:nil]; //从服务器获取最新信息
+	}
+
+	return item;
+}
+
 - (void)forceReloadItems:(NSArray*)itemIds
 {
 	@synchronized(self)//锁住请求队列

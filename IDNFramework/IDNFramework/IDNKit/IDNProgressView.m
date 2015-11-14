@@ -8,12 +8,17 @@
 
 #import "IDNProgressView.h"
 
+@interface IDNProgressView()
+@property(nonatomic) BOOL rotating;
+@end
+
 @implementation IDNProgressView
 
 - (void)initializer
 {
 	if(_progressTintColor)
 		return;
+//	self.opaque = NO;
 	_progressViewStyle = IDNProgressViewStyleDefault;
 	_progressTintColor = [UIColor colorWithRed:21/255.0 green:138/255.0 blue:228/255.0 alpha:1];
 	_progress = 0;
@@ -115,6 +120,35 @@
 	}
 }
 
+- (void)setRotating:(BOOL)rotating
+{
+	if(_rotating==rotating)
+		return;
+	_rotating = rotating;
+	if(_rotating)
+	{
+		[self startRotateAnimation];
+	}
+	else
+	{
+		[self stopRotateAnimation];
+	}
+}
+- (void)startRotateAnimation
+{
+	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+	animation.fromValue = @(0);
+	animation.toValue = @(2*M_PI);
+	animation.duration = 1.f;
+	animation.repeatCount = INT_MAX;
+	[self.layer addAnimation:animation forKey:@"AnimationIDNLoadingView"];
+}
+
+- (void)stopRotateAnimation
+{
+	[self.layer removeAnimationForKey:@"AnimationIDNLoadingView"];
+}
+
 #pragma mark draw functions
 
 - (void)drawCake{
@@ -124,15 +158,9 @@
 	CGFloat radius = length/2-pixelWidth-_lineWidth/2;
 	CGPoint center = CGPointMake(framesize.width/2, framesize.height/2);
 	
+	[_progressTintColor set];
+
 	UIBezierPath* path = [UIBezierPath bezierPath];
-	[path addArcWithCenter:center radius:radius startAngle:0 endAngle:M_PI*2 clockwise:YES];
-	
-	path.lineWidth = _lineWidth;
-	[_progressTintColor setStroke];
-	[path stroke];
-	
-	[path removeAllPoints];
-	
 	[path addArcWithCenter:center
 					radius:radius
 				startAngle:-M_PI_2
@@ -140,8 +168,41 @@
 				 clockwise:YES];
 	[path addLineToPoint:center];
 	[path addLineToPoint:CGPointMake(center.x, center.y-radius)];
-	[_progressTintColor setFill];
 	[path fill];
+
+	[path removeAllPoints];
+
+//	CGContextRef context = UIGraphicsGetCurrentContext();
+//	CGFloat red,green,blue,alpha;
+//	[_progressTintColor getRed:&red green:&green blue:&blue alpha:&alpha];
+//	UIColor* shadowColor = [UIColor colorWithRed:red green:green blue:blue alpha:0.7*alpha];
+//	CGContextSetShadowWithColor(context, CGSizeZero, 2.0, [shadowColor CGColor]);
+	
+	if(_progress<=0)
+	{
+		CGFloat red,green,blue,alpha;
+		[_progressTintColor getRed:&red green:&green blue:&blue alpha:&alpha];
+		UIColor* backCircleColor = [UIColor colorWithRed:red*0.5 green:green*0.5 blue:blue*0.5 alpha:alpha];
+		[backCircleColor setStroke];
+		
+		[path addArcWithCenter:center radius:radius startAngle:0 endAngle:M_PI*2.0 clockwise:YES];
+		path.lineWidth = _lineWidth;
+		[path stroke];
+		[path removeAllPoints];
+		
+		[_progressTintColor setStroke];
+		[path addArcWithCenter:center radius:radius startAngle:-M_PI_2 endAngle:M_PI_2 clockwise:YES];
+		path.lineWidth = _lineWidth;
+		[path stroke];
+		self.rotating = YES;
+	}
+	else
+	{
+		[path addArcWithCenter:center radius:radius startAngle:0 endAngle:M_PI*2 clockwise:YES];
+		path.lineWidth = _lineWidth;
+		[path stroke];
+		self.rotating = NO;
+	}
 }
 
 - (void)drawCircle{

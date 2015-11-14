@@ -15,7 +15,9 @@
 // 线程安全
 @interface IDNItemCenter : NSObject
 
-- (void)getItemWithID:(id)objID callback:(void (^)(id item, NSError* error))callback; //item通过callback异步返回，callback总是在主线程被调用
+// getItemWithID:和itemWithID:这两个方法都是用于获取item的，区别只是返回数据的方式有些不同
+- (void)getItemWithID:(id)itemID callback:(void (^)(id item, NSError* error))callback; //item通过callback异步返回，callback总是在主线程被调用
+- (id)itemWithID:(id)itemID callback:(void (^)(id item, NSError* error))callback; //如果内存缓存中有，则函数直接返回item（callback不会被调用）；如果内存缓存中没有，则item通过callback异步返回，callback总是在主线程被调用
 
 - (void)checkAndUpdateLocalItems:(NSArray*)items; //手动更新。检测items（是否修改、过期）并保存到本地。如果有Items被更新，会通知观察者
 - (void)checkAndUpdateLocalItems:(NSArray*)items ignoreObserver:(id<IDNItemCenterObserver>)ignoreObserver; // 手动更新。检测items（是否修改、过期）并保存到本地。如果有Items被更新，会通知观察者，但ignoreObserver指定的观察者不会收到通知。

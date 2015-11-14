@@ -37,6 +37,26 @@
 	return [formatter stringFromDate:self];
 }
 
+- (NSString*)toStringWithFormat:(NSString*)format timeZone:(int)timeZone;
+{
+	if(timeZone>12 || timeZone<-12)
+	{
+		timeZone = 0;
+		NSLog(@"%s: 时区参数错误(timeZone=%d)", __FUNCTION__, timeZone);
+	}
+	static NSDateFormatter* formatters[25] = {0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0};
+	NSDateFormatter* formatter = formatters[timeZone+12];
+	if(formatter==nil)
+	{
+		formatter = [[NSDateFormatter alloc] init];
+		[formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:[NSString stringWithFormat:@"GMT+%02d00", timeZone]]];
+//		[formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"]];
+		formatters[timeZone+12] = formatter;
+	}
+	formatter.dateFormat = format;
+	return [formatter stringFromDate:self];
+}
+
 + (NSDate*)dateFromString:(NSString*)dateString format:(NSString*)format
 {
 	NSDateFormatter* formatter = [[NSDateFormatter alloc] init];

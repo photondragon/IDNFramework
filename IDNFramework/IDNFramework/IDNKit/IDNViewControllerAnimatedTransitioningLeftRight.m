@@ -20,7 +20,7 @@
 	CGRect screenBounds = [[UIScreen mainScreen] bounds];
 	UIViewController *controller;
 	CGRect finalFrame;
-	if(self.reverse)//向左弹出
+	if(_reverse)//向左弹出
 	{
 		//新view controller
 		UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
@@ -33,14 +33,20 @@
 		controller.view.frame = initFrame;
 		[[transitionContext containerView] addSubview:controller.view];
 		
-		finalFrame = CGRectOffset(initFrame, -screenBounds.size.width, 0);
+		if(_right)
+			finalFrame = CGRectOffset(initFrame, screenBounds.size.width, 0);
+		else
+			finalFrame = CGRectOffset(initFrame, -screenBounds.size.width, 0);
 		
 	}
 	else//从左弹入
 	{
 		controller = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
 		finalFrame = [transitionContext finalFrameForViewController:controller];
-		controller.view.frame = CGRectOffset(finalFrame, -screenBounds.size.width, 0);
+		if(_right)
+			controller.view.frame = CGRectOffset(finalFrame, screenBounds.size.width, 0);
+		else
+			controller.view.frame = CGRectOffset(finalFrame, -screenBounds.size.width, 0);
 		[[transitionContext containerView] addSubview:controller.view];
 	}
 

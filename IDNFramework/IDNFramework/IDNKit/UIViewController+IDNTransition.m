@@ -12,6 +12,7 @@
 
 @interface IDNViewControllerTransitionDelegator : NSObject
 <UIViewControllerTransitioningDelegate>
+@property(nonatomic) BOOL fromRight;
 @end
 
 @implementation IDNViewControllerTransitionDelegator
@@ -21,12 +22,14 @@
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
 {//弹出商品详情时使用
 	IDNViewControllerAnimatedTransitioningLeftRight* t = [[IDNViewControllerAnimatedTransitioningLeftRight alloc] init];
+	t.right = _fromRight;
 	return t;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
 	IDNViewControllerAnimatedTransitioningLeftRight* t = [[IDNViewControllerAnimatedTransitioningLeftRight alloc] init];
+	t.right = _fromRight;
 	t.reverse = YES;
 	return t;
 }
@@ -38,6 +41,14 @@ static char transitionDelegatorKey = 0;
 @implementation UIViewController(IDNTransition)
 
 - (void)presentViewControllerFromLeft:(UIViewController *)viewController completion:(void (^)(void))completion
+{
+	[self presentViewController:viewController fromRight:NO completion:completion];
+}
+- (void)presentViewControllerFromRight:(UIViewController *)viewController completion:(void (^)(void))completion
+{
+	[self presentViewController:viewController fromRight:YES completion:completion];
+}
+- (void)presentViewController:(UIViewController *)viewController fromRight:(BOOL)fromRight completion:(void (^)(void))completion
 {
 	IDNViewControllerTransitionDelegator* transitionDelegator = objc_getAssociatedObject(viewController, &transitionDelegatorKey);
 	if(viewController.transitioningDelegate &&
@@ -51,6 +62,7 @@ static char transitionDelegatorKey = 0;
 	if(transitionDelegator==nil)
 	{
 		transitionDelegator = [[IDNViewControllerTransitionDelegator alloc] init];
+		transitionDelegator.fromRight = fromRight;
 		objc_setAssociatedObject(viewController, &transitionDelegatorKey, transitionDelegator, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	

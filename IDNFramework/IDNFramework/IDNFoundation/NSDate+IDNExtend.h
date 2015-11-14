@@ -12,6 +12,7 @@
 
 + (NSString*)dateFormatGMT; //@"EEE, dd MMM yyyy HH:mm:ss Z"
 - (NSString*)stringWithFormat:(NSString*)format; //format示例：@"yyyyMMddHHmmssFFF"
+- (NSString*)toStringWithFormat:(NSString*)format timeZone:(int)timeZone;
 + (NSDate*)dateFromString:(NSString*)dateString format:(NSString*)format; //0时区
 
 + (void)measureCode:(void(^)())codeBlock logTitle:(NSString*)title;
