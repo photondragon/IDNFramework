@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		942A67921BFC4BC3006A08F6 /* NSObject+IDNCustomObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 942A67901BFC4BC3006A08F6 /* NSObject+IDNCustomObject.h */; };
+		942A67931BFC4BC3006A08F6 /* NSObject+IDNCustomObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 942A67911BFC4BC3006A08F6 /* NSObject+IDNCustomObject.m */; };
 		942C7C831BDFBAD400E8F41F /* IDNAsyncTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 942C7C121BDFBAD300E8F41F /* IDNAsyncTask.h */; };
 		942C7C841BDFBAD400E8F41F /* IDNAsyncTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 942C7C131BDFBAD300E8F41F /* IDNAsyncTask.m */; };
 		942C7C851BDFBAD400E8F41F /* IDNFileCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 942C7C141BDFBAD300E8F41F /* IDNFileCache.h */; };
@@ -42,8 +44,8 @@
 		942C7CA31BDFBAD400E8F41F /* NSObject+IDNDeallocBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 942C7C321BDFBAD300E8F41F /* NSObject+IDNDeallocBlock.m */; };
 		942C7CA41BDFBAD400E8F41F /* NSObject+IDNEventHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = 942C7C331BDFBAD300E8F41F /* NSObject+IDNEventHandle.h */; };
 		942C7CA51BDFBAD400E8F41F /* NSObject+IDNEventHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 942C7C341BDFBAD300E8F41F /* NSObject+IDNEventHandle.m */; };
-		942C7CA61BDFBAD400E8F41F /* NSObject+IDNPerformSelectorNoWarning.h in Headers */ = {isa = PBXBuildFile; fileRef = 942C7C351BDFBAD300E8F41F /* NSObject+IDNPerformSelectorNoWarning.h */; };
-		942C7CA71BDFBAD400E8F41F /* NSObject+IDNPerformSelectorNoWarning.m in Sources */ = {isa = PBXBuildFile; fileRef = 942C7C361BDFBAD300E8F41F /* NSObject+IDNPerformSelectorNoWarning.m */; };
+		942C7CA61BDFBAD400E8F41F /* NSObject+IDNPerformSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = 942C7C351BDFBAD300E8F41F /* NSObject+IDNPerformSelector.h */; };
+		942C7CA71BDFBAD400E8F41F /* NSObject+IDNPerformSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 942C7C361BDFBAD300E8F41F /* NSObject+IDNPerformSelector.m */; };
 		942C7CA81BDFBAD400E8F41F /* NSPointerArray+IDNExtend.h in Headers */ = {isa = PBXBuildFile; fileRef = 942C7C371BDFBAD300E8F41F /* NSPointerArray+IDNExtend.h */; };
 		942C7CA91BDFBAD400E8F41F /* NSPointerArray+IDNExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 942C7C381BDFBAD300E8F41F /* NSPointerArray+IDNExtend.m */; };
 		942C7CAA1BDFBAD400E8F41F /* NSString+IDNExtend.h in Headers */ = {isa = PBXBuildFile; fileRef = 942C7C391BDFBAD300E8F41F /* NSString+IDNExtend.h */; };
@@ -138,6 +140,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		942A67901BFC4BC3006A08F6 /* NSObject+IDNCustomObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+IDNCustomObject.h"; sourceTree = "<group>"; };
+		942A67911BFC4BC3006A08F6 /* NSObject+IDNCustomObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+IDNCustomObject.m"; sourceTree = "<group>"; };
 		942C7C121BDFBAD300E8F41F /* IDNAsyncTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNAsyncTask.h; sourceTree = "<group>"; };
 		942C7C131BDFBAD300E8F41F /* IDNAsyncTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNAsyncTask.m; sourceTree = "<group>"; };
 		942C7C141BDFBAD300E8F41F /* IDNFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNFileCache.h; sourceTree = "<group>"; };
@@ -173,8 +177,8 @@
 		942C7C321BDFBAD300E8F41F /* NSObject+IDNDeallocBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+IDNDeallocBlock.m"; sourceTree = "<group>"; };
 		942C7C331BDFBAD300E8F41F /* NSObject+IDNEventHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+IDNEventHandle.h"; sourceTree = "<group>"; };
 		942C7C341BDFBAD300E8F41F /* NSObject+IDNEventHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+IDNEventHandle.m"; sourceTree = "<group>"; };
-		942C7C351BDFBAD300E8F41F /* NSObject+IDNPerformSelectorNoWarning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+IDNPerformSelectorNoWarning.h"; sourceTree = "<group>"; };
-		942C7C361BDFBAD300E8F41F /* NSObject+IDNPerformSelectorNoWarning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+IDNPerformSelectorNoWarning.m"; sourceTree = "<group>"; };
+		942C7C351BDFBAD300E8F41F /* NSObject+IDNPerformSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+IDNPerformSelector.h"; sourceTree = "<group>"; };
+		942C7C361BDFBAD300E8F41F /* NSObject+IDNPerformSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+IDNPerformSelector.m"; sourceTree = "<group>"; };
 		942C7C371BDFBAD300E8F41F /* NSPointerArray+IDNExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPointerArray+IDNExtend.h"; sourceTree = "<group>"; };
 		942C7C381BDFBAD300E8F41F /* NSPointerArray+IDNExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPointerArray+IDNExtend.m"; sourceTree = "<group>"; };
 		942C7C391BDFBAD300E8F41F /* NSString+IDNExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+IDNExtend.h"; sourceTree = "<group>"; };
@@ -323,14 +327,16 @@
 				942C7C2E1BDFBAD300E8F41F /* NSError+IDNExtend.m */,
 				942C7C2F1BDFBAD300E8F41F /* NSFileManager+IDNExtend.h */,
 				942C7C301BDFBAD300E8F41F /* NSFileManager+IDNExtend.m */,
+				942A67901BFC4BC3006A08F6 /* NSObject+IDNCustomObject.h */,
+				942A67911BFC4BC3006A08F6 /* NSObject+IDNCustomObject.m */,
 				942C7C311BDFBAD300E8F41F /* NSObject+IDNDeallocBlock.h */,
 				942C7C321BDFBAD300E8F41F /* NSObject+IDNDeallocBlock.m */,
 				942C7C331BDFBAD300E8F41F /* NSObject+IDNEventHandle.h */,
 				942C7C341BDFBAD300E8F41F /* NSObject+IDNEventHandle.m */,
 				9486C9571BF7B37900CBB6FB /* NSObject+IDNNotice.h */,
 				9486C9581BF7B37900CBB6FB /* NSObject+IDNNotice.m */,
-				942C7C351BDFBAD300E8F41F /* NSObject+IDNPerformSelectorNoWarning.h */,
-				942C7C361BDFBAD300E8F41F /* NSObject+IDNPerformSelectorNoWarning.m */,
+				942C7C351BDFBAD300E8F41F /* NSObject+IDNPerformSelector.h */,
+				942C7C361BDFBAD300E8F41F /* NSObject+IDNPerformSelector.m */,
 				942C7C371BDFBAD300E8F41F /* NSPointerArray+IDNExtend.h */,
 				942C7C381BDFBAD300E8F41F /* NSPointerArray+IDNExtend.m */,
 				942C7C391BDFBAD300E8F41F /* NSString+IDNExtend.h */,
@@ -496,7 +502,7 @@
 				942C7C8A1BDFBAD400E8F41F /* IDNItemCenter.h in Headers */,
 				942C7CBF1BDFBAD400E8F41F /* IDNPageController.h in Headers */,
 				942C7C8C1BDFBAD400E8F41F /* IDNListItemCenter.h in Headers */,
-				942C7CA61BDFBAD400E8F41F /* NSObject+IDNPerformSelectorNoWarning.h in Headers */,
+				942C7CA61BDFBAD400E8F41F /* NSObject+IDNPerformSelector.h in Headers */,
 				942C7CD91BDFBAD400E8F41F /* UINavigationController+IDNNavBarHidden.h in Headers */,
 				942C7CE91BDFBAD400E8F41F /* UIView+IDNZoom.h in Headers */,
 				942C7CB21BDFBAD400E8F41F /* IDNColorButton.h in Headers */,
@@ -530,6 +536,7 @@
 				9486C9591BF7B37900CBB6FB /* NSObject+IDNNotice.h in Headers */,
 				942C7CB41BDFBAD400E8F41F /* IDNFrameView.h in Headers */,
 				942C7CDB1BDFBAD400E8F41F /* UIPickerView+IDNPickDate.h in Headers */,
+				942A67921BFC4BC3006A08F6 /* NSObject+IDNCustomObject.h in Headers */,
 				942C7CE31BDFBAD400E8F41F /* UIView+IDNCountBadge.h in Headers */,
 				942C7CA81BDFBAD400E8F41F /* NSPointerArray+IDNExtend.h in Headers */,
 				942C7CC31BDFBAD400E8F41F /* IDNRefreshControl.h in Headers */,
@@ -646,6 +653,7 @@
 			files = (
 				942C7C8F1BDFBAD400E8F41F /* IDNNetwork.m in Sources */,
 				942C7CD81BDFBAD400E8F41F /* UIImage+IDNExtend.m in Sources */,
+				942A67931BFC4BC3006A08F6 /* NSObject+IDNCustomObject.m in Sources */,
 				942C7CCA1BDFBAD400E8F41F /* IDNSideMenuController.m in Sources */,
 				9486C8A91BF753AA00CBB6FB /* IDNTouchGestureRecognizer.m in Sources */,
 				942C7CC61BDFBAD400E8F41F /* IDNScanCodeView.m in Sources */,
@@ -670,7 +678,7 @@
 				942C7CBB1BDFBAD400E8F41F /* IDNInputHelperView.m in Sources */,
 				942C7CD21BDFBAD400E8F41F /* IDNViewControllerAnimatedTransitioningLeftRight.m in Sources */,
 				942C7CAF1BDFBAD400E8F41F /* SegmentQuery.m in Sources */,
-				942C7CA71BDFBAD400E8F41F /* NSObject+IDNPerformSelectorNoWarning.m in Sources */,
+				942C7CA71BDFBAD400E8F41F /* NSObject+IDNPerformSelector.m in Sources */,
 				942C7C8B1BDFBAD400E8F41F /* IDNItemCenter.m in Sources */,
 				942C7C971BDFBAD400E8F41F /* NSArray+IDN.m in Sources */,
 				942C7CDA1BDFBAD400E8F41F /* UINavigationController+IDNNavBarHidden.m in Sources */,

@@ -6,7 +6,7 @@
 
 #import "NSObject+IDNNotice.h"
 #import <objc/runtime.h>
-#import "NSObject+IDNPerformSelectorNoWarning.h"
+#import "NSObject+IDNPerformSelector.h"
 
 @interface NSObjectIDNNotice : NSObject
 @property (nonatomic,copy) NSString* noticeName;
