@@ -11,6 +11,8 @@
 		942A67931BFC4BC3006A08F6 /* NSObject+IDNCustomObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 942A67911BFC4BC3006A08F6 /* NSObject+IDNCustomObject.m */; };
 		942A69071BFD6CAD006A08F6 /* IDNAutoPersist.h in Headers */ = {isa = PBXBuildFile; fileRef = 942A69051BFD6CAD006A08F6 /* IDNAutoPersist.h */; };
 		942A69081BFD6CAD006A08F6 /* IDNAutoPersist.m in Sources */ = {isa = PBXBuildFile; fileRef = 942A69061BFD6CAD006A08F6 /* IDNAutoPersist.m */; };
+		942A690E1BFD6E4A006A08F6 /* IDNNotificationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 942A690C1BFD6E4A006A08F6 /* IDNNotificationCenter.h */; };
+		942A690F1BFD6E4A006A08F6 /* IDNNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 942A690D1BFD6E4A006A08F6 /* IDNNotificationCenter.m */; };
 		942C7C831BDFBAD400E8F41F /* IDNAsyncTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 942C7C121BDFBAD300E8F41F /* IDNAsyncTask.h */; };
 		942C7C841BDFBAD400E8F41F /* IDNAsyncTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 942C7C131BDFBAD300E8F41F /* IDNAsyncTask.m */; };
 		942C7C851BDFBAD400E8F41F /* IDNFileCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 942C7C141BDFBAD300E8F41F /* IDNFileCache.h */; };
@@ -146,6 +148,8 @@
 		942A67911BFC4BC3006A08F6 /* NSObject+IDNCustomObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+IDNCustomObject.m"; sourceTree = "<group>"; };
 		942A69051BFD6CAD006A08F6 /* IDNAutoPersist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNAutoPersist.h; sourceTree = "<group>"; };
 		942A69061BFD6CAD006A08F6 /* IDNAutoPersist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNAutoPersist.m; sourceTree = "<group>"; };
+		942A690C1BFD6E4A006A08F6 /* IDNNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNNotificationCenter.h; sourceTree = "<group>"; };
+		942A690D1BFD6E4A006A08F6 /* IDNNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNNotificationCenter.m; sourceTree = "<group>"; };
 		942C7C121BDFBAD300E8F41F /* IDNAsyncTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNAsyncTask.h; sourceTree = "<group>"; };
 		942C7C131BDFBAD300E8F41F /* IDNAsyncTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNAsyncTask.m; sourceTree = "<group>"; };
 		942C7C141BDFBAD300E8F41F /* IDNFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNFileCache.h; sourceTree = "<group>"; };
@@ -315,6 +319,8 @@
 				942C7C1C1BDFBAD300E8F41F /* IDNListItemCenter.m */,
 				942C7C1D1BDFBAD300E8F41F /* IDNNetwork.h */,
 				942C7C1E1BDFBAD300E8F41F /* IDNNetwork.m */,
+				942A690C1BFD6E4A006A08F6 /* IDNNotificationCenter.h */,
+				942A690D1BFD6E4A006A08F6 /* IDNNotificationCenter.m */,
 				942C7C1F1BDFBAD300E8F41F /* IDNResultList.h */,
 				942C7C201BDFBAD300E8F41F /* IDNResultList.m */,
 				942C7C211BDFBAD300E8F41F /* IDNSegList.h */,
@@ -503,6 +509,7 @@
 				942C7CC71BDFBAD400E8F41F /* IDNSearchBar.h in Headers */,
 				942C7C921BDFBAD400E8F41F /* IDNSegList.h in Headers */,
 				942C7CEF1BDFBAD400E8F41F /* UIViewController+IDNScreenAdapt.h in Headers */,
+				942A690E1BFD6E4A006A08F6 /* IDNNotificationCenter.h in Headers */,
 				942C7C961BDFBAD400E8F41F /* NSArray+IDN.h in Headers */,
 				9486C8A81BF753AA00CBB6FB /* IDNTouchGestureRecognizer.h in Headers */,
 				942C7C8A1BDFBAD400E8F41F /* IDNItemCenter.h in Headers */,
@@ -668,6 +675,7 @@
 				942C7CE21BDFBAD400E8F41F /* UITabBar+IDNRedPoint.m in Sources */,
 				942C7CAD1BDFBAD400E8F41F /* NSTimer+IDNWeakTarget.m in Sources */,
 				942C7C8D1BDFBAD400E8F41F /* IDNListItemCenter.m in Sources */,
+				942A690F1BFD6E4A006A08F6 /* IDNNotificationCenter.m in Sources */,
 				942C7CA31BDFBAD400E8F41F /* NSObject+IDNDeallocBlock.m in Sources */,
 				942C7CD01BDFBAD400E8F41F /* IDNTopTabController.m in Sources */,
 				942C7C9B1BDFBAD400E8F41F /* NSDate+IDNExtend.m in Sources */,

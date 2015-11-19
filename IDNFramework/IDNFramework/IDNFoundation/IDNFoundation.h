@@ -20,6 +20,8 @@
 #import "NSObject+IDNEventHandle.h"
 #import "NSObject+IDNNotice.h"
 #import "NSTimer+IDNWeakTarget.h"
+#import	"IDNAutoPersist.h"
+#import "IDNNotificationCenter.h"
 
 #ifndef Contacts_IDNFoundation_h
 #define Contacts_IDNFoundation_h
