@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 iosdev.net. All rights reserved.
 //
 
+#import "UIApplication+IDNExt.h"
 #import "IDNRefreshControl.h"
 #import "IDNSearchBar.h"
 #import "UIAlertView+IDN.h"
@@ -20,6 +21,7 @@
 #import "UIViewController+IDNScreenAdapt.h"
 #import "UIViewController+IDNTransition.h"
 #import "UIViewController+IDNPresentationStack.h"
+#import "UIWindow+IDNExt.h"
 
 #ifndef IDNFramework_IDNKit_h
 #define IDNFramework_IDNKit_h
