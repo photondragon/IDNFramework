@@ -7,6 +7,7 @@ typedef id (^IDNAsyncTaskBlock)(void);
 typedef void (^IDNAsyncTaskFinishedBlock)(id obj);
 typedef void (^IDNAsyncTaskCancelledBlock)();
 
+// 已弃用，建议使用IDNTask
 /// 异步任务
 /** 任务在后台主线程中执行，通知Block都是在主线程中执行的 */
 @interface IDNAsyncTask : NSObject

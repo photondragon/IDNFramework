@@ -68,14 +68,21 @@ enum IDNTaskState
 @property(nonatomic) NSInteger maxConcurrentTasks; //最大并发任务数
 @property(nonatomic) NSInteger maxConcurrentRequests; //最大并发网络请求数
 @property(nonatomic,strong) NSMutableDictionary* dicThreadTasks; //线程对应的任务
--(void) cancelTaskWithKey:(id)taskKey group:(id)group;
--(void) cancelAllTasksInGroup:(id)group;
-+(IDNTaskManage*)taskManager;
+- (void)cancelTaskWithKey:(id)key group:(id)group;
+- (void)cancelAllTasksInGroup:(id)group;
++ (IDNTaskManage*)taskManager;
 @end
+
+static Class classValue = nil;
+static Class classString = nil;
+static Class classNull = nil;
+static Class classNumber = nil;
+static Class classMutableString = nil;
+static Class classDate = nil;
 
 @implementation IDNTaskManage
 
-+(IDNTaskManage*)taskManager
++ (IDNTaskManage*)taskManager
 {
 	static IDNTaskManage* taskManager = nil;
 	if(taskManager==nil)
@@ -91,12 +98,12 @@ enum IDNTaskState
 	return taskManager;
 }
 
--(instancetype) init
+- (instancetype)init
 {
 	return nil;
 }
 
--(instancetype) initPrivate
+- (instancetype)initPrivate
 {
 	if((self = [super init]))
 	{
@@ -107,6 +114,13 @@ enum IDNTaskState
 		_dicThreadTasks = [[NSMutableDictionary alloc] init];
 		_maxConcurrentTasks = [self countOfCores]+1;
 		_maxConcurrentRequests = 16;
+
+		classString = [NSString class];
+		classMutableString = [NSMutableString class];
+		classNumber = [NSNumber class];
+		classValue = [NSValue class];
+		classNull = [NSNull class];
+		classDate = [NSDate class];
 	}
 	return self;
 }
@@ -116,16 +130,16 @@ enum IDNTaskState
 	unsigned int ncpu;
 	size_t len = sizeof(ncpu);
 	sysctlbyname("hw.ncpu", &ncpu, &len, NULL, 0);
-	
+
 	return ncpu;
 }
 
 #pragma mark Task
 
-+(NSOperationQueue*) operationQueue
++ (NSOperationQueue*)operationQueue
 {
 	static NSOperationQueue* operationQueue = nil;
-	
+
 	if(operationQueue==nil)
 	{
 		@synchronized(self)
@@ -145,71 +159,73 @@ enum IDNTaskState
 {
 	static int n=0;
 	int count = 0;
-//	while (isScheduleATaskSubmitted) {
-		@synchronized(self)
+	//	while (isScheduleATaskSubmitted) {
+	@synchronized(self)
+	{
+		while(concurrentTasksCount<_maxConcurrentTasks)//并发数未达上限
 		{
-			while(concurrentTasksCount<_maxConcurrentTasks)//并发数未达上限
+			NSInteger tasksCount = arrayAllTasks.count;
+			if(concurrentTasksCount>=tasksCount) //没有任务了
+				break;
+			n++;
+			NSInteger hotTasksCount = arrayHotTasks.count;
+			BOOL isHot;
+			if(hotTasksCount==0) //没有Hot任务
+				isHot = NO;
+			else if(hotTasksCount<tasksCount) //有Hot任务和普通任务
 			{
-				NSInteger tasksCount = arrayAllTasks.count;
-				if(concurrentTasksCount>=tasksCount) //没有任务了
-					break;
-				n++;
-				NSInteger hotTasksCount = arrayHotTasks.count;
-				BOOL isHot;
-				if(hotTasksCount==0) //没有Hot任务
-					isHot = NO;
-				else if(hotTasksCount<tasksCount) //有Hot任务和普通任务
-				{
-					if(n%HotTaskRatio)
-						isHot = YES;
-					else
-						isHot = NO;
-				}
-				else //if(hotTasksCount>=tasksCount) //没有普通任务
+				if(n%HotTaskRatio)
 					isHot = YES;
-				
-				IDNTask* aTask = nil;
-				
-				if (isHot) //Hot任务
-				{
-					for (IDNTask* task in arrayHotTasks) {
-						if (task.state==IDNTaskStateWaiting) {
-							aTask = task;
-							break;
-						}
-					}
-					if(aTask==nil)//没有Hot任务了
-						isHot = NO;
-				}
-				if(isHot==NO) //普通任务
-				{
-					for (IDNTask* task in arrayAllTasks) {
-						if (task.group!=currentGroup && task.state==IDNTaskStateWaiting) {
-							aTask = task;
-							break;
-						}
+				else
+					isHot = NO;
+			}
+			else //if(hotTasksCount>=tasksCount) //没有普通任务
+				isHot = YES;
+
+			IDNTask* aTask = nil;
+
+			if (isHot) //Hot任务
+			{
+				for (IDNTask* task in arrayHotTasks) {
+					if (task.state==IDNTaskStateWaiting) {
+						aTask = task;
+						break;
 					}
 				}
-				
-				if(aTask==nil)
-					break;
-				
-				aTask.state = IDNTaskStateRun; //必须在加锁区内设置这个属性，否则可能导致另一个scheduleATask线程也获取到这个任务
-				concurrentTasksCount++;
-				NSInvocationOperation* op	= [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(runATask:) object:aTask];
-				[[IDNTaskManage operationQueue] addOperation:op];
-				count++;
+				if(aTask==nil)//没有Hot任务了
+					isHot = NO;
 			}
-			
-			if (concurrentTasksCount<arrayAllTasks.count) { // 表示还有任务待处理 //死循环风险？？？
-				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01), dispatch_get_main_queue(), ^{
-					[self scheduleATask];
-				});
+			if(isHot==NO) //普通任务
+			{
+				for (IDNTask* task in arrayAllTasks) {
+					if (task.group!=currentGroup && task.state==IDNTaskStateWaiting) {
+						aTask = task;
+						break;
+					}
+				}
 			}
-			else
-				isScheduleATaskSubmitted = NO;
-		} //end @synchronized(self)
-//	}
+
+			if(aTask==nil)
+				break;
+
+			aTask.state = IDNTaskStateRun; //必须在加锁区内设置这个属性，否则可能导致另一个scheduleATask线程也获取到这个任务
+			concurrentTasksCount++;
+			NSInvocationOperation* op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(runATask:) object:aTask];
+			if([op respondsToSelector:@selector(setQualityOfService:)])
+				op.qualityOfService = NSQualityOfServiceUtility;
+			[[IDNTaskManage operationQueue] addOperation:op];
+			count++;
+		}
+
+		if (concurrentTasksCount<arrayAllTasks.count) { // 表示还有任务待处理 //死循环风险？？？
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01), dispatch_get_main_queue(), ^{
+				[self scheduleATask];
+			});
+		}
+		else
+			isScheduleATaskSubmitted = NO;
+	} //end @synchronized(self)
+	//	}
 	return count;
 }
 
@@ -218,14 +234,14 @@ enum IDNTaskState
 {
 	if(task.isCancelled)
 		return;
-	
+
 	NSValue* threadKey = [NSValue valueWithNonretainedObject:[NSThread currentThread]];
 	@synchronized(self)
 	{
 		// 设置当前线程运行的是哪个任务
 		_dicThreadTasks[threadKey] = [NSValue valueWithNonretainedObject:task];
 	}
-	
+
 	@try {
 		task.object = task.urlTaskBlock(task.requestError, task.responseData, task.response);
 	}
@@ -235,20 +251,20 @@ enum IDNTaskState
 	@finally {
 		;
 	}
-	
+
 	@synchronized(self)
 	{
 		_dicThreadTasks[threadKey] = [NSValue valueWithNonretainedObject:nil];
 	}
-	
+
 	if(task.isCancelled)
 		return;
-	
+
 	//任务完成后提交到主线程
 	[self performSelectorOnMainThread:@selector(taskFinished:) withObject:task waitUntilDone:NO];
 }
 
--(IDNTask*)taskInThread:(NSThread*)thread
+- (IDNTask*)taskInThread:(NSThread*)thread
 {
 	@synchronized(self)
 	{
@@ -258,7 +274,7 @@ enum IDNTaskState
 }
 
 //此方法只在主线程中被调用
--(void) taskFinished:(IDNTask*)task
+- (void)taskFinished:(IDNTask*)task
 {
 	@synchronized(self)
 	{
@@ -271,48 +287,64 @@ enum IDNTaskState
 		IDNTaskGroup* group = dicGroups[task.group];
 		[group.dicTasks removeObjectForKey:task.key];
 	}
-	
+
 	if(task.finishedBlock)
 		task.finishedBlock(task.object);
 }
 
 #pragma mark Load/Cancel
 
-static int nextTaskId = 0;
+#define CorrectGroup \
+if(group==nil)\
+	group = [NSNull null];\
+else\
+{\
+	Class groupClass = [group class];\
+	if(groupClass==classNull ||\
+		groupClass==classValue ||\
+		groupClass==classString ||\
+		groupClass==classNumber ||\
+		groupClass==classDate)\
+	{\
+		;\
+	}\
+	else if(groupClass == classMutableString)\
+	{\
+		group = [group copy];\
+	}\
+	else\
+		group = [NSValue valueWithNonretainedObject:group];\
+}
 
-- (id)putTaskWithKey:(id)taskKey group:(id)group taskBlock:(IDNTaskBlock)taskBlock finishedBlock:(IDNTaskFinishedBlock)finishedBlock cancelledBlock:(IDNTaskCancelledBlock)cancelledBlock
+- (id)submitTask:(IDNTaskBlock)taskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock key:(id)key group:(id)group;
 {
 	if(taskBlock==nil)
 		return nil;
-	return [self putTaskWithKey:taskKey group:group request:nil urlTaskBlock:^id(NSError*requestError, NSData *responseData, NSURLResponse *response) {
+	return [self submitURLRequest:nil task:^id(NSError*requestError, NSData *responseData, NSURLResponse *response) {
 		return taskBlock();
-	} finishedBlock:finishedBlock cancelledBlock:cancelledBlock];
+	} finished:finishedBlock cancelled:cancelledBlock key:key group:group];
 }
 
-- (id)putTaskWithKey:(id)taskKey group:(id)group request:(NSURLRequest*)request urlTaskBlock:(id (^)(NSError*requestError, NSData* responseData, NSURLResponse* response))urlTaskBlock finishedBlock:(IDNTaskFinishedBlock)finishedBlock cancelledBlock:(IDNTaskCancelledBlock)cancelledBlock
+static int nextTaskId = 0;
+
+- (id)submitURLRequest:(NSURLRequest*)request task:(IDNURLTaskBlock)taskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock key:(id)key group:(id)group
 {
-	if(urlTaskBlock==nil)
+	if(taskBlock==nil)
 		return nil;
-	if(taskKey==nil)
+	if(key==nil)
 	{
-		taskKey = [NSString stringWithFormat:@"^$&IDNTask%d",nextTaskId++];
+		key = [NSString stringWithFormat:@"^$&IDNTask%d",nextTaskId++];
 	}
-	if(group==nil)
-		group = [NSNull null];
-	else if([group isKindOfClass:[NSString class]]==NO &&
-			[group isKindOfClass:[NSNumber class]]==NO &&
-			[group isKindOfClass:[NSValue class]]==NO &&
-			[group isKindOfClass:[NSDate class]]==NO &&
-			[group isKindOfClass:[NSNull class]]==NO)
-		group = [NSValue valueWithNonretainedObject:group];
-	IDNTask* task	= [[IDNTask alloc] init];
-	task.key = taskKey;
+	CorrectGroup
+
+	IDNTask* task = [[IDNTask alloc] init];
+	task.key = key;
 	task.group = group;
 	task.request = request;
-	task.urlTaskBlock	= urlTaskBlock;
+	task.urlTaskBlock = taskBlock;
 	task.finishedBlock = finishedBlock;
 	task.cancelledBlock = cancelledBlock;
-	
+
 	if(request)
 	{
 		task.state = IDNTaskStateRequest;
@@ -327,8 +359,8 @@ static int nextTaskId = 0;
 			taskGroup.group = group;
 			dicGroups[group] = taskGroup;
 		}
-		
-		IDNTask* oldTask = taskGroup.dicTasks[taskKey];
+
+		IDNTask* oldTask = taskGroup.dicTasks[key];
 		if(oldTask)
 		{
 			oldTask.isCancelled = TRUE;//取消旧任务
@@ -344,12 +376,12 @@ static int nextTaskId = 0;
 				});
 			}
 		}
-		taskGroup.dicTasks[taskKey] = task;
-		
+		taskGroup.dicTasks[key] = task;
+
 		[arrayAllTasks addObject:task];
 		if([group isEqual:currentGroup])
 			[arrayHotTasks addObject:task];
-		
+
 		if (isScheduleATaskSubmitted==NO) {
 			isScheduleATaskSubmitted = YES;
 			dispatch_async(dispatch_get_main_queue(), ^{
@@ -357,7 +389,7 @@ static int nextTaskId = 0;
 			});
 		}
 	}
-	return taskKey;
+	return key;
 }
 
 - (void)reportCancelledTasksOnMainThread
@@ -383,28 +415,27 @@ static int nextTaskId = 0;
 	}
 }
 
--(void) cancelTaskWithKey:(id)taskKey group:(id)group;
+- (void)cancelTaskWithKey:(id)key group:(id)group;
 {
-	if(taskKey==nil)
+	if(key==nil)
 		return;
-	
-	if (group==nil)
-		group = [NSNull null];
-	
+
+	CorrectGroup
+
 	@synchronized(self)
 	{
 		IDNTaskGroup* taskGroup = dicGroups[group];
-		IDNTask* task = taskGroup.dicTasks[taskKey];
+		IDNTask* task = taskGroup.dicTasks[key];
 		if(task==nil)
 			return;
-		
+
 		task.isCancelled = YES;
 		[task cancelRequest];
 		[arrayCancelledTasks addObject:task];
 		[arrayAllTasks removeObjectIdenticalTo:task];
 		[arrayHotTasks removeObjectIdenticalTo:task];
-		[taskGroup.dicTasks removeObjectForKey:taskKey];
-		
+		[taskGroup.dicTasks removeObjectForKey:key];
+
 		if(isReportCancelledTasksSubmitted==NO)
 		{
 			isReportCancelledTasksSubmitted = YES;
@@ -415,11 +446,10 @@ static int nextTaskId = 0;
 	}
 }
 
--(void) cancelAllTasksInGroup:(id)group
+- (void)cancelAllTasksInGroup:(id)group
 {
-	if (group==nil)
-		group = [NSNull null];
-	
+	CorrectGroup
+
 	@synchronized(self)
 	{
 		IDNTaskGroup* taskGroup = dicGroups[group];
@@ -435,7 +465,7 @@ static int nextTaskId = 0;
 		}
 		//		[taskGroup.dicTasks removeAllObjects];
 		[dicGroups removeObjectForKey:group];
-		
+
 		if(isReportCancelledTasksSubmitted==NO)
 		{
 			isReportCancelledTasksSubmitted = YES;
@@ -568,7 +598,7 @@ static NSMutableArray* startedConnections = nil;
 		return;
 	[IDNTask delRequestTask:self];
 	// 取消请求不是Error
-//	self.requestError = [NSError errorWithDomain:NSStringFromClass(self.class) code:0 userInfo:@{NSLocalizedDescriptionKey:@"请求取消"}];
+	//	self.requestError = [NSError errorWithDomain:NSStringFromClass(self.class) code:0 userInfo:@{NSLocalizedDescriptionKey:@"请求取消"}];
 }
 
 #pragma mark NSURLConnectionDataDelegate
@@ -580,13 +610,13 @@ static NSMutableArray* startedConnections = nil;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-//	NSLog(@"%s", __func__);
+	//	NSLog(@"%s", __func__);
 	self.response = response;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-//	NSLog(@"%s", __func__);
+	//	NSLog(@"%s", __func__);
 	if(_responseData==nil)
 		_responseData = [NSMutableData new];
 	[_responseData appendData:data];
@@ -611,7 +641,7 @@ static NSMutableArray* startedConnections = nil;
 // 请求成功
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-//	NSLog(@"%s", __func__);
+	//	NSLog(@"%s", __func__);
 	[IDNTask delRequestTask:self];
 	self.state = IDNTaskStateWaiting;
 }
@@ -619,7 +649,7 @@ static NSMutableArray* startedConnections = nil;
 // 请求失败
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-//	NSLog(@"%s", __func__);
+	//	NSLog(@"%s", __func__);
 	[IDNTask delRequestTask:self];
 	self.requestError = error;
 	self.state = IDNTaskStateWaiting;
@@ -628,53 +658,44 @@ static NSMutableArray* startedConnections = nil;
 
 #pragma mark class methods
 
-+ (id)putTask:(IDNTaskBlock)taskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock
++ (id)submitTask:(IDNTaskBlock)taskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock
 {
-	return [[IDNTaskManage taskManager] putTaskWithKey:nil group:nil taskBlock:taskBlock finishedBlock:finishedBlock cancelledBlock:cancelledBlock];
+	return [[IDNTaskManage taskManager] submitTask:taskBlock finished:finishedBlock cancelled:cancelledBlock key:nil group:nil];
 }
-+ (id)putTask:(IDNTaskBlock)taskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock group:(id)group
++ (id)submitTask:(IDNTaskBlock)taskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock key:(id)key group:(id)group;
 {
-	return [[IDNTaskManage taskManager] putTaskWithKey:nil group:group taskBlock:taskBlock finishedBlock:finishedBlock cancelledBlock:cancelledBlock];
-}
-+ (id)putTaskWithKey:(id)taskKey group:(id)group task:(IDNTaskBlock)taskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock
-{
-	return [[IDNTaskManage taskManager] putTaskWithKey:taskKey group:group taskBlock:taskBlock finishedBlock:finishedBlock cancelledBlock:cancelledBlock];
+	return [[IDNTaskManage taskManager] submitTask:taskBlock finished:finishedBlock cancelled:cancelledBlock key:key group:group];
 }
 
-+ (id)putTaskWithRequest:(NSURLRequest*)request urlTask:(id (^)(NSError*requestError, NSData* responseData, NSURLResponse* response))urlTaskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock
++ (id)submitURLRequest:(NSURLRequest*)request task:(id (^)(NSError*requestError, NSData* responseData, NSURLResponse* response))taskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock
 {
-	return [[IDNTaskManage taskManager] putTaskWithKey:nil group:nil request:request urlTaskBlock:urlTaskBlock finishedBlock:finishedBlock cancelledBlock:cancelledBlock];
+	return [[IDNTaskManage taskManager] submitURLRequest:request task:taskBlock finished:finishedBlock cancelled:cancelledBlock key:nil group:nil];
 }
 
-+ (id)putTaskWithRequest:(NSURLRequest*)request urlTask:(id (^)(NSError*requestError, NSData* responseData, NSURLResponse* response))urlTaskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock group:(id)group
++ (id)submitURLRequest:(NSURLRequest*)request task:(IDNURLTaskBlock)taskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock key:(id)key group:(id)group
 {
-	return [[IDNTaskManage taskManager] putTaskWithKey:nil group:group request:request urlTaskBlock:urlTaskBlock finishedBlock:finishedBlock cancelledBlock:cancelledBlock];
+	return [[IDNTaskManage taskManager] submitURLRequest:request task:taskBlock finished:finishedBlock cancelled:cancelledBlock key:key group:group];
 }
 
-+ (id)putTaskWithKey:(id)taskKey group:(id)group request:(NSURLRequest*)request urlTask:(id (^)(NSError*requestError, NSData* responseData, NSURLResponse* response))urlTaskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock
++ (void)cancelTaskWithKey:(id)key group:(id)group
 {
-	return [[IDNTaskManage taskManager] putTaskWithKey:taskKey group:group request:request urlTaskBlock:urlTaskBlock finishedBlock:finishedBlock cancelledBlock:cancelledBlock];
+	[[IDNTaskManage taskManager] cancelTaskWithKey:key group:group];
 }
 
-+(void) cancelTaskWithKey:(id)taskKey group:(id)group
-{
-	[[IDNTaskManage taskManager] cancelTaskWithKey:taskKey group:group];
-}
-
-+(void) cancelAllTasksInGroup:(id)group
++ (void)cancelAllTasksInGroup:(id)group
 {
 	[[IDNTaskManage taskManager] cancelAllTasksInGroup:group];
 }
 
-+(BOOL) isTaskCancelled
++ (BOOL)isTaskCancelled
 {
 	return [[IDNTaskManage taskManager] taskInThread:[NSThread currentThread]].isCancelled;
 }
 
-+ (NSURLRequest*)requestGetFromUrl:(NSString *)url
++ (NSURLRequest*)requestHttpGetWithUrl:(NSString *)url
 {
 	NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-	request.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
+	request.cachePolicy = NSURLRequestReloadIgnoringCacheData;
 	request.timeoutInterval = 30.0;
 	request.HTTPMethod = @"GET";
 	return request;
