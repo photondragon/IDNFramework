@@ -90,7 +90,7 @@
 {
 	@synchronized(self)
 	{
-		[dic setObject:anObject forKeyedSubscript:aKey];
+		[dic setObject:anObject forKey:aKey];
 		[self setNeedSaving];
 	}
 }

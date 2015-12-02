@@ -140,9 +140,23 @@
     if(!list.count){
         return;
     }
+	NSMutableArray* array = [NSMutableArray new];
     [lock lock];
-    for(NotificationObserver *observerObject in list){
+	for(NSInteger i=list.count-1; i>=0; i--)
+	{
+		NotificationObserver *observerObject = list[i];
+		if(observerObject.observer==nil)
+		{
+			[list removeObjectAtIndex:i];
+			continue;
+		}
         if([notification.name isEqualToString:observerObject.notificationName] && (observerObject.object==nil || notification.object==observerObject.object)){
+			[array insertObject:observerObject atIndex:0];
+        }
+    }
+    [lock unlock];
+	
+	for(NotificationObserver *observerObject in array){
 
 			id observer = observerObject.observer;
 			SEL aSelector = observerObject.selector;
@@ -156,9 +170,7 @@
 			func(observer, aSelector, notification);
 			
 //			[observerObject.observer performSelector:observerObject.selector withObject:notification];
-        }
-    }
-    [lock unlock];
+	}
 }
 - (void)postNotificationName:(NSString *)aName object:(id)anObject
 {
