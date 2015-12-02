@@ -17,7 +17,6 @@
 }
 - (void)UIButton_IDNColor_SaveBackgroundColor:(UIColor*)color
 {
-	NSLog(@"%s: %@", __func__, color);
 	[self setCustomObject:color forKey:@"UIButton_IDNColor_savedBackgroundColor"];
 }
 

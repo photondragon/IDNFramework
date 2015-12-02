@@ -43,7 +43,7 @@
 		return nil;
 	NSMutableDictionary* dic = [NSMutableDictionary new];
 	for (NSString* str in array) {
-		NSString* str1 = [str stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		NSString* str1 = str.stringByRemovingPercentEncoding;
 		NSInteger equalLoc = [str1 rangeOfString:@"="].location;
 		if(equalLoc==NSNotFound) //等于号的位置
 			continue;
@@ -230,6 +230,68 @@
 		retData = nil;
 	free(buffer);
 	return retData;
+}
+
+#pragma mark - 字符串检测处理
+
+- (NSString*)trim
+{
+	return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+- (NSString*)truncateWithLength:(NSUInteger)length
+{
+	NSUInteger l = self.length;
+	if(l<=length)
+		return self;
+	return [self substringWithRange:NSMakeRange(0, length)];
+}
+
+- (BOOL)isNotPureNumeric
+{
+	for(NSInteger i = self.length-1; i >=0 ; i--)
+	{
+		unichar c = [self characterAtIndex:i];
+		if (c<'0' || c>'9')
+			return YES;
+	}
+	return NO;
+}
+
+- (BOOL)isNotPureAlphabet
+{
+	for(NSInteger i = self.length-1; i >=0 ; i--)
+	{
+		unichar c = [self characterAtIndex:i];
+		if( !((c>='a' && c<='z') || (c>='A' && c<='Z')) )
+			return YES;
+	}
+	return NO;
+}
+
+- (NSString*)stringByRemovingCharactersInSet:(NSCharacterSet*)charSet
+{
+	if(charSet==nil)
+		return self;
+	NSInteger oldLength = self.length;
+	if(oldLength==0)
+		return self;
+	unichar* buffer = malloc(sizeof(unichar)*oldLength);
+	[self getCharacters:buffer range:NSMakeRange(0, oldLength)];
+	NSInteger newLength = 0;
+	for (NSInteger i = 0; i<oldLength; i++) {
+		if([charSet characterIsMember:buffer[i]]) //需要移除
+			continue;
+		if(newLength!=i)
+			buffer[newLength] = buffer[i];
+		newLength++;
+	}
+	if(newLength==oldLength)
+	{
+		free(buffer);
+		return self;
+	}
+	return [[NSString alloc] initWithCharactersNoCopy:buffer length:newLength freeWhenDone:YES];
 }
 
 @end

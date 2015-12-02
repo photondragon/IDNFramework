@@ -210,6 +210,12 @@
 		9439977E1C0E945300596FB6 /* UIWindow+IDNExt.h in Headers */ = {isa = PBXBuildFile; fileRef = 943996BA1C0E945300596FB6 /* UIWindow+IDNExt.h */; };
 		9439977F1C0E945300596FB6 /* UIWindow+IDNExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 943996BB1C0E945300596FB6 /* UIWindow+IDNExt.m */; };
 		943997801C0E945300596FB6 /* UIWindow+IDNExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 943996BB1C0E945300596FB6 /* UIWindow+IDNExt.m */; };
+		943997841C0EBCAF00596FB6 /* UITextField+IDNExt.h in Headers */ = {isa = PBXBuildFile; fileRef = 943997821C0EBCAF00596FB6 /* UITextField+IDNExt.h */; };
+		943997851C0EBCAF00596FB6 /* UITextField+IDNExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 943997831C0EBCAF00596FB6 /* UITextField+IDNExt.m */; };
+		943997881C0EBE3300596FB6 /* UITextField+IDNDel2Clear.h in Headers */ = {isa = PBXBuildFile; fileRef = 943997861C0EBE3300596FB6 /* UITextField+IDNDel2Clear.h */; };
+		943997891C0EBE3300596FB6 /* UITextField+IDNDel2Clear.m in Sources */ = {isa = PBXBuildFile; fileRef = 943997871C0EBE3300596FB6 /* UITextField+IDNDel2Clear.m */; };
+		9439978A1C0EBE3300596FB6 /* UITextField+IDNDel2Clear.m in Sources */ = {isa = PBXBuildFile; fileRef = 943997871C0EBE3300596FB6 /* UITextField+IDNDel2Clear.m */; };
+		9439978B1C0EC3AF00596FB6 /* UITextField+IDNExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 943997831C0EBCAF00596FB6 /* UITextField+IDNExt.m */; };
 		945DB68B1AD8FC8800C13526 /* IDNFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945DB67F1AD8FC8800C13526 /* IDNFramework.framework */; };
 		94AA6DF81B38077E00778B21 /* IDNFileCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AA6DF71B38077E00778B21 /* IDNFileCacheTest.m */; };
 /* End PBXBuildFile section */
@@ -367,6 +373,10 @@
 		943996B91C0E945300596FB6 /* UIViewController+IDNTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+IDNTransition.m"; sourceTree = "<group>"; };
 		943996BA1C0E945300596FB6 /* UIWindow+IDNExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+IDNExt.h"; sourceTree = "<group>"; };
 		943996BB1C0E945300596FB6 /* UIWindow+IDNExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+IDNExt.m"; sourceTree = "<group>"; };
+		943997821C0EBCAF00596FB6 /* UITextField+IDNExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+IDNExt.h"; sourceTree = "<group>"; };
+		943997831C0EBCAF00596FB6 /* UITextField+IDNExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+IDNExt.m"; sourceTree = "<group>"; };
+		943997861C0EBE3300596FB6 /* UITextField+IDNDel2Clear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+IDNDel2Clear.h"; sourceTree = "<group>"; };
+		943997871C0EBE3300596FB6 /* UITextField+IDNDel2Clear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+IDNDel2Clear.m"; sourceTree = "<group>"; };
 		945DB67F1AD8FC8800C13526 /* IDNFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IDNFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		945DB6831AD8FC8800C13526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		945DB68A1AD8FC8800C13526 /* IDNFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IDNFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -575,6 +585,10 @@
 				943996B91C0E945300596FB6 /* UIViewController+IDNTransition.m */,
 				943996BA1C0E945300596FB6 /* UIWindow+IDNExt.h */,
 				943996BB1C0E945300596FB6 /* UIWindow+IDNExt.m */,
+				943997821C0EBCAF00596FB6 /* UITextField+IDNExt.h */,
+				943997831C0EBCAF00596FB6 /* UITextField+IDNExt.m */,
+				943997861C0EBE3300596FB6 /* UITextField+IDNDel2Clear.h */,
+				943997871C0EBE3300596FB6 /* UITextField+IDNDel2Clear.m */,
 			);
 			path = IDNKit;
 			sourceTree = "<group>";
@@ -651,6 +665,7 @@
 				9439974B1C0E945300596FB6 /* UIButton+IDNColor.h in Headers */,
 				943997301C0E945300596FB6 /* IDNSideMenuController.h in Headers */,
 				9439976F1C0E945300596FB6 /* UIViewController+IDNPresentationStack.h in Headers */,
+				943997881C0EBE3300596FB6 /* UITextField+IDNDel2Clear.h in Headers */,
 				943997661C0E945300596FB6 /* UIView+IDNKeyboard.h in Headers */,
 				9439976C1C0E945300596FB6 /* UIViewController+IDNOrientation.h in Headers */,
 				943996BF1C0E945300596FB6 /* IDNAutoPersist.h in Headers */,
@@ -708,6 +723,7 @@
 				943997421C0E945300596FB6 /* UIAlertView+IDN.h in Headers */,
 				9439975D1C0E945300596FB6 /* UITabBar+IDNRedPoint.h in Headers */,
 				943996FC1C0E945300596FB6 /* NSObject+IDNPerformSelector.h in Headers */,
+				943997841C0EBCAF00596FB6 /* UITextField+IDNExt.h in Headers */,
 				943996F31C0E945300596FB6 /* NSObject+IDNDeallocBlock.h in Headers */,
 				9439970E1C0E945300596FB6 /* IDNColorButton.h in Headers */,
 				943997781C0E945300596FB6 /* UIViewController+IDNStatusBar.h in Headers */,
@@ -849,6 +865,7 @@
 				943996C41C0E945300596FB6 /* IDNFileCache.m in Sources */,
 				943996F81C0E945300596FB6 /* NSObject+IDNEventHandle.m in Sources */,
 				943997411C0E945300596FB6 /* IDNViewControllerAnimatedTransitioningLeftRight.m in Sources */,
+				9439978B1C0EC3AF00596FB6 /* UITextField+IDNExt.m in Sources */,
 				943997561C0E945300596FB6 /* UIPickerView+IDNPickDate.m in Sources */,
 				9439972C1C0E945300596FB6 /* IDNScanCodeView.m in Sources */,
 				9439973E1C0E945300596FB6 /* IDNTouchGestureRecognizer.m in Sources */,
@@ -894,6 +911,7 @@
 				943996E01C0E945300596FB6 /* NSArray+IDN.m in Sources */,
 				943997261C0E945300596FB6 /* IDNProgressView.m in Sources */,
 				943996D71C0E945300596FB6 /* IDNResultList.m in Sources */,
+				9439978A1C0EBE3300596FB6 /* UITextField+IDNDel2Clear.m in Sources */,
 				943997591C0E945300596FB6 /* UIPickerView+IDNTap.m in Sources */,
 				943996FB1C0E945300596FB6 /* NSObject+IDNNotice.m in Sources */,
 				943997441C0E945300596FB6 /* UIAlertView+IDN.m in Sources */,
@@ -934,6 +952,7 @@
 				9439972B1C0E945300596FB6 /* IDNScanCodeView.m in Sources */,
 				9439970C1C0E945300596FB6 /* IDNActivityIndicator.m in Sources */,
 				943997611C0E945300596FB6 /* UIView+IDNCountBadge.m in Sources */,
+				943997851C0EBCAF00596FB6 /* UITextField+IDNExt.m in Sources */,
 				943997221C0E945300596FB6 /* IDNPageController.m in Sources */,
 				9439976D1C0E945300596FB6 /* UIViewController+IDNOrientation.m in Sources */,
 				943997151C0E945300596FB6 /* IDNGradientView.m in Sources */,
@@ -962,6 +981,7 @@
 				943996E81C0E945300596FB6 /* NSDictionary+IDNExtend.m in Sources */,
 				9439973A1C0E945300596FB6 /* IDNTopTabController.m in Sources */,
 				943997121C0E945300596FB6 /* IDNFrameView.m in Sources */,
+				943997891C0EBE3300596FB6 /* UITextField+IDNDel2Clear.m in Sources */,
 				943997031C0E945300596FB6 /* NSString+IDNExtend.m in Sources */,
 				943996DF1C0E945300596FB6 /* NSArray+IDN.m in Sources */,
 				9439971B1C0E945300596FB6 /* IDNInputHelperView.m in Sources */,

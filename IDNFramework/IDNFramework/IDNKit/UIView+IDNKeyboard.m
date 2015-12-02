@@ -137,6 +137,11 @@ static char bindDataKey = 0;
 	UIView* hitView = [tapView hitTest:[tap locationInView:tapView] withEvent:nil];
 	if([hitView canBecomeFirstResponder])
 		return;
+	else if([hitView isKindOfClass:[UIButton class]]) //如果点到了按钮
+	{
+		if(((UIButton*)hitView).enabled) //并且按钮可点
+			return;
+	}
 
 	// 点到其它区域则resignFirstResponder
 	[tapView endEditing:YES];

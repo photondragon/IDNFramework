@@ -15,6 +15,7 @@
 #import "UITabBar+IDNRedPoint.h"
 #import "UIBezierPath+IDNExtend.h"
 #import "UIScreen+IDNExtend.h"
+#import "UITextField+IDNExt.h"
 #import "UIView+IDNExtend.h"
 #import "UIView+IDNCountBadge.h"
 #import	"UIView+IDNKeyboard.h"
