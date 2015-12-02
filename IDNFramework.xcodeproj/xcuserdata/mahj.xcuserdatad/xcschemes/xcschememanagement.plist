@@ -9,9 +9,19 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>IDNKitSample.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>9439961E1C0E8A9F00596FB6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>945DB67E1AD8FC8800C13526</key>
 		<dict>
 			<key>primary</key>
