@@ -27,36 +27,6 @@
 
 @implementation UITextField(IDNExt)
 
-#pragma mark - 禁用菜单
-
-+ (void)load
-{
-	static BOOL exchanged = NO;
-	if(exchanged==NO)
-	{
-		exchanged = YES;
-		Method oldMethod = class_getInstanceMethod(self, @selector(canPerformAction:withSender:));
-		Method newMethod = class_getInstanceMethod(self, @selector(UITextFieldIDNExt_canPerformAction:withSender:));
-		method_exchangeImplementations(oldMethod, newMethod);
-	}
-}
-
-- (BOOL)UITextFieldIDNExt_canPerformAction:(SEL)action withSender:(id)sender
-{
-	if(self.disablePopoverMenu)
-		return NO;
-	return [self UITextFieldIDNExt_canPerformAction:action withSender:sender];
-}
-
-- (BOOL)disablePopoverMenu
-{
-	return [[self customObjectForKey:@"UITextField(IDNExt)disablePopoverMenu"] boolValue];
-}
-- (void)setDisablePopoverMenu:(BOOL)disablePopoverMenu
-{
-	[self setCustomObject:@(disablePopoverMenu) forKey:@"UITextField(IDNExt)disablePopoverMenu"];
-}
-
 #pragma mark - delegate adaptor
 
 + (void)initialize
@@ -189,7 +159,7 @@
 	{
 		NSString* t1 = [self textBeforeCursor];
 		NSString* t12 = [t1 stringByRemovingCharactersInSet:charSet.invertedSet];
-		if(t1 != t12) //前段被过滤
+		if(t1.length != t12.length) //前段被过滤
 		{
 			cursorMoveOffset = t12.length - t1.length;
 			t1 = t12;
@@ -197,7 +167,7 @@
 		}
 		NSString* t2 = [self textAfterCursor];
 		NSString* t22 = [t2 stringByRemovingCharactersInSet:charSet.invertedSet];
-		if(t2 != t22) //被过滤了
+		if(t2.length != t22.length) //被过滤了
 		{
 			t2 = t22;
 			filtered = YES;

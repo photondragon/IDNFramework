@@ -33,9 +33,12 @@ static char bindDictionaryKey = 0;
 }
 - (void)setCustomObject:(id)anObject forKey:(id <NSCopying>)aKey
 {
-	if(anObject==nil || aKey==nil)
+	if(aKey==nil)
 		return;
-	[[self autoBindedDictOfNSObjectIDNCustomObject] setObject:anObject forKey:aKey];
+	if(anObject)
+		[[self autoBindedDictOfNSObjectIDNCustomObject] setObject:anObject forKey:aKey];
+	else
+		[[self bindedDictOfNSObjectIDNCustomObject] removeObjectForKey:aKey];
 }
 - (void)removeCustomObjectForKey:(id)aKey
 {
