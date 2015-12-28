@@ -10,6 +10,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonCrypto.h>
 #import <CommonCrypto/CommonHMAC.h>
+#import "NSDictionary+IDNExtend.h"
 
 @implementation NSString(IDNExtend)
 
@@ -292,6 +293,18 @@
 		return self;
 	}
 	return [[NSString alloc] initWithCharactersNoCopy:buffer length:newLength freeWhenDone:YES];
+}
+
+#pragma mark - 转换
+
+- (NSDictionary*)dictionaryFromJson
+{
+	NSData* data = [self dataUsingEncoding:NSUTF8StringEncoding];
+	NSError* error;
+	NSDictionary* obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+	if([obj isKindOfClass:[NSDictionary class]]==NO)
+		return nil;
+	return [obj dictionaryWithoutNSNull];
 }
 
 @end

@@ -52,4 +52,16 @@
 	return [self.class dictionaryWithoutNSNull:self];
 }
 
+- (NSString *)jsonString
+{
+	NSError *error = nil;
+	NSData * data = [NSJSONSerialization dataWithJSONObject:self
+													options:0
+													  error:&error];
+	if(error)
+		NSLog(@"JSON Parsing Error: %@", error);
+	
+	return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
 @end

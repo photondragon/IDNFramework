@@ -80,4 +80,10 @@ static char bindObjectKey = 0;
 	}
 }
 
+//- (id)forwardingTargetForSelector:(SEL)aSelector
+//{
+//	if(aSelector==@selector(length))
+//		return nil;
+//	return nil;
+//}
 @end

@@ -22,6 +22,7 @@
 + (instancetype)sharedCache; ///< 默认的文件缓存器，其本地缓存目录为Library/Caches/IDNFileCache/
 
 @property(nonatomic,readonly) NSString* localCacheDir; ///< 本地缓存目录
+@property(nonatomic,strong) NSString* fileExtension; //文件后缀名, 默认nil
 
 /**
  @param localCacheDir 保存缓存文件的本地目录
@@ -31,6 +32,7 @@
 #pragma mark 从缓存获取
 
 - (NSData*)dataWithKey:(NSString*)key; ///< 根据key获取缓存文件的数据
+- (NSString*)filePathWithKey:(NSString*)key;
 
 /** 获取缓存文件的数据
  @param key 缓存文件的key
@@ -38,8 +40,10 @@
  @return NSData* 缓存文件的数据。如果文件不存在，或缓存时间超过cacheAge，则返回nil
  */
 - (NSData*)dataWithKey:(NSString*)key cacheAge:(NSTimeInterval)cacheAge;
+- (NSString*)filePathWithKey:(NSString*)key cacheAge:(NSTimeInterval)cacheAge;
 
 - (BOOL)isFileExistWithKey:(NSString*)key; ///< 检测缓存文件的是否存在
+- (NSString*)calcFilePathForKey:(NSString*)key; // 计算key对应的本地文件名
 
 /** 检测缓存文件的是否存在
  @param key 缓存文件的key

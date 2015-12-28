@@ -219,6 +219,8 @@
 		943997851C0EBCAF00596FB6 /* UITextField+IDNExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 943997831C0EBCAF00596FB6 /* UITextField+IDNExt.m */; };
 		9439978B1C0EC3AF00596FB6 /* UITextField+IDNExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 943997831C0EBCAF00596FB6 /* UITextField+IDNExt.m */; };
 		945DB68B1AD8FC8800C13526 /* IDNFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945DB67F1AD8FC8800C13526 /* IDNFramework.framework */; };
+		94A00E7E1C18752A0020264B /* IDNAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 94A00E7C1C18752A0020264B /* IDNAudioPlayer.h */; };
+		94A00E7F1C18752A0020264B /* IDNAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A00E7D1C18752A0020264B /* IDNAudioPlayer.m */; };
 		94AA6DF81B38077E00778B21 /* IDNFileCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AA6DF71B38077E00778B21 /* IDNFileCacheTest.m */; };
 /* End PBXBuildFile section */
 
@@ -385,6 +387,8 @@
 		945DB6831AD8FC8800C13526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		945DB68A1AD8FC8800C13526 /* IDNFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IDNFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		945DB6901AD8FC8800C13526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94A00E7C1C18752A0020264B /* IDNAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNAudioPlayer.h; sourceTree = "<group>"; };
+		94A00E7D1C18752A0020264B /* IDNAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNAudioPlayer.m; sourceTree = "<group>"; };
 		94AA6DF71B38077E00778B21 /* IDNFileCacheTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNFileCacheTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -417,6 +421,7 @@
 		942C7C101BDFBAD300E8F41F /* IDNFramework */ = {
 			isa = PBXGroup;
 			children = (
+				94A00E7B1C18751C0020264B /* IDNMedia */,
 				943996361C0E945300596FB6 /* IDNFoundation */,
 				9439966C1C0E945300596FB6 /* IDNKit */,
 			);
@@ -653,6 +658,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		94A00E7B1C18751C0020264B /* IDNMedia */ = {
+			isa = PBXGroup;
+			children = (
+				94A00E7C1C18752A0020264B /* IDNAudioPlayer.h */,
+				94A00E7D1C18752A0020264B /* IDNAudioPlayer.m */,
+			);
+			path = IDNMedia;
+			sourceTree = "<group>";
+		};
 		94AA6DF61B38077E00778B21 /* IDNFoundationTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -696,6 +710,7 @@
 				943997141C0E945300596FB6 /* IDNGradientView.h in Headers */,
 				943996DE1C0E945300596FB6 /* NSArray+IDN.h in Headers */,
 				943997331C0E945300596FB6 /* IDNSplitMainController.h in Headers */,
+				94A00E7E1C18752A0020264B /* IDNAudioPlayer.h in Headers */,
 				943996CC1C0E945300596FB6 /* IDNListItemCenter.h in Headers */,
 				943997541C0E945300596FB6 /* UIPickerView+IDNPickDate.h in Headers */,
 				943997571C0E945300596FB6 /* UIPickerView+IDNTap.h in Headers */,
@@ -1008,6 +1023,7 @@
 				943997061C0E945300596FB6 /* NSTimer+IDNWeakTarget.m in Sources */,
 				943997371C0E945300596FB6 /* IDNTapGestureRecognizer.m in Sources */,
 				943997251C0E945300596FB6 /* IDNProgressView.m in Sources */,
+				94A00E7F1C18752A0020264B /* IDNAudioPlayer.m in Sources */,
 				943996D61C0E945300596FB6 /* IDNResultList.m in Sources */,
 				943996D91C0E945300596FB6 /* IDNSegList.m in Sources */,
 				9439974C1C0E945300596FB6 /* UIButton+IDNColor.m in Sources */,

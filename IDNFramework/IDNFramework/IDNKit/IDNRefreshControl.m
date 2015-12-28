@@ -556,7 +556,7 @@ static char associatedObjectKeyIDNRefreshControl = 0;
 		for (NSNumber* index in modified) {
 			[indexPathes addObject:[NSIndexPath indexPathForRow:[index integerValue] inSection:section]];
 		}
-		[self reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationAutomatic]; // 在beginUpdates和endUpdates之间调用此方法，indics应该是基于原列表的index。而
+		[self reloadRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationNone]; // 在beginUpdates和endUpdates之间调用此方法，indics应该是基于原列表的index。而
 	}
 	if (deleted.count)
 	{

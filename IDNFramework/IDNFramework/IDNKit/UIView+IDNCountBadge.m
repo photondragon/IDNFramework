@@ -114,8 +114,8 @@
 	}
 	else
 	{
-		if(count>999)
-			text = @"999+";
+		if(count>99)
+			text = @"99+";
 		else if(count<-99)
 			text = @"-99+";
 		else

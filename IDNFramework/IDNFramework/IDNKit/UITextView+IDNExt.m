@@ -24,46 +24,11 @@
 
 @implementation UITextView(IDNExt)
 
-- (void)dealloc
-{
-	[self unsetDelegateAdaptor];
-	NSLog(@"%s", __func__);
-}
-
-#pragma mark - delegate adaptor
-
-+ (void)initialize
-{
-	static BOOL replaced = NO;
-	if(replaced==NO)
-	{
-		replaced = YES;
-//		Method oldMethod = class_getInstanceMethod([UITextView class], @selector(setDelegate:));
-//		Method newMethod = class_getInstanceMethod([UITextView class], @selector(idn_setDelegate:));
-//		method_exchangeImplementations(oldMethod, newMethod);
-		
-//		Method oldGetDelegateMethod = class_getInstanceMethod([UITextView class], @selector(delegate));
-//		Method newGetDelegateMethod = class_getInstanceMethod([UITextView class], @selector(idn_getDelegate));
-//		method_exchangeImplementations(oldGetDelegateMethod, newGetDelegateMethod);
-	}
-}
-
-//- (id<UITextViewDelegate>)idn_getDelegate
+//- (void)dealloc
 //{
-//	UITextViewIDNExtDelegateAdaptor* delegateAdaptor = [self idn_delegateAdaptor];
-//	if(delegateAdaptor)
-//		return delegateAdaptor.outDelegate;
-//	return [self idn_getDelegate];
-//}
-//- (void)idn_setDelegate:(id<UITextViewDelegate>)delegate
-//{
-//	UITextViewIDNExtDelegateAdaptor* delegateAdaptor = [self idn_delegateAdaptor];
-//	if(delegateAdaptor)
-//	{
-//		delegateAdaptor.outDelegate = delegate;
-//	}
-//	else
-//		[self idn_setDelegate:delegate];
+////	[self unsetDelegateAdaptor];
+////	self.delegate = nil;
+////	NSLog(@"%s", __func__);
 //}
 
 #pragma mark - Delegate adaptor
@@ -75,12 +40,13 @@
 	{
 		delegateAdaptor = [UITextViewIDNExtDelegateAdaptor new];
 		delegateAdaptor.textView = self;
-		[self addObserver:delegateAdaptor forKeyPath:@"delegate" options:NSKeyValueObservingOptionNew context:nil];
+//		[self addObserver:delegateAdaptor forKeyPath:@"delegate" options:NSKeyValueObservingOptionNew context:nil];
+//		NSLog(@"addObserver delegate");
 		[self setCustomObject:delegateAdaptor forKey:@"idn_delegateAdaptor"];
 	}
-	id<UITextViewDelegate> delegate = self.delegate;
-	if(delegate!=delegateAdaptor)
-		delegateAdaptor.outDelegate = delegate;
+//	id<UITextViewDelegate> delegate = self.delegate;
+//	if(delegate!=delegateAdaptor)
+//		delegateAdaptor.outDelegate = delegate;
 	self.delegate = delegateAdaptor;
 }
 
@@ -89,10 +55,12 @@
 	UITextViewIDNExtDelegateAdaptor* delegateAdaptor = [self customObjectForKey:@"idn_delegateAdaptor"];
 	if(delegateAdaptor==nil) //没有adaptor
 		return;
-	id<UITextViewDelegate> delegate = delegateAdaptor.outDelegate;
-	[self removeObserver:delegateAdaptor forKeyPath:@"delegate"];
+//	id<UITextViewDelegate> delegate = delegateAdaptor.outDelegate;
+//	[self removeObserver:delegateAdaptor forKeyPath:@"delegate"];
+//	NSLog(@"removeObserver delegate");
 	[self setCustomObject:nil forKey:@"idn_delegateAdaptor"];
-	self.delegate = delegate;
+//	self.delegate = delegate;
+	self.delegate = nil;
 }
 
 - (void)updateDelegateAdaptor
@@ -325,6 +293,7 @@
 - (void)dealloc
 {
 	NSLog(@"%s", __func__);
+	[_textView unsetDelegateAdaptor];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context

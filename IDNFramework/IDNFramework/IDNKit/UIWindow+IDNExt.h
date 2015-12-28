@@ -14,4 +14,6 @@
 + (UIViewController*)rootViewController;
 + (UIViewController*)presentedViewController;
 
+- (void)removeAllCustomViews;
+
 @end

@@ -49,4 +49,6 @@
 - (BOOL)isNotPureAlphabet; //是否不是纯字母. 如果是空串, 返回NO
 - (NSString*)stringByRemovingCharactersInSet:(NSCharacterSet*)charSet; //删除指定字符. 如果没有删除任何字符, 则返回原始NSString对象
 
+- (NSDictionary*)dictionaryFromJson;
+
 @end

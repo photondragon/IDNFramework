@@ -11,5 +11,6 @@
 @interface NSDictionary(IDNExtend)
 
 - (NSDictionary*)dictionaryWithoutNSNull;
+- (NSString *)jsonString;
 
 @end

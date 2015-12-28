@@ -41,7 +41,7 @@
 		if(path.length)
 		{
 			persistPath = path;
-			dic = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+			dic = [NSKeyedUnarchiver unarchiveObjectWithFile:persistPath];
 			if(dic==nil)
 				dic = [NSMutableDictionary new];
 		}
@@ -81,7 +81,7 @@
 			return;
 		save = [dic mutableCopy];
 	}
-	[save writeToFile:persistPath atomically:YES];
+	[NSKeyedArchiver archiveRootObject:save toFile:persistPath];
 }
 
 #pragma mark 修改
@@ -90,7 +90,10 @@
 {
 	@synchronized(self)
 	{
-		[dic setObject:anObject forKey:aKey];
+		if(anObject)
+			[dic setObject:anObject forKey:aKey];
+		else
+			[dic removeObjectForKey:aKey];
 		[self setNeedSaving];
 	}
 }

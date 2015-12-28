@@ -16,6 +16,9 @@
 - (UIImage *)resizedImageWithAspectFillSize:(CGSize)size clipToBounds:(BOOL)clipToBounds;
 - (UIImage *)imageWithoutOrientation;
 
++ (CGSize)aspectFitSizeWithSize:(CGSize)size originSize:(CGSize)originSize;
++ (CGSize)aspectFillSizeWithSize:(CGSize)size originSize:(CGSize)originSize;
+
 /**
  *  裁剪图像
  *

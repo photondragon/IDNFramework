@@ -74,6 +74,7 @@
 		{
 			[_subscribers removeObjectAtIndex:i];
 			i--;
+			count--;
 		}
 	}
 }

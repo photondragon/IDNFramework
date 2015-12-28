@@ -72,7 +72,6 @@
 		localItemsLock = [NSLock new];
 		cache = [[NSCache alloc] init];
 		cache.countLimit = 0;
-		_combineRequests = YES;
 	}
 	return self;
 }
@@ -236,6 +235,11 @@
 			}
 		}
 	}
+}
+
+- (void)deleteItemWithID:(id)itemID
+{
+	
 }
 
 // 根据itemID创建请求，如果该请求已存在，不会重复创建。可能会在任意线程被调用
@@ -509,6 +513,35 @@
 - (void)setMemoryCacheCountLimit:(NSUInteger)memoryCacheCountLimit
 {
 	cache.countLimit = memoryCacheCountLimit;
+}
+
+- (void)preloadItems:(NSArray *)itemIds callback:(void (^)())callback
+{
+	if(itemIds.count==0)
+		return;
+	
+	__weak __typeof(self) wself = self;
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		__typeof(self) sself = wself;
+		[sself preloadItemsOnBackground:itemIds callback:callback];
+	});
+}
+
+- (void)preloadItemsOnBackground:(NSArray *)itemIds callback:(void (^)())callback
+{
+	NSDictionary* dicLocalItems = [self itemsFromLocalWithIDs:itemIds]; // ***读取本地Items***
+	for (id itemId in itemIds) {
+		id item = dicLocalItems[itemId];
+		if(item)
+		{
+			if([cache objectForKey:itemId]==nil)
+				[cache setObject:item forKey:itemId];
+		}
+	}
+	dispatch_async(dispatch_get_main_queue(), ^{
+		if(callback)
+			callback();
+	});
 }
 
 #pragma mark Observers

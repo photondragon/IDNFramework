@@ -87,6 +87,19 @@
 	  ];
 }
 
+- (NSString*)localFilePathFromKey:(NSString*)key
+{
+	if(key==nil)
+		return nil;
+	NSString* md5 = [self md5OfString:key];
+	NSString* filePath;
+	if(_fileExtension.length)
+		filePath = [NSString stringWithFormat:@"%@/%@.%@", _localCacheDir, md5, _fileExtension];
+	else
+		filePath = [NSString stringWithFormat:@"%@/%@", _localCacheDir, md5];
+	return filePath;
+}
+
 #pragma mark 从缓存获取
 
 - (NSData*)dataWithKey:(NSString*)key{
@@ -96,12 +109,11 @@
 - (NSData*)dataWithKey:(NSString*)key cacheAge:(NSTimeInterval)cacheAge
 {
 	if(key==nil)
-		key = @"";
+		return nil;
 	if(cacheAge<0)
 		cacheAge = 0;
 
-	NSString* md5 = [self md5OfString:key];
-	NSString* filePath = [NSString stringWithFormat:@"%@/%@", _localCacheDir, md5];
+	NSString* filePath = [self localFilePathFromKey:key];
 
 	@synchronized(self)
 	{
@@ -118,6 +130,43 @@
 	}
 }
 
+- (NSString*)filePathWithKey:(NSString*)key
+{
+	return [self filePathWithKey:key cacheAge:0];
+}
+
+- (NSString*)filePathWithKey:(NSString*)key cacheAge:(NSTimeInterval)cacheAge
+{
+	if(key==nil)
+		return nil;
+	if(cacheAge<0)
+		cacheAge = 0;
+	
+	NSString* filePath = [self localFilePathFromKey:key];
+	
+	@synchronized(self)
+	{
+		if(cacheAge>0)//要检测文件是否过期
+		{
+			NSDictionary* fileAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+			if(fileAttr==nil)
+				return nil;
+			NSTimeInterval mTime = [(NSDate*)fileAttr[NSFileModificationDate] timeIntervalSinceReferenceDate];
+			if([NSDate timeIntervalSinceReferenceDate]-mTime>cacheAge)//过期
+				return nil;
+		}
+		return filePath;
+	}
+}
+
+- (NSString*)calcFilePathForKey:(NSString*)key
+{
+	if(key==nil)
+		return nil;
+	NSString* filePath = [self localFilePathFromKey:key];
+	return filePath;
+}
+
 - (BOOL)isFileExistWithKey:(NSString*)key
 {
 	return [self isFileExistWithKey:key cacheAge:0];
@@ -126,12 +175,11 @@
 - (BOOL)isFileExistWithKey:(NSString*)key cacheAge:(NSTimeInterval)cacheAge
 {
 	if(key==nil)
-		key = @"";
+		return NO;
 	if(cacheAge<0)
 		cacheAge = 0;
 
-	NSString* md5 = [self md5OfString:key];
-	NSString* filePath = [NSString stringWithFormat:@"%@/%@", _localCacheDir, md5];
+	NSString* filePath = [self localFilePathFromKey:key];
 	@synchronized(self)
 	{
 		if(cacheAge>0)//要检测文件是否过期
@@ -155,10 +203,9 @@
 	if(data==nil)
 		return;
 	if(key==nil)
-		key = @"";
+		return;
 
-	NSString* md5 = [self md5OfString:key];
-	NSString* filePath = [NSString stringWithFormat:@"%@/%@", _localCacheDir, md5];
+	NSString* filePath = [self localFilePathFromKey:key];
 	@synchronized(self)
 	{
 		[data writeToFile:filePath atomically:YES];
@@ -170,7 +217,7 @@
 	if(filePath.length==0)
 		return;
 	if(key==nil)
-		key = @"";
+		return;
 
 	NSFileManager* defaultManager = [NSFileManager defaultManager];
 
@@ -182,8 +229,7 @@
 	if([defaultManager isDeletableFileAtPath:filePath]==NO) //来源文件不可删除
 		return;
 
-	NSString* md5 = [self md5OfString:key];
-	NSString* cachePath = [NSString stringWithFormat:@"%@/%@", _localCacheDir, md5];
+	NSString* cachePath = [self localFilePathFromKey:key];
 
 	@synchronized(self)
 	{
@@ -203,9 +249,8 @@
 - (void)removeFileForKey:(NSString*)key
 {
 	if(key==nil)
-		key = @"";
-	NSString* md5 = [self md5OfString:key];
-	NSString* cachePath = [NSString stringWithFormat:@"%@/%@", _localCacheDir, md5];
+		return;
+	NSString* cachePath = [self localFilePathFromKey:key];
 	@synchronized(self)
 	{
 		[[NSFileManager defaultManager] removeItemAtPath:cachePath error:nil];

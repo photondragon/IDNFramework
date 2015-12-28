@@ -29,4 +29,18 @@
 	return viewController;
 }
 
+- (void)removeAllCustomViews
+{
+	NSMutableArray* dels = [NSMutableArray new];
+	for (UIView* view in self.subviews) {
+		if(view.tag==WindowCustomViewTag)
+			[dels addObject:view];
+	}
+	for (UIView* view in dels) {
+		[view removeFromSuperview];
+	}
+	if([UIApplication sharedApplication].statusBarHidden)
+		[[UIApplication sharedApplication] setStatusBarHidden:NO];
+}
+
 @end

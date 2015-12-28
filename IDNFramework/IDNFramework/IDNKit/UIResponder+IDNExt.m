@@ -7,6 +7,7 @@
 //
 
 #import "UIResponder+IDNExt.h"
+#import <objc/runtime.h>
 #import "NSObject+IDNCustomObject.h"
 
 @implementation UIResponder(IDNExt)

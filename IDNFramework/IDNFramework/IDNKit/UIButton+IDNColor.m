@@ -9,15 +9,25 @@
 #import "UIButton+IDNColor.h"
 #import "NSObject+IDNCustomObject.h"
 
+@interface UIButtonIDNColorObserver : NSObject
+@property(nonatomic,weak) UIButton* button;
+@end
+
 @implementation UIButton(IDNColor)
 
-- (UIColor*)UIButton_IDNColor_savedBackgroundColor
+- (void)dealloc
 {
-	return [self customObjectForKey:@"UIButton_IDNColor_savedBackgroundColor"];
+	[self unsetBgcolorObserver];
+//	NSLog(@"%s", __func__);
 }
-- (void)UIButton_IDNColor_SaveBackgroundColor:(UIColor*)color
+
+- (UIColor*)idn_originBackgroundColor
 {
-	[self setCustomObject:color forKey:@"UIButton_IDNColor_savedBackgroundColor"];
+	return [self customObjectForKey:@"idn_originBackgroundColor"];
+}
+- (void)idn_setOriginBackgroundColor:(UIColor*)color
+{
+	[self setCustomObject:color forKey:@"idn_originBackgroundColor"];
 }
 
 #pragma mark - pressed color
@@ -29,65 +39,8 @@
 - (void)setBackgroundColorHighlighted:(UIColor *)backgroundColorHighlighted
 {
 	[self setCustomObject:backgroundColorHighlighted forKey:@"UIButton_IDNColor_backgroundColorHighlighted"];
-	if(self.highlighted) // 已禁用
-		self.backgroundColor = backgroundColorHighlighted;
+	[self updateBgcolorObserver];
 }
-
-- (void)setHighlighted:(BOOL)highlighted
-{
-	BOOL old = self.highlighted;
-	[super setHighlighted:highlighted];
-	BOOL new = self.highlighted;
-	if(old==new)
-		return;
-	if(new)
-	{
-		UIColor* color = self.backgroundColorHighlighted;
-		if(color)
-		{
-			[self UIButton_IDNColor_SaveBackgroundColor:self.backgroundColor];
-			self.backgroundColor = color;
-		}
-	}
-	else
-	{
-		UIColor* color = [self UIButton_IDNColor_savedBackgroundColor];
-		if(color)
-			[self UIButton_IDNColor_SaveBackgroundColor:nil];
-		self.backgroundColor = color;
-	}
-}
-
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//	[super touchesBegan:touches withEvent:event];
-//	UIColor* color = self.backgroundColorPressed;
-//	if(color)
-//	{
-//		[self UIButton_IDNColor_SaveBackgroundColor:self.backgroundColor];
-//		self.backgroundColor = color;
-//	}
-//}
-//
-//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//	[super touchesEnded:touches withEvent:event];
-//	UIColor* color = [self UIButton_IDNColor_savedBackgroundColor];
-//	if(color)
-//	{
-//		self.backgroundColor = color;
-//	}
-//}
-//
-//- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//	[super touchesCancelled:touches withEvent:event];
-//	UIColor* color = [self UIButton_IDNColor_savedBackgroundColor];
-//	if(color)
-//	{
-//		self.backgroundColor = color;
-//	}
-//}
 
 #pragma mark - disabled color
 
@@ -98,32 +51,106 @@
 - (void)setBackgroundColorDisabled:(UIColor *)backgroundColorDisabled
 {
 	[self setCustomObject:backgroundColorDisabled forKey:@"UIButton_IDNColor_backgroundColorPressed"];
-	if(self.enabled==NO) // 已禁用
-		self.backgroundColor = backgroundColorDisabled;
+	[self updateBgcolorObserver];
 }
 
-- (void)setEnabled:(BOOL)enabled
+#pragma mark -
+
+- (void)setBgcolorObserver
 {
-	BOOL old = self.enabled;
-	[super setEnabled:enabled];
-	BOOL new = self.enabled;
-	if(old==new)
+	UIButtonIDNColorObserver* bgcolorObserver = [self customObjectForKey:@"idn_bgcolorObserver"];
+	if(bgcolorObserver) //有adaptor
 		return;
-	if(new==NO)//disable
+	
+	bgcolorObserver = [UIButtonIDNColorObserver new];
+	bgcolorObserver.button = self;
+	[self addObserver:bgcolorObserver forKeyPath:@"backgroundColor" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+	[self addObserver:bgcolorObserver forKeyPath:@"highlighted" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+	[self addObserver:bgcolorObserver forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+	[self setCustomObject:bgcolorObserver forKey:@"idn_bgcolorObserver"];
+	
+	[self idn_setOriginBackgroundColor:self.backgroundColor]; //保存原来的背景颜色
+}
+
+- (void)unsetBgcolorObserver
+{
+	UIButtonIDNColorObserver* bgcolorObserver = [self customObjectForKey:@"idn_bgcolorObserver"];
+	if(bgcolorObserver==nil) //没有adaptor
+		return;
+	[self setCustomObject:nil forKey:@"idn_bgcolorObserver"];
+	
+	UIColor* originColor = [self idn_originBackgroundColor];
+	[self idn_setOriginBackgroundColor:nil];
+	[self removeObserver:bgcolorObserver forKeyPath:@"backgroundColor"];
+	[self removeObserver:bgcolorObserver forKeyPath:@"highlighted"];
+	[self removeObserver:bgcolorObserver forKeyPath:@"enabled"];
+	self.backgroundColor = originColor;
+}
+
+- (void)updateBgcolorObserver
+{
+	if(self.backgroundColorDisabled || self.backgroundColorHighlighted)
 	{
-		UIColor* color = self.backgroundColorDisabled;
-		if(color)
-		{
-			[self UIButton_IDNColor_SaveBackgroundColor:self.backgroundColor];
-			self.backgroundColor = color;
-		}
+		[self setBgcolorObserver];
+		[self idn_updateBgcolor];
 	}
 	else
+		[self unsetBgcolorObserver];
+}
+
+- (BOOL)idn_ignoreBgcolorObserver
+{
+	return [[self customObjectForKey:@"idn_ignoreBgcolorObserver"] boolValue];
+}
+- (void)idn_setIgnoreBgcolorObserver:(BOOL)ignore
+{
+	[self setCustomObject:@(ignore) forKey:@"idn_ignoreBgcolorObserver"];
+}
+
+- (void)idn_updateBgcolor
+{
+	[self idn_setIgnoreBgcolorObserver:YES];
+	
+	if(self.backgroundColorDisabled && self.enabled==NO)
+		self.backgroundColor = self.backgroundColorDisabled;
+	else if(self.backgroundColorHighlighted && self.highlighted)
+		self.backgroundColor = self.backgroundColorHighlighted;
+	else
+		self.backgroundColor = [self idn_originBackgroundColor];
+
+	[self idn_setIgnoreBgcolorObserver:NO];
+}
+
+@end
+
+@implementation UIButtonIDNColorObserver
+//- (void)dealloc
+//{
+//	NSLog(@"%s", __func__);
+//}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+	if([keyPath isEqualToString:@"backgroundColor"])
 	{
-		UIColor* color = [self UIButton_IDNColor_savedBackgroundColor];
-		if(color)
-			[self UIButton_IDNColor_SaveBackgroundColor:nil];
-		self.backgroundColor = color;
+		if([_button idn_ignoreBgcolorObserver]==NO)
+		{
+			UIColor* bgcolor = [change objectForKey:NSKeyValueChangeNewKey];
+			[_button idn_setOriginBackgroundColor:bgcolor]; //保存原来颜色
+			[_button idn_updateBgcolor];
+		}
+	}
+	else if([keyPath isEqualToString:@"enabled"])
+	{
+		[_button idn_updateBgcolor];
+	}
+	else if([keyPath isEqualToString:@"highlighted"])
+	{
+		BOOL old = [[change objectForKey:NSKeyValueChangeOldKey] boolValue];
+		BOOL new = [[change objectForKey:NSKeyValueChangeNewKey] boolValue];
+		if(old!=new)
+		{
+			[_button idn_updateBgcolor];
+		}
 	}
 }
 

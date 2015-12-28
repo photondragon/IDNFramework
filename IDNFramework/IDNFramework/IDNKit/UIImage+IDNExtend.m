@@ -116,15 +116,33 @@
 	return img;
 }
 
-- (UIImage *)resizedImageWithAspectFitSize:(CGSize)size
++ (CGSize)aspectFitSizeWithSize:(CGSize)size originSize:(CGSize)originSize
 {
 	if(size.width<=0 || size.height<=0)
-		return nil;
-	CGSize originSize = self.size;
+		return CGSizeZero;
 	CGFloat wRatio = size.width/originSize.width;
 	CGFloat hRatio = size.height/originSize.height;
 	CGFloat ratio = wRatio<hRatio ? wRatio : hRatio;
 	CGSize newSize = CGSizeMake((int)(originSize.width*ratio), (int)(originSize.height*ratio));
+	return newSize;
+}
+
++ (CGSize)aspectFillSizeWithSize:(CGSize)size originSize:(CGSize)originSize
+{
+	if(size.width<=0 || size.height<=0)
+		return CGSizeZero;
+	CGFloat wRatio = size.width/originSize.width;
+	CGFloat hRatio = size.height/originSize.height;
+	CGFloat ratio = wRatio>hRatio ? wRatio : hRatio;
+	CGSize nonClipSize = CGSizeMake((int)(originSize.width*ratio), (int)(originSize.height*ratio));
+	return nonClipSize;
+}
+
+- (UIImage *)resizedImageWithAspectFitSize:(CGSize)size
+{
+	if(size.width<=0 || size.height<=0)
+		return nil;
+	CGSize newSize = [UIImage aspectFitSizeWithSize:size originSize:self.size];
 	return [self resizedImageWithSize:newSize];
 }
 
@@ -136,11 +154,7 @@
 {
 	if(size.width<=0 || size.height<=0)
 		return nil;
-	CGSize originSize = self.size;
-	CGFloat wRatio = size.width/originSize.width;
-	CGFloat hRatio = size.height/originSize.height;
-	CGFloat ratio = wRatio>hRatio ? wRatio : hRatio;
-	CGSize nonClipSize = CGSizeMake((int)(originSize.width*ratio), (int)(originSize.height*ratio));
+	CGSize nonClipSize = [UIImage aspectFillSizeWithSize:size originSize:self.size];
 	if(clipToBounds==NO)
 	{
 		return [self resizedImageWithSize:nonClipSize];

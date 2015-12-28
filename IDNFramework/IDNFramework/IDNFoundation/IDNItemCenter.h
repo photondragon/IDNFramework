@@ -23,11 +23,14 @@
 - (void)checkAndUpdateLocalItems:(NSArray*)items ignoreObserver:(id<IDNItemCenterObserver>)ignoreObserver; // 手动更新。检测items（是否修改、过期）并保存到本地。如果有Items被更新，会通知观察者，但ignoreObserver指定的观察者不会收到通知。
 
 - (void)forceReloadItems:(NSArray*)itemIds; //强制刷新（从服务器获取）
+- (void)deleteItemWithID:(id)itemID;
 
 - (void)localQueryWithParams:(NSDictionary*)params callback:(void (^)(NSArray* items))callback; //查询本地Items。查询结果通过callback异步返回，callback总是在主线程被调用。这个操作不使用内存缓存。内部调用- (NSArray*)queryItemsFromLocalWithParams:(NSDictionary*)params来执行实际查询操作
 
+- (void)preloadItems:(NSArray*)itemIds callback:(void (^)())callback; //预加载本地缓存数据到内存缓存中, 这样itemWithID:callback:就可以立刻返回该item
+
 @property NSUInteger memoryCacheCountLimit; //内部自带的内存缓存的最大可存储的items的个数。0表示无限制。默认0
-@property BOOL combineRequests; //是否合并请求。如果设为NO，则每次网络请求只获取1个Item。默认YES。当服务器没有提供批量获取Items的接口时，应该设为NO
+@property BOOL combineRequests; //是否合并请求。如果设为NO，则每次网络请求只获取1个Item。默认NO。当服务器没有提供批量获取Items的接口时，应该设为NO
 
 #pragma mark Observers
 
