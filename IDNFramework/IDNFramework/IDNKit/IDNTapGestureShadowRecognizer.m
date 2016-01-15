@@ -1,18 +1,18 @@
 //
-//  IDNTapGestureRecognizer.m
+//  IDNTapGestureShadowRecognizer.m
 //  IDNFramework
 //
 //  Created by photondragon on 15/7/23.
 //  Copyright (c) 2015年 iosdev.net. All rights reserved.
 //
 
-#import "IDNTapGestureRecognizer.h"
+#import "IDNTapGestureShadowRecognizer.h"
 #import <UIKit/UIGestureRecognizerSubclass.h>
 #import <objc/message.h>
 
 #define TapTimeLimit 0.3
 
-@implementation IDNTapGestureRecognizer
+@implementation IDNTapGestureShadowRecognizer
 {
 	CGPoint touchBeganPoint;
 	NSTimeInterval touchBeganTime;

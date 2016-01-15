@@ -9,10 +9,9 @@
 #ifndef IDNFramework_h
 #define IDNFramework_h
 
-// Foundation categories
-#import "UIDevice+IDN.h"
-
-// UIKit categories
-#import "UIColor+IDN.h"
+#import "FoundationIDNCategories.h"
+#import "UIKitIDNCategories.h"
+#import "IDNFoundation.h"
+#import	"IDNKit.h"
 
 #endif /* IDNFramework_h */

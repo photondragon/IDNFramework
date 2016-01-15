@@ -12,6 +12,6 @@
 @interface UIPickerView(IDNTap)
 <UIGestureRecognizerDelegate>
 
-@property(nonatomic,strong) void (^currentRowTappedBlock)(UIPickerView* picker, NSUInteger component);//设置当点击当前选中行时执行的Block。设置了这个属性后，点击当前行也会触发row did select委托方法
+@property(nonatomic,strong) void (^currentRowTappedBlock)(UIPickerView* picker, NSUInteger component);//当点击当前选中行时执行的Block。设置了这个属性后，点击当前行也会触发row did select委托方法
 
 @end
