@@ -2,7 +2,7 @@
 //  UIButton+IDNColor.h
 //  IDNFramework
 //
-//  Created by mahj on 15/12/2.
+//  Created by photondragon on 15/12/2.
 //  Copyright © 2015年 iosdev.net. All rights reserved.
 //
 

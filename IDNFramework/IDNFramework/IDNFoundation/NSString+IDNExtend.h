@@ -1,9 +1,9 @@
 //
 //  NSString+IDNExtend.h
-//  Contacts
+//  IDNFramework
 //
 //  Created by photondragon on 15/3/29.
-//  Copyright (c) 2015年 no. All rights reserved.
+//  Copyright (c) 2015年 iosdev.net. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,6 +14,7 @@
 + (NSString*)documentsPath;
 
 + (NSString*)documentsPathWithFileName:(NSString*)fileName;
++ (NSString*)libraryPathWithFileName:(NSString*)fileName;
 - (BOOL)mkdir; //创建目录（会创建中间目录）
 - (NSDictionary*)parseURLParameters; //把self当作URL地址中的参数部分来解析，返回的字典中的key和value均为字符串。解析形如res=user&uid=123456的字符串。
 
@@ -28,6 +29,9 @@
 - (NSString *)sha256;
 - (NSString *)sha384;
 - (NSString *)sha512;
+
+- (NSString*)crc32; //选转为UTF8String，再计算crc32
+- (UInt32)crc32Value; //选转为UTF8String，再计算crc32
 
 - (NSData*)hmacSha1DataWithKey:(NSString *)key;
 - (NSString*)hmacSha1WithKey:(NSString *)key;

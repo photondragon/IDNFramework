@@ -1,9 +1,9 @@
 //
 //  NSFileManager+IDNExtend.h
-//  Contacts
+//  IDNFramework
 //
 //  Created by photondragon on 15/4/19.
-//  Copyright (c) 2015年 no. All rights reserved.
+//  Copyright (c) 2015年 iosdev.net. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

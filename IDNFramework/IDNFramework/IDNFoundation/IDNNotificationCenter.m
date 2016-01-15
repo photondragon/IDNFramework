@@ -32,11 +32,11 @@
 
 /**
  
- NotificationObserver
+ IDNNotificationObserver
  
  */
 
-@interface NotificationObserver : NSObject
+@interface IDNNotificationObserver : NSObject
 
 @property (nonatomic,weak) id observer;
 @property (nonatomic) SEL selector;
@@ -47,7 +47,7 @@
 
 @end
 
-@implementation NotificationObserver
+@implementation IDNNotificationObserver
 
 - (instancetype)initWithObserver:(id)observer selector:(SEL)selector notificationName:(NSString*)notiName object:(id)object
 {
@@ -115,7 +115,7 @@
         //判断是否存在一个一模一样的观察者
         BOOL needReturn = NO;
         [lock lock];
-        for(NotificationObserver *object in list){
+        for(IDNNotificationObserver *object in list){
             if(object.observer == observer && object.selector==aSelector && [object.notificationName isEqualToString:aName] && object.object == anObject){
                 needReturn = YES;
                 break;
@@ -126,7 +126,7 @@
             return;
         }
     }
-    NotificationObserver *observerObject = [[NotificationObserver alloc] initWithObserver:observer selector:aSelector notificationName:aName object:anObject];
+    IDNNotificationObserver *observerObject = [[IDNNotificationObserver alloc] initWithObserver:observer selector:aSelector notificationName:aName object:anObject];
     [lock lock];
     [list addObject:observerObject];
     [lock unlock];
@@ -144,7 +144,7 @@
     [lock lock];
 	for(NSInteger i=list.count-1; i>=0; i--)
 	{
-		NotificationObserver *observerObject = list[i];
+		IDNNotificationObserver *observerObject = list[i];
 		if(observerObject.observer==nil)
 		{
 			[list removeObjectAtIndex:i];
@@ -156,7 +156,7 @@
     }
     [lock unlock];
 	
-	for(NotificationObserver *observerObject in array){
+	for(IDNNotificationObserver *observerObject in array){
 
 			id observer = observerObject.observer;
 			SEL aSelector = observerObject.selector;
@@ -188,7 +188,7 @@
 {
 	[lock lock];
 	for(NSInteger i = list.count-1; i>=0; i--){
-		NotificationObserver *object = list[i];
+		IDNNotificationObserver *object = list[i];
 		if(object.observer == observer){
 			[list removeObjectAtIndex:i];
 		}
@@ -199,7 +199,7 @@
 {
 	[lock lock];
 	for(NSInteger i = list.count-1; i>=0; i--){
-		NotificationObserver *observerInfo = list[i];
+		IDNNotificationObserver *observerInfo = list[i];
 		if(observerInfo.observer == observer && [observerInfo.notificationName isEqualToString:aName] && observerInfo.object==anObject){
 			[list removeObjectAtIndex:i];
 		}

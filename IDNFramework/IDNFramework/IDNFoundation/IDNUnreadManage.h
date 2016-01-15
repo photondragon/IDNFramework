@@ -1,6 +1,6 @@
 //
 //  IDNUnreadManage.h
-//  IDNFrameworks
+//  IDNFramework
 //
 //  Created by photondragon on 15/7/25.
 //  Copyright (c) 2015年 iosdev.net. All rights reserved.
@@ -14,8 +14,6 @@
 @interface IDNUnreadManage : NSObject
 
 - (instancetype)initWithFile:(NSString*)filePath;
-
-@property(nonatomic,strong,readonly) NSString* filePath;
 
 - (void)setUnreadCount:(NSInteger)unreadCount forKey:(NSString*)key; //unreadCount>=0。小于0则认为是0
 - (void)addUnreadCount:(NSInteger)addCount forKey:(NSString*)key; // addCount可为负，如果结果小于0，则改为0

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define WindowCustomViewTag 4866522
+
 @interface UIWindow(IDNExt)
 
 + (UIWindow*)mainWindow;

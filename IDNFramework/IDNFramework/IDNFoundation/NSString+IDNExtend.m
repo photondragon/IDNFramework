@@ -1,9 +1,9 @@
 //
 //  NSString+IDNExtend.m
-//  Contacts
+//  IDNFramework
 //
 //  Created by photondragon on 15/3/29.
-//  Copyright (c) 2015年 no. All rights reserved.
+//  Copyright (c) 2015年 iosdev.net. All rights reserved.
 //
 
 #import "NSString+IDNExtend.h"
@@ -11,6 +11,7 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import <CommonCrypto/CommonHMAC.h>
 #import "NSDictionary+IDNExtend.h"
+#import "NSData+IDNExtend.h"
 
 @implementation NSString(IDNExtend)
 
@@ -25,6 +26,12 @@
 	if(fileName.length==0)
 		return nil;
 	return [NSString stringWithFormat:@"%@/%@", [self documentsPath], fileName];
+}
++ (NSString*)libraryPathWithFileName:(NSString*)fileName
+{
+	if(fileName.length==0)
+		return nil;
+	return [NSString stringWithFormat:@"%@/%@", [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject], fileName];
 }
 
 - (BOOL)mkdir
@@ -157,6 +164,16 @@
 		[output appendFormat:@"%02x", buffer[i]];
 	}
 	return output;
+}
+
+- (NSString*)crc32
+{
+	return [[self dataUsingEncoding:NSUTF8StringEncoding] crc32];
+}
+
+- (UInt32)crc32Value
+{
+	return [[self dataUsingEncoding:NSUTF8StringEncoding] crc32Value];
 }
 
 - (NSData*)hmacSha1DataWithKey:(NSString *)key

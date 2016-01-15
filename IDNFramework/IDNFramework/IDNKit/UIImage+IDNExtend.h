@@ -1,9 +1,9 @@
 //
 //  UIImage+IDNExtend.h
-//  Contacts
+//  IDNFramework
 //
 //  Created by photondragon on 15/5/9.
-//  Copyright (c) 2015年 no. All rights reserved.
+//  Copyright (c) 2015年 iosdev.net. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -28,5 +28,9 @@
  *  @return 返回裁剪后的图像
  */
 - (UIImage*)clipedImageWithClipRect:(CGRect)clipRect maxSize:(CGSize)maxSize;
+
+#pragma mark - 常用图像
+
++ (UIImage*)commonImageGoBack; //返回按钮的图像，40x40。一般用于导航栏的返回按钮
 
 @end

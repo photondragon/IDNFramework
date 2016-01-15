@@ -1,9 +1,9 @@
 //
 //  IDNFoundation.h
-//  Contacts
+//  IDNFramework
 //
 //  Created by photondragon on 15/4/19.
-//  Copyright (c) 2015年 no. All rights reserved.
+//  Copyright (c) 2015年 iosdev.net. All rights reserved.
 //
 
 #import "NSString+IDNExtend.h"
@@ -23,8 +23,8 @@
 #import	"IDNAutoPersist.h"
 #import "IDNNotificationCenter.h"
 
-#ifndef Contacts_IDNFoundation_h
-#define Contacts_IDNFoundation_h
+#ifndef IDNFramework_IDNFoundation_h
+#define IDNFramework_IDNFoundation_h
 
 
 #endif

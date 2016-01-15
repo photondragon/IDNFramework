@@ -1,6 +1,6 @@
 //
 //  IDNUnreadManage.m
-//  IDNFrameworks
+//  IDNFramework
 //
 //  Created by photondragon on 15/7/25.
 //  Copyright (c) 2015年 iosdev.net. All rights reserved.
@@ -63,6 +63,8 @@
 @interface IDNUnreadManage()
 
 @property(nonatomic) BOOL needsSave; //是否需要保存。
+
+@property(nonatomic,strong,readonly) NSString* filePath;
 
 @end
 

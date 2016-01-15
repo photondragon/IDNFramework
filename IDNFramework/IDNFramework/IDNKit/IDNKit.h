@@ -28,6 +28,8 @@
 #import "UIViewController+IDNTransition.h"
 #import "UIViewController+IDNPresentationStack.h"
 #import "UIWindow+IDNExt.h"
+#import "IDNNavigationController.h"
+#import "IDNViewController.h"
 
 #ifndef IDNFramework_IDNKit_h
 #define IDNFramework_IDNKit_h

@@ -1,9 +1,9 @@
 //
 //  IDNAudioPlayer.m
-//  MusicPlayer
+//  IDNFramework
 //
-//  Created by mahj on 11/7/13.
-//  Copyright (c) 2013年 photondragon. All rights reserved.
+//  Created by photondragon on 11/7/13.
+//  Copyright (c) 2013年 iosdev.net. All rights reserved.
 //
 
 #import "IDNAudioPlayer.h"

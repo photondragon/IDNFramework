@@ -1,9 +1,9 @@
 //
 //  NSData+IDNExtend.h
-//  Contacts
+//  IDNFramework
 //
 //  Created by photondragon on 15/4/11.
-//  Copyright (c) 2015年 no. All rights reserved.
+//  Copyright (c) 2015年 iosdev.net. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -26,6 +26,9 @@
 - (NSString *)sha256;
 - (NSString *)sha384;
 - (NSString *)sha512;
+
+- (NSString*)crc32;
+- (UInt32)crc32Value;
 
 #pragma mark Crypto
 

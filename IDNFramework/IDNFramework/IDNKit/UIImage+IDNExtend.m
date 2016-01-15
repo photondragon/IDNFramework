@@ -1,9 +1,9 @@
 //
 //  UIImage+IDNExtend.m
-//  Contacts
+//  IDNFramework
 //
 //  Created by photondragon on 15/5/9.
-//  Copyright (c) 2015年 no. All rights reserved.
+//  Copyright (c) 2015年 iosdev.net. All rights reserved.
 //
 
 #import "UIImage+IDNExtend.h"
@@ -274,6 +274,56 @@
 		}
 	}
 	
+	return img;
+}
+
+#pragma mark - 常用图像
+
++ (UIImage*)commonImageGoBack
+{
+	static UIImage* commonImageGoBack = nil;
+	if(commonImageGoBack==nil)
+		commonImageGoBack = [self createCommonImageGoBack];
+	return commonImageGoBack;
+}
++ (UIImage*)createCommonImageGoBack
+{
+	CGSize size = CGSizeMake(40, 40);
+	CGSize sizeInPixels;
+	CGFloat scale = [UIScreen mainScreen].scale;
+	sizeInPixels.width = size.width*scale;
+	sizeInPixels.height = size.height*scale;
+
+	int bytesPerRow	= 4*sizeInPixels.width;
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGContextRef context = CGBitmapContextCreate(NULL,
+												 sizeInPixels.width,
+												 sizeInPixels.height,
+												 8,
+												 bytesPerRow,
+												 colorSpace,
+												 (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
+
+	CGColorSpaceRelease(colorSpace);
+
+//	CGFloat redComponets[4] = {1.0f,0,0,1.0f};
+//	CGContextSetStrokeColor(context, redComponets);
+//	CGContextFillRect(context, CGRectMake(0, 0, sizeInPixels.width, sizeInPixels.height));
+//
+	CGFloat lineWith = 2*scale;
+	CGContextSetLineWidth(context, lineWith);
+	CGFloat whiteComponets[4] = {1.0f,1.0f,1.0f,1.0f};
+	CGContextSetStrokeColor(context, whiteComponets);
+	CGContextMoveToPoint(context, sizeInPixels.width*0.625f, sizeInPixels.height*0.25f);
+	CGContextAddLineToPoint(context, sizeInPixels.width*0.375, sizeInPixels.height/2.0f);
+	CGContextAddLineToPoint(context, sizeInPixels.width*0.625f, sizeInPixels.height*0.75f);
+	CGContextStrokePath(context);
+
+	CGImageRef imgRef = CGBitmapContextCreateImage(context);
+	CGContextRelease(context);
+	UIImage *img = [[UIImage alloc] initWithCGImage:imgRef scale:scale orientation:0];
+	CGImageRelease(imgRef);
+
 	return img;
 }
 
