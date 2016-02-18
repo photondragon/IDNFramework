@@ -87,7 +87,7 @@
 			[stack addObject:newInfo];
 			
 			__unsafe_unretained __typeof(self) uucontroller = controller;
-			[controller addDeallocBlock:^{
+			[controller addDeallocatedBlock:^{
 				NSMutableArray* stacks = [UIViewController idnPresentationStacks];
 				for (NSMutableArray* stack in stacks) {
 					for (NSInteger i=1; i<stack.count; i++) // 第0个不检测，因为它是在setEnablePresentationStack:中设置的deallocBlock中检测并移除的
@@ -178,7 +178,7 @@
 		[stacks addObject:[NSMutableArray arrayWithObject:info]];
 		
 		__unsafe_unretained __typeof(self) uuself = self;
-		[self addDeallocBlock:^{
+		[self addDeallocatedBlock:^{
 			uuself.enablePresentationStack = NO;
 		}];
 	}

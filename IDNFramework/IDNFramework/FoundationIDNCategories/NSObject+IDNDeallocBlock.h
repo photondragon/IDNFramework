@@ -8,17 +8,33 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  实现对象释放的通知机制
+ *  注册block，当对象释放时调用。
+ *  block内部不能使用self, weakself, strongself
+ *  只能使用__unsafe_unretained型self
+ *
+ *  @code
+ *  __unsafe_unretained __typeof(self) uuself = self;
+ *  [obj addDeallocBlock:^{
+ *		[uuself method];
+ *  }];
+ *  @endcode
+ */
 @interface NSObject(IDNDeallocBlock)
 
 /**
- 添加一个block，当对象释放时，调用这个block
- 重复添加同一个Block，实际只会添加一个
- block的调用时机是在[self dealloc]之后，对象实际释放之前
- 也就是说在block内部仍然可以访问self对象，要注意的是有些资源可能在之前的dealloc中被释放了
- 绝对不能在Block中直接使用self，weakself, strongself也不能用。
- 只能用__unsafe_unretained __typeof(self) uuself = self;
+ *  添加一个block，在对象的dealloc方法调用前，调用这个block
+ *  重复添加同一个Block，实际只会添加一个
  */
 - (void)addDeallocBlock:(void (^)())block;
 - (void)delDeallocBlock:(void (^)())block;
+
+/**
+ * 添加一个block，当对象释放后，调用这个block
+ * 重复添加同一个Block，实际只会添加一个
+ */
+- (void)addDeallocatedBlock:(void (^)())block;
+- (void)delDeallocatedBlock:(void (^)())block;
 
 @end

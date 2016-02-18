@@ -1,18 +1,18 @@
 //
-//  IDNNotice.m
+//  NSObjectIDNNoticeTest.m
 //  IDNFramework
 //
-//  Created by mahj on 15/10/9.
+//  Created by photondragon on 15/10/9.
 //  Copyright © 2015年 iosdev.net. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 #import "NSObject+IDNNotice.h"
 
-@interface Subject : NSObject
+@interface IDNNoticeTestSubject : NSObject
 
 @end
-@implementation Subject
+@implementation IDNNoticeTestSubject
 
 - (void)receivedHelloNotice1:(NSString*)text
 {
@@ -34,11 +34,11 @@
 
 @end
 
-@interface IDNNoticeTest : XCTestCase
+@interface NSObjectIDNNoticeTest : XCTestCase
 
 @end
 
-@implementation IDNNoticeTest
+@implementation NSObjectIDNNoticeTest
 
 - (void)setUp {
     [super setUp];
@@ -75,7 +75,7 @@
 }
 
 - (void)testExample2 {
-	Subject* subject = [Subject new];
+	IDNNoticeTestSubject* subject = [IDNNoticeTestSubject new];
 	[subject subscribeNotice:@"HelloNotice1" subscriber:subject selector:@selector(receivedHelloNotice1:)];
 	[subject subscribeNotice:@"HelloNotice" subscriber:subject selector:@selector(receivedHelloNotice2:)];
 	[subject subscribeNotice:@"HelloNotice" subscriber:self selector:@selector(receivedHelloNotice3:)];
@@ -86,15 +86,11 @@
 	[subject notice:@"HelloNotice" customInfo:@"jerry"];
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
-}
-
-- (void)dealloc
-{
-	NSLog(@"%s", __func__);
-}
+//- (void)testPerformanceExample {
+//    // This is an example of a performance test case.
+//    [self measureBlock:^{
+//        // Put the code you want to measure the time of here.
+//    }];
+//}
+//
 @end

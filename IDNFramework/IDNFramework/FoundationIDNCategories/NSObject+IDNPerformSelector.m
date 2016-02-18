@@ -79,7 +79,7 @@
 		dicWeakTargets[targetKey] = arrayWeakTargets;
 		
 		// 当target对象释放后，从字典中移除target的键（及其相关的所有的weakTargets）
-		[weakTarget.target addDeallocBlock:^{
+		[weakTarget.target addDeallocatedBlock:^{
 			NSMutableArray* arrayWeakTargets = dicWeakTargets[weakTarget.targetKey];
 			if(arrayWeakTargets.count)
 			{

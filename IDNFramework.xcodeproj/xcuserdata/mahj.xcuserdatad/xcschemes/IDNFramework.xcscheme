@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "945DB67E1AD8FC8800C13526"
+               BlueprintIdentifier = "94D2C9CF1C76557700651394"
                BuildableName = "IDNFramework.framework"
                BlueprintName = "IDNFramework"
                ReferencedContainer = "container:IDNFramework.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "945DB6891AD8FC8800C13526"
+               BlueprintIdentifier = "94D2C8AB1C7651D400651394"
                BuildableName = "IDNFrameworkTests.xctest"
                BlueprintName = "IDNFrameworkTests"
                ReferencedContainer = "container:IDNFramework.xcodeproj">
@@ -46,7 +46,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "945DB6891AD8FC8800C13526"
+               BlueprintIdentifier = "94D2C8AB1C7651D400651394"
                BuildableName = "IDNFrameworkTests.xctest"
                BlueprintName = "IDNFrameworkTests"
                ReferencedContainer = "container:IDNFramework.xcodeproj">
@@ -56,7 +56,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "945DB67E1AD8FC8800C13526"
+            BlueprintIdentifier = "94D2C9CF1C76557700651394"
             BuildableName = "IDNFramework.framework"
             BlueprintName = "IDNFramework"
             ReferencedContainer = "container:IDNFramework.xcodeproj">
@@ -78,7 +78,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "945DB67E1AD8FC8800C13526"
+            BlueprintIdentifier = "94D2C9CF1C76557700651394"
             BuildableName = "IDNFramework.framework"
             BlueprintName = "IDNFramework"
             ReferencedContainer = "container:IDNFramework.xcodeproj">
@@ -96,7 +96,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "945DB67E1AD8FC8800C13526"
+            BlueprintIdentifier = "94D2C9CF1C76557700651394"
             BuildableName = "IDNFramework.framework"
             BlueprintName = "IDNFramework"
             ReferencedContainer = "container:IDNFramework.xcodeproj">

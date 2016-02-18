@@ -16,6 +16,7 @@
 #import "NSObject+IDNDeallocBlock.h"
 #import "NSObject+IDNPerformSelector.h"
 #import "NSObject+IDNEventHandle.h"
+#import "NSObject+IDNKVO.h"
 #import "NSObject+IDNNotice.h"
 #import "NSPointerArray+IDNExtend.h"
 #import "NSString+IDNExtend.h"

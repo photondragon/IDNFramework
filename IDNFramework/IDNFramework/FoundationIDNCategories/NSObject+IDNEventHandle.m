@@ -66,7 +66,7 @@ static char bindDictionaryKey = 0;
 	delegator.weakTarget = target;
 	delegator.selector = selector;
 	__weak __typeof(self) wself = self;
-	[target addDeallocBlock:^{
+	[target addDeallocatedBlock:^{
 		__typeof(self) sself = wself;
 		[sself stopHandleEvent:eventName];
 	}];
@@ -109,7 +109,7 @@ static char bindDictionaryKey = 0;
 	delegator.weakTarget = target;
 	delegator.selector = selector;
 	__weak __typeof(self) wself = self;
-	[target addDeallocBlock:^{
+	[target addDeallocatedBlock:^{
 		__typeof(self) sself = wself;
 		[sself unsetEventDefaultHandler];
 	}];
