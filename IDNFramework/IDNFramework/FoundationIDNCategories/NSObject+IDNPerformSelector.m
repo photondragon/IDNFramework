@@ -25,11 +25,27 @@
 
 - (void)performSelectorNoWarning:(SEL)aSelector
 {
-	[self performSelectorNoWarning:aSelector withObject:nil withObject:nil];
+	IMP imp = [self methodForSelector:aSelector];
+	if(imp==0)
+	{
+		NSLog(@"[%@ %@]方法不存在", NSStringFromClass([self class]), NSStringFromSelector(aSelector));
+		return;
+	}
+	// 这里的实现有问题，没有考虑selector的返回值
+	void (*func)(id, SEL) = (void *)imp;
+	func(self, aSelector);
 }
 - (void)performSelectorNoWarning:(SEL)aSelector withObject:(id)object
 {
-	[self performSelectorNoWarning:aSelector withObject:object withObject:nil];
+	IMP imp = [self methodForSelector:aSelector];
+	if(imp==0)
+	{
+		NSLog(@"[%@ %@]方法不存在", NSStringFromClass([self class]), NSStringFromSelector(aSelector));
+		return;
+	}
+	// 这里的实现有问题，没有考虑selector的返回值
+	void (*func)(id, SEL, id) = (void *)imp;
+	func(self, aSelector, object);
 }
 - (void)performSelectorNoWarning:(SEL)aSelector withObject:(id)object1 withObject:(id)object2
 {
@@ -39,6 +55,7 @@
 		NSLog(@"[%@ %@]方法不存在", NSStringFromClass([self class]), NSStringFromSelector(aSelector));
 		return;
 	}
+	// 这里的实现有问题，没有考虑selector的返回值
 	void (*func)(id, SEL, id, id) = (void *)imp;
 	func(self, aSelector, object1, object2);
 }

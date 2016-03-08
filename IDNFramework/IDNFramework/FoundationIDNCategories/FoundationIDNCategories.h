@@ -12,6 +12,7 @@
 #import "NSDictionary+IDNExtend.h"
 #import	"NSError+IDNExtend.h"
 #import	"NSFileManager+IDNExtend.h"
+#import "NSNotificationCenter+IDN.h"
 #import "NSObject+IDNCustomObject.h"
 #import "NSObject+IDNDeallocBlock.h"
 #import "NSObject+IDNPerformSelector.h"

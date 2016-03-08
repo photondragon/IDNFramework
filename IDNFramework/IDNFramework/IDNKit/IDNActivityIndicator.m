@@ -9,7 +9,6 @@
 #import "IDNActivityIndicator.h"
 
 @interface IDNActivityIndicator ()
-
 @end
 
 @implementation IDNActivityIndicator

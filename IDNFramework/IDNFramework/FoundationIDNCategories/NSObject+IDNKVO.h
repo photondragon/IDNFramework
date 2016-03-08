@@ -19,7 +19,7 @@
 /**
  *  添加KVO观察者
  *
- *  @param observer 观察者
+ *  @param observer 观察者（弱引用）
  *  @param selector 格式: - (void)valueChangedWithOldValue:(id)oldValue newValue:(id)newValue;
  *  @param keyPath
  */
@@ -30,7 +30,10 @@
 - (void)delKvoObserver:(id)observer
 			forKeyPath:(NSString *)keyPath;
 
-// 添加KVO观察者（block版）
+/**
+ *  添加KVO观察者（block版）
+ *  慎用，因为如果不手动删除，该block永远不会被删除，可以引起性能降低。
+ */
 - (void)addKvoBlock:(void (^)(id oldValue, id newValue))block
 		 forKeyPath:(NSString *)keyPath;
 // 删除KVO观察者（block版）

@@ -183,6 +183,11 @@
 		94D2CB451C76568400651394 /* NSObjectIDNKvoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D2CB3F1C76568400651394 /* NSObjectIDNKvoTest.m */; };
 		94D2CB461C76568400651394 /* NSObjectIDNNoticeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D2CB401C76568400651394 /* NSObjectIDNNoticeTest.m */; };
 		94D2CB471C76568400651394 /* IDNFileCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D2CB421C76568400651394 /* IDNFileCacheTest.m */; };
+		94D4CB351C8F077E00C94975 /* UIColorIDN.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D4CB341C8F077E00C94975 /* UIColorIDN.m */; };
+		94D4CB3E1C8F228A00C94975 /* NSNotificationCenter+IDN.h in Headers */ = {isa = PBXBuildFile; fileRef = 94D4CB3C1C8F228A00C94975 /* NSNotificationCenter+IDN.h */; };
+		94D4CB3F1C8F228A00C94975 /* NSNotificationCenter+IDN.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D4CB3D1C8F228A00C94975 /* NSNotificationCenter+IDN.m */; };
+		94D4CB411C8F50E100C94975 /* NSNotificationCenterIDNTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D4CB401C8F50E100C94975 /* NSNotificationCenterIDNTest.m */; };
+		94D4CB431C8F5FD900C94975 /* NSObjectIDNDeallocTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D4CB421C8F5FD900C94975 /* NSObjectIDNDeallocTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -399,6 +404,11 @@
 		94D2CB3F1C76568400651394 /* NSObjectIDNKvoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectIDNKvoTest.m; sourceTree = "<group>"; };
 		94D2CB401C76568400651394 /* NSObjectIDNNoticeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectIDNNoticeTest.m; sourceTree = "<group>"; };
 		94D2CB421C76568400651394 /* IDNFileCacheTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNFileCacheTest.m; sourceTree = "<group>"; };
+		94D4CB341C8F077E00C94975 /* UIColorIDN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColorIDN.m; sourceTree = "<group>"; };
+		94D4CB3C1C8F228A00C94975 /* NSNotificationCenter+IDN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+IDN.h"; sourceTree = "<group>"; };
+		94D4CB3D1C8F228A00C94975 /* NSNotificationCenter+IDN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+IDN.m"; sourceTree = "<group>"; };
+		94D4CB401C8F50E100C94975 /* NSNotificationCenterIDNTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNotificationCenterIDNTest.m; sourceTree = "<group>"; };
+		94D4CB421C8F5FD900C94975 /* NSObjectIDNDeallocTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectIDNDeallocTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -531,6 +541,8 @@
 				94D2C9F61C76559D00651394 /* NSError+IDNExtend.m */,
 				94D2C9F71C76559D00651394 /* NSFileManager+IDNExtend.h */,
 				94D2C9F81C76559D00651394 /* NSFileManager+IDNExtend.m */,
+				94D4CB3C1C8F228A00C94975 /* NSNotificationCenter+IDN.h */,
+				94D4CB3D1C8F228A00C94975 /* NSNotificationCenter+IDN.m */,
 				94D2C9F91C76559D00651394 /* NSObject+IDNCustomObject.h */,
 				94D2C9FA1C76559D00651394 /* NSObject+IDNCustomObject.m */,
 				94D2C9FB1C76559D00651394 /* NSObject+IDNDeallocBlock.h */,
@@ -726,6 +738,8 @@
 			children = (
 				94D2CB3F1C76568400651394 /* NSObjectIDNKvoTest.m */,
 				94D2CB401C76568400651394 /* NSObjectIDNNoticeTest.m */,
+				94D4CB401C8F50E100C94975 /* NSNotificationCenterIDNTest.m */,
+				94D4CB421C8F5FD900C94975 /* NSObjectIDNDeallocTest.m */,
 			);
 			path = FoundationIDNCategoriesTest;
 			sourceTree = "<group>";
@@ -748,6 +762,7 @@
 		94D2CB441C76568400651394 /* UIKitIDNCategoriesTest */ = {
 			isa = PBXGroup;
 			children = (
+				94D4CB341C8F077E00C94975 /* UIColorIDN.m */,
 			);
 			path = UIKitIDNCategoriesTest;
 			sourceTree = "<group>";
@@ -840,6 +855,7 @@
 				94D2CAAD1C76559D00651394 /* NSObject+IDNPerformSelector.h in Headers */,
 				94D2CAF81C7655A000651394 /* IDNTopTabController.h in Headers */,
 				94D2CAF21C7655A000651394 /* IDNMainController.h in Headers */,
+				94D4CB3E1C8F228A00C94975 /* NSNotificationCenter+IDN.h in Headers */,
 				94D2CB291C7655A400651394 /* UIViewController+IDNStatusBar.h in Headers */,
 				94D2CAB91C76559D00651394 /* IDNCookie.h in Headers */,
 				94D2CB081C7655A100651394 /* UIImage+IDNExtend.h in Headers */,
@@ -991,6 +1007,7 @@
 				94D2CAB21C76559D00651394 /* NSString+IDNExtend.m in Sources */,
 				94D2CB1A1C7655A300651394 /* UIView+IDNCountBadge.m in Sources */,
 				94D2CAB41C76559D00651394 /* NSTimer+IDNWeakTarget.m in Sources */,
+				94D4CB3F1C8F228A00C94975 /* NSNotificationCenter+IDN.m in Sources */,
 				94D2CB121C7655A200651394 /* UIScreen+IDNExtend.m in Sources */,
 				94D2CAFD1C7655A000651394 /* UIAlertView+IDN.m in Sources */,
 				94D2CABA1C76559D00651394 /* IDNCookie.m in Sources */,
@@ -1073,9 +1090,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94D4CB431C8F5FD900C94975 /* NSObjectIDNDeallocTest.m in Sources */,
 				94D2CB451C76568400651394 /* NSObjectIDNKvoTest.m in Sources */,
+				94D4CB411C8F50E100C94975 /* NSNotificationCenterIDNTest.m in Sources */,
 				94D2CB471C76568400651394 /* IDNFileCacheTest.m in Sources */,
 				94D2CB461C76568400651394 /* NSObjectIDNNoticeTest.m in Sources */,
+				94D4CB351C8F077E00C94975 /* UIColorIDN.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1323,6 +1343,7 @@
 				94D2C9DB1C76557700651394 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		94D2CB3B1C76564000651394 /* Build configuration list for PBXNativeTarget "IDNFrameworkTests" */ = {
 			isa = XCConfigurationList;
@@ -1331,6 +1352,7 @@
 				94D2CB3D1C76564000651394 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
