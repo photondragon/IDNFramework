@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-#define WindowCustomViewTag 4866522
+#define WindowCustomViewTag 4866522 //tag属性等于这个值的子view，可以被removeAllCustomViews方法移除
 
 @interface UIWindow(IDNExt)
 
-+ (UIWindow*)mainWindow;
++ (UIWindow*)keyWindow;
++ (UIWindow*)mainWindow; //同keyWindow
 + (UIViewController*)rootViewController;
 + (UIViewController*)presentedViewController;
 
-- (void)removeAllCustomViews;
+- (void)removeAllCustomViews; // 删除所有tag值等于WindowCustomViewTag的子view
 
 @end

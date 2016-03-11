@@ -10,6 +10,10 @@
 
 @implementation UIWindow(IDNExt)
 
++ (UIWindow*)keyWindow
+{
+	return [UIApplication sharedApplication].keyWindow;
+}
 + (UIWindow*)mainWindow
 {
 	return [UIApplication sharedApplication].keyWindow;
@@ -39,8 +43,6 @@
 	for (UIView* view in dels) {
 		[view removeFromSuperview];
 	}
-	if([UIApplication sharedApplication].statusBarHidden)
-		[[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
 @end

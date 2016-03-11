@@ -13,6 +13,8 @@
 		9439962C1C0E8A9F00596FB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9439962A1C0E8A9F00596FB6 /* Main.storyboard */; };
 		9439962E1C0E8A9F00596FB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9439962D1C0E8A9F00596FB6 /* Assets.xcassets */; };
 		943996311C0E8A9F00596FB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9439962F1C0E8A9F00596FB6 /* LaunchScreen.storyboard */; };
+		946A94601C93207F00262D89 /* IDNJumpManage.h in Headers */ = {isa = PBXBuildFile; fileRef = 946A945E1C93207F00262D89 /* IDNJumpManage.h */; };
+		946A94611C93207F00262D89 /* IDNJumpManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 946A945F1C93207F00262D89 /* IDNJumpManage.m */; };
 		94D2C9D71C76557700651394 /* IDNFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94D2C9D01C76557700651394 /* IDNFramework.framework */; };
 		94D2C9D81C76557700651394 /* IDNFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94D2C9D01C76557700651394 /* IDNFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		94D2CA8A1C76559D00651394 /* IDNAsyncTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 94D2C9DF1C76559D00651394 /* IDNAsyncTask.h */; };
@@ -232,6 +234,8 @@
 		9439962D1C0E8A9F00596FB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		943996301C0E8A9F00596FB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		943996321C0E8A9F00596FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		946A945E1C93207F00262D89 /* IDNJumpManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNJumpManage.h; sourceTree = "<group>"; };
+		946A945F1C93207F00262D89 /* IDNJumpManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNJumpManage.m; sourceTree = "<group>"; };
 		94D2C9D01C76557700651394 /* IDNFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IDNFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		94D2C9D41C76557700651394 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94D2C9DF1C76559D00651394 /* IDNAsyncTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNAsyncTask.h; sourceTree = "<group>"; };
@@ -581,6 +585,8 @@
 				94D2CA161C76559D00651394 /* IDNFoundation.h */,
 				94D2CA171C76559D00651394 /* IDNItemCenter.h */,
 				94D2CA181C76559D00651394 /* IDNItemCenter.m */,
+				946A945E1C93207F00262D89 /* IDNJumpManage.h */,
+				946A945F1C93207F00262D89 /* IDNJumpManage.m */,
 				94D2CA191C76559D00651394 /* IDNNetFileUpdater.h */,
 				94D2CA1A1C76559D00651394 /* IDNNetFileUpdater.m */,
 				94D2CA1B1C76559D00651394 /* IDNNotificationCenter.h */,
@@ -851,6 +857,7 @@
 				94D2CAD21C76559E00651394 /* IDNNetwork.h in Headers */,
 				94D2CAEA1C76559F00651394 /* IDNScanCodeView.h in Headers */,
 				94D2CAD61C76559E00651394 /* IDNFramework.h in Headers */,
+				946A94601C93207F00262D89 /* IDNJumpManage.h in Headers */,
 				94D2CB001C7655A100651394 /* UIBezierPath+IDNExtend.h in Headers */,
 				94D2CAAD1C76559D00651394 /* NSObject+IDNPerformSelector.h in Headers */,
 				94D2CAF81C7655A000651394 /* IDNTopTabController.h in Headers */,
@@ -1023,6 +1030,7 @@
 				94D2CAB61C76559D00651394 /* IDNAutoPersist.m in Sources */,
 				94D2CA981C76559D00651394 /* NSArray+IDN.m in Sources */,
 				94D2CA9E1C76559D00651394 /* NSDictionary+IDNExtend.m in Sources */,
+				946A94611C93207F00262D89 /* IDNJumpManage.m in Sources */,
 				94D2CB201C7655A300651394 /* UIView+IDNZoom.m in Sources */,
 				94D2CAE71C76559F00651394 /* IDNProgressView.m in Sources */,
 				94D2CB221C7655A400651394 /* UIViewController+IDNOrientation.m in Sources */,
