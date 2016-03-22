@@ -11,6 +11,7 @@
 #import "IDNFileCache.h"
 #import "IDNFixedList.h"
 #import "IDNItemCenter.h"
+#import "IDNJumpManage.h"
 #import "IDNNetFileUpdater.h"
 #import "IDNNotificationCenter.h"
 #import "IDNPageList.h"

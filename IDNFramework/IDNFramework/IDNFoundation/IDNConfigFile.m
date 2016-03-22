@@ -71,8 +71,11 @@ static NSMutableDictionary* cfgPaths = nil;
 			{
 				NSString* path = [[NSBundle mainBundle] pathForResource:defaultJsonFile ofType:nil];
 				NSData* data = [NSData dataWithContentsOfFile:path];
-				id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-				dict = [(NSDictionary*)obj dictionaryWithoutNSNull];
+				if(data.length>0)
+				{
+					id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+					dict = [(NSDictionary*)obj dictionaryWithoutNSNull];
+				}
 			}
 		}
 		if(dict==nil)
