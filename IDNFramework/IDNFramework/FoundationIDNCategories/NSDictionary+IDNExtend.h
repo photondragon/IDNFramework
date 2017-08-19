@@ -11,6 +11,13 @@
 @interface NSDictionary(IDNExtend)
 
 - (NSDictionary*)dictionaryWithoutNSNull;
-- (NSString *)jsonString;
+
+- (NSString*)urlParamsString;
+
+#pragma mark - dic <==> json
++ (NSDictionary*)dictionaryWithJSONData:(NSData*)jsonData error:(NSError**)error;
+
+- (NSString*)jsonString;
+- (NSData*)jsonData;
 
 @end

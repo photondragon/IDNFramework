@@ -231,7 +231,7 @@
 		
 		if(range.location >= listResultIDs.count) // 全部取完了
 		{
-			[self notifyFinishedBlocksOnMainThread:@[finishedBlock] error:[NSError errorWithDomain:NSStringFromClass(self.class) code:0 userInfo:@{NSLocalizedDescriptionKey:@"已经到达列表末尾"}]];
+			[self notifyFinishedBlocksOnMainThread:@[finishedBlock] error:nil];
 			return;
 		}
 		

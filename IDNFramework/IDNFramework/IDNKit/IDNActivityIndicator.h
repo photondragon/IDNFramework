@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 // 功能同UIActivityIndicator，显示一个旋转的半圆环（有模糊的阴影）。
+IB_DESIGNABLE
 @interface IDNActivityIndicator : UIButton
 
 @property (nonatomic, assign) CGFloat lineWidth; //默认3.0

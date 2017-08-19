@@ -10,10 +10,6 @@
 
 @implementation UIWindow(IDNExt)
 
-+ (UIWindow*)keyWindow
-{
-	return [UIApplication sharedApplication].keyWindow;
-}
 + (UIWindow*)mainWindow
 {
 	return [UIApplication sharedApplication].keyWindow;
@@ -31,6 +27,12 @@
 		viewController = viewController.presentedViewController;
 	}
 	return viewController;
+}
+
+- (void)addCustomSubview:(UIView*)customView
+{
+	[self addSubview:customView];
+	customView.tag = WindowCustomViewTag;
 }
 
 - (void)removeAllCustomViews

@@ -8,6 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+// 属性绑定（单向）
+#define IDNBind(SrcObj, KeyPath1, DstObj, KeyPath2) \
+({ \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wreceiver-is-weak\"") \
+_Pragma("clang diagnostic ignored \"-Wunused-getter-return-value\"") \
+SrcObj.KeyPath1;DstObj.KeyPath2; \
+__weak __typeof(DstObj) weakDstObj = (DstObj); \
+[SrcObj addKvoBlock:^(id oldValue, id newValue) { \
+[weakDstObj setValue:newValue forKeyPath:@#KeyPath2]; \
+} forKeyPath:@#KeyPath1]; \
+_Pragma("clang diagnostic pop") \
+})
+
 /**
  *  此Category用于简化KVO操作
  *  提供target-selector和block两种接口

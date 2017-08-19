@@ -12,4 +12,8 @@
 
 - (UIResponder*)findFirstResponder;
 
+@property(nonatomic) CGFloat cornerRadius;
+@property(nonatomic) CGFloat borderWidth;
+@property(nonatomic,strong) UIColor* borderColor;
+
 @end

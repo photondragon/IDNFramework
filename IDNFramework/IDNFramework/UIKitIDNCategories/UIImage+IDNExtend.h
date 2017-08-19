@@ -29,8 +29,9 @@
  */
 - (UIImage*)clipedImageWithClipRect:(CGRect)clipRect maxSize:(CGSize)maxSize;
 
-#pragma mark - 常用图像
+#pragma mark - 在内存中生成图像
 
 + (UIImage*)commonImageGoBack; //返回按钮的图像，40x40。一般用于导航栏的返回按钮
-
++ (UIImage*)backgroudImageWithColor:(UIColor*)bgColor; //生成1x1的纯色背景图片
++ (UIImage*)imageWithSize:(CGSize)size color:(UIColor*)bgColor; //生成一张指定大小的纯色图片
 @end

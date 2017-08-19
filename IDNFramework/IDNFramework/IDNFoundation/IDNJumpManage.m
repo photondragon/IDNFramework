@@ -16,7 +16,7 @@
 @implementation IDNJumpHandlerInfo
 @end
 
-#pragma mark - 
+#pragma mark -
 
 @implementation IDNJumpManage
 {

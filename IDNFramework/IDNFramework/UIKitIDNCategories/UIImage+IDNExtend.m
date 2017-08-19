@@ -288,7 +288,7 @@
 }
 + (UIImage*)createCommonImageGoBack
 {
-	CGSize size = CGSizeMake(40, 40);
+	CGSize size = CGSizeMake(32, 32);
 	CGSize sizeInPixels;
 	CGFloat scale = [UIScreen mainScreen].scale;
 	sizeInPixels.width = size.width*scale;
@@ -318,6 +318,86 @@
 	CGContextAddLineToPoint(context, sizeInPixels.width*0.375, sizeInPixels.height/2.0f);
 	CGContextAddLineToPoint(context, sizeInPixels.width*0.625f, sizeInPixels.height*0.75f);
 	CGContextStrokePath(context);
+
+	CGImageRef imgRef = CGBitmapContextCreateImage(context);
+	CGContextRelease(context);
+	UIImage *img = [[UIImage alloc] initWithCGImage:imgRef scale:scale orientation:0];
+	CGImageRelease(imgRef);
+
+	return img;
+}
+
++ (UIImage*)backgroudImageWithColor:(UIColor*)bgColor
+{
+	static NSMutableDictionary* dic = nil;
+	if(dic==nil)
+		dic = [NSMutableDictionary new];
+	UIImage* img = dic[[bgColor description]];
+	if(img==nil)
+	{
+		img = [self createBacggroundImageWithColor:bgColor];
+		dic[[bgColor description]] = img;
+	}
+	return img;
+}
++ (UIImage*)createBacggroundImageWithColor:(UIColor*)bgColor
+{
+	CGSize size = CGSizeMake(4, 4);
+	CGSize sizeInPixels;
+	CGFloat scale = [UIScreen mainScreen].scale;
+	sizeInPixels.width = size.width*scale;
+	sizeInPixels.height = size.height*scale;
+
+	int bytesPerRow	= 4*sizeInPixels.width;
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGContextRef context = CGBitmapContextCreate(NULL,
+												 sizeInPixels.width,
+												 sizeInPixels.height,
+												 8,
+												 bytesPerRow,
+												 colorSpace,
+												 (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
+
+	CGColorSpaceRelease(colorSpace);
+
+//	CGFloat rgba[4];
+//	[bgColor getRed:rgba+3 green:rgba+1 blue:rgba+2 alpha:rgba];
+	CGFloat rgba[4] = {0,0,0,1.0};
+	CGContextSetFillColor(context, rgba);
+	CGContextFillRect(context, CGRectMake(0, 0, sizeInPixels.width, sizeInPixels.height));
+
+	CGImageRef imgRef = CGBitmapContextCreateImage(context);
+	CGContextRelease(context);
+	UIImage *img = [[UIImage alloc] initWithCGImage:imgRef scale:scale orientation:0];
+	CGImageRelease(imgRef);
+
+	return img;//[img resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode:UIImageResizingModeStretch];
+}
+
++ (UIImage*)imageWithSize:(CGSize)size color:(UIColor*)bgColor
+{
+	if(size.width<=0 || size.height<=0)
+		return nil;
+	CGSize sizeInPixels;
+	CGFloat scale = [UIScreen mainScreen].scale;
+	sizeInPixels.width = size.width*scale;
+	sizeInPixels.height = size.height*scale;
+
+	int bytesPerRow	= 4*sizeInPixels.width;
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGContextRef context = CGBitmapContextCreate(NULL,
+												 sizeInPixels.width,
+												 sizeInPixels.height,
+												 8,
+												 bytesPerRow,
+												 colorSpace,
+												 (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
+	CGColorSpaceRelease(colorSpace);
+
+	CGFloat rgba[4];
+	[bgColor getRed:rgba green:rgba+1 blue:rgba+2 alpha:rgba+3];
+	CGContextSetRGBFillColor(context, rgba[0], rgba[1], rgba[2], rgba[3]);
+	CGContextFillRect(context, CGRectMake(0, 0, sizeInPixels.width, sizeInPixels.height));
 
 	CGImageRef imgRef = CGBitmapContextCreateImage(context);
 	CGContextRelease(context);

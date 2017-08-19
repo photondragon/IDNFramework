@@ -13,15 +13,19 @@
 #import	"NSError+IDNExtend.h"
 #import	"NSFileManager+IDNExtend.h"
 #import "NSNotificationCenter+IDN.h"
+#import "NSObject+IDN.h"
 #import "NSObject+IDNCustomObject.h"
 #import "NSObject+IDNDeallocBlock.h"
 #import "NSObject+IDNPerformSelector.h"
 #import "NSObject+IDNEventHandle.h"
 #import "NSObject+IDNKVO.h"
+#import "NSObject+IDNModel.h"
 #import "NSObject+IDNNotice.h"
 #import "NSPointerArray+IDNExtend.h"
 #import "NSString+IDNExtend.h"
 #import "NSTimer+IDNWeakTarget.h"
+#import "NSURL+IDN.h"
+#import "NSURLRequest+IDN.h"
 
 #ifndef FoundationIDNCategories_h
 #define FoundationIDNCategories_h

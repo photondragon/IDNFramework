@@ -24,6 +24,7 @@
 #import "UIView+IDNExtend.h"
 #import	"UIView+IDNKeyboard.h"
 #import "UIView+IDNZoom.h"
+#import "UIViewController+IDNAlert.h"
 #import	"UIViewController+IDNOrientation.h"
 #import "UIViewController+IDNPresentationStack.h"
 #import "UIViewController+IDNPrompt.h"

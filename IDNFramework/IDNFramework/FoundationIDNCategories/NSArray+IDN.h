@@ -10,6 +10,6 @@
 
 @interface NSArray(IDN)
 
-- (NSString*)inplode;
+- (NSString*)implode;
 
 @end

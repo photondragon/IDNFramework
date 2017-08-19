@@ -12,11 +12,12 @@
 
 @interface UIWindow(IDNExt)
 
-+ (UIWindow*)keyWindow;
-+ (UIWindow*)mainWindow; //同keyWindow
+//+ (UIWindow*)keyWindow; // UIWindow 已经有这个方法了，不过是私有方法
++ (UIWindow*)mainWindow; // 同keyWindow
 + (UIViewController*)rootViewController;
 + (UIViewController*)presentedViewController;
 
-- (void)removeAllCustomViews; // 删除所有tag值等于WindowCustomViewTag的子view
+- (void)addCustomSubview:(UIView*)customView; // 同addSubview:，只是添加的customView.tag会被设置为WindowCustomViewTag
+- (void)removeAllCustomViews; // 删除所有tag值等于WindowCustomViewTag的子view（不删除孙子view）
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_OPTIONS(NSUInteger, DrawEdgeLine) {
+typedef NS_OPTIONS(NSInteger, DrawEdgeLine) {
 	DrawEdgeLineNone = 0,
 	DrawEdgeLineAll = -1,
 	DrawEdgeLineLeft = 1<<0,

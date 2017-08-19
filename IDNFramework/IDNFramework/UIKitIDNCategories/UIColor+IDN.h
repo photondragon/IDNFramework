@@ -17,6 +17,7 @@
 
 #pragma mark 生成color
 
++ (UIColor*)colorWithR:(UInt8)r g:(UInt8)g b:(UInt8)b; //r,g,b取值范围[0,255]
 + (UIColor*)colorWithR:(UInt8)r g:(UInt8)g b:(UInt8)b a:(UInt8)a; //r,g,b,a取值范围[0,255]
 + (UIColor*)colorWithUInt32Value:(UInt32)uint32Value; //uint32Value是颜色的UInt32值（从高位到低位依次是RGBA）
 + (UIColor*)colorWithHex:(NSString*)hexString; //hexString为颜色的16进制字符串，格式可以是@"#RRGGBB"、@"#RRGGBBAA"、@"#RGB"或@"#RGBA"，前缀#可选

@@ -150,6 +150,11 @@ static IDNTabBarController* sharedTabBarController = nil;
 		UIViewController* c = _viewControllers[_selectedIndex];
 		[self.view addSubview:c.view];
 		[c.view setNeedsLayout];
+		if([c isKindOfClass:[UINavigationController class]] &&
+		   [(UINavigationController*)c viewControllers].count)
+			[self showTabBarInController:[(UINavigationController*)c viewControllers][0]];
+		else
+			[self showTabBarInController:c];
 	}
 }
 

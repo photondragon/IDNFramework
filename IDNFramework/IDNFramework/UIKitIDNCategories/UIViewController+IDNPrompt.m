@@ -99,7 +99,9 @@
 }
 @end
 
-@implementation UIView(Prompt)
+#pragma mark - UIView(IDNPrompt)
+
+@implementation UIView(IDNPrompt)
 
 + (NSMutableDictionary*)dictionaryOfPromptInfos
 {
@@ -217,6 +219,8 @@
 }
 
 @end
+
+#pragma mark - UIViewController(IDNPrompt)
 
 @implementation UIViewController(IDNPrompt)
 

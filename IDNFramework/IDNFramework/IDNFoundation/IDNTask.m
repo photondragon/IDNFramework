@@ -329,7 +329,7 @@ static int nextTaskId = 0;
 
 - (id)submitURLRequest:(NSURLRequest*)request task:(IDNURLTaskBlock)taskBlock finished:(IDNTaskFinishedBlock)finishedBlock cancelled:(IDNTaskCancelledBlock)cancelledBlock key:(id)key group:(id)group
 {
-	if(taskBlock==nil)
+	if(request==nil || taskBlock==nil)
 		return nil;
 	if(key==nil)
 	{

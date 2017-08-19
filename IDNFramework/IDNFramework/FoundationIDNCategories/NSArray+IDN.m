@@ -10,7 +10,7 @@
 
 @implementation NSArray(IDN)
 
-- (NSString*)inplode
+- (NSString*)implode
 {
 	NSMutableString* str = [NSMutableString new];
 	BOOL isFirst = YES;

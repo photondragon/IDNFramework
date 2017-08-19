@@ -76,14 +76,14 @@
 #define JumpKeyUser		@"JumpKeyUser"
 #define JumpKeyGroup	@"JumpKeyGroup"
 
-@interface JumpManageSample : IDNJumpManage
+@interface JumpManage : IDNJumpManage
 
 // 根据URL中的参数，生成对应的JumpKey并分发的方法
 - (void)dispatchJumpsWithUrlParams:(NSDictionary*)urlParams;
 
 @end
 
-@implementation JumpManageSample
+@implementation JumpManage
 
 - (void)dispatchJumpsWithUrlParams:(NSDictionary*)urlParams
 {
@@ -111,4 +111,5 @@
 	[self jumpWithKey:jumpKey params:jumpParams];
 }
 
+@end
  */
