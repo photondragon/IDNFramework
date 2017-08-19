@@ -7,6 +7,7 @@
 //
 
 #import "NSURL+IDN.h"
+#import "NSDictionary+IDNExtend.h"
 
 @implementation NSURL(IDN)
 

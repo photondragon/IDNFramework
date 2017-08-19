@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+IDNModel.h"
+#import "NSObject+IDN.h"
 
 @implementation NSObject(IDNModel)
 

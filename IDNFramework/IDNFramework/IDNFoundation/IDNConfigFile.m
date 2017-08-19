@@ -10,6 +10,7 @@
 #import "IDNNetFileUpdater.h"
 #import "NSString+IDNExtend.h"
 #import "NSDictionary+IDNExtend.h"
+#import "NSObject+IDN.h"
 
 @interface IDNConfigInfo : NSObject
 @property(nonatomic,strong) NSDictionary* configuration;
