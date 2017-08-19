@@ -1,26 +1,76 @@
-.*
-!.gitignore
-!.project
-!.cproject
-*~
-*.swp
-*.bak
-build/
-Debug/
-Release/
-ipch/
-*.ncb
-Thumbs.db
-*.mode1v3
+# ======os======
+#.*
 *.DS_Store
-*.vspscc
-*.user
-*.sdf
-*.filters
-*.opensdf
-*.suo
+Thumbs.db
+
+# ======temp files======
+*~
 ~$*.xls*
 ~$*.doc*
-xcuserdata/
+*.swp
+*.bak
+
+# ======git======
+!.gitignore
+!.gitattributes
+!.gitkeep
+!.gitkeeper
+
+# ======apache======
+!.htaccess
+
+# ============================== IDEs ==============================
+
+# ======eclipse======
+!.project
+!.cproject
+
+# ======netbeans======
 nbproject/
 nbproject/private/
+
+# ======phpstorm======
+.idea/
+
+# ======visual studio======
+*.suo
+*.ncb
+*.opensdf
+*.filters
+*.sdf
+*.vspscc
+*.user
+ipch/
+#Debug/
+#Release/
+
+# ======xcode======
+*.mode1v3
+*.pbxuser
+xcuserdata/
+xcshareddata/
+
+# ============================== package manage ==============================
+
+# ======nodejs======
+# /node_modules
+npm-debug.log
+npm-debug.log.*
+
+# ======composer======
+# /vendor
+
+# ============================== frameworks ==============================
+
+# ======laravel======
+# .env
+!.env.example
+
+# ======vue-webpack======
+/dist/
+test/unit/coverage
+test/e2e/reports
+selenium-debug.log
+
+# ============================== my project ==============================
+
