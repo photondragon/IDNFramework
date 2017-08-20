@@ -73,15 +73,18 @@
 }
 - (void)save
 {
-	NSMutableDictionary* save;
+	NSMutableDictionary* save = nil;
+	NSString* path = nil;
 	@synchronized(self)
 	{
 		isSaving = NO;
 		if(persistPath==nil)
 			return;
+		path = [persistPath copy];
 		save = [dic mutableCopy];
+		lastSaveTime = [NSDate timeIntervalSinceReferenceDate];
 	}
-	[NSKeyedArchiver archiveRootObject:save toFile:persistPath];
+	[NSKeyedArchiver archiveRootObject:save toFile:path];
 }
 
 #pragma mark 修改
