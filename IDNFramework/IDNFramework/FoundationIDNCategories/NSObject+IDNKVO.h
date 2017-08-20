@@ -35,7 +35,7 @@ _Pragma("clang diagnostic pop") \
  *
  *  @param observer 观察者（弱引用）
  *  @param selector 格式: - (void)valueChangedWithOldValue:(id)oldValue newValue:(id)newValue;
- *  @param keyPath
+ *  @param keyPath 要观察的属性的key path
  */
 - (void)addKvoObserver:(id)observer
 			  selector:(SEL)selector

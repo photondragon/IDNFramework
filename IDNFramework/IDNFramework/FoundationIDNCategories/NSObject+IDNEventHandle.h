@@ -60,15 +60,12 @@
 /**
  *  设置事件的默认处理Handler
  *
- *  @param eventName 事件名称
  *  @param handler   事件处理的Block
  */
 - (void)setEventDefaultHandler:(void(^)(NSString* eventName, id customInfo))handler;
 
 /**
  *  取消事件的默认处理Handler
- *
- *  @param eventName 事件名称
  */
 - (void)unsetEventDefaultHandler;
 

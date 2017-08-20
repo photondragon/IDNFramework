@@ -160,7 +160,7 @@ static UInt32 crc32Table[256] = {
 	uint8_t *bytes = (uint8_t *)[self bytes];
 
 	for (int i=0; i<self.length; i++) {
-		crc = (crc >> 8) ^ crc32Table[crc & 0xff ^ bytes[i]];
+		crc = (crc >> 8) ^ crc32Table[(crc & 0xff) ^ bytes[i]];
 	}
 	crc ^= 0xffffffff;
 	
@@ -172,7 +172,7 @@ static UInt32 crc32Table[256] = {
 	uint8_t *bytes = (uint8_t *)[self bytes];
 
 	for (int i=0; i<self.length; i++) {
-		crc = (crc >> 8) ^ crc32Table[crc & 0xff ^ bytes[i]];
+		crc = (crc >> 8) ^ crc32Table[(crc & 0xff) ^ bytes[i]];
 	}
 	crc ^= 0xffffffff;
 

@@ -242,7 +242,7 @@ static NSTimeInterval dateCorrection = 0; //时间校正值。localTime+dateCorr
 
 #pragma mark JSON
 
-+ (NSDictionary*)dictionaryWithJSONData:(NSData*)jsonData error:(NSError**)error
++ (NSDictionary*)dictionaryFromJSONData:(NSData*)jsonData error:(NSError**)error
 {
 	NSDictionary *dicResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:error];
 	if(dicResponse==nil)

@@ -23,7 +23,7 @@
  *  （observer-notiName-notiSender三者的组合标识一个入口）
  *
  *  @param observer   观察者。weak引用，不可为nil
- *  @param selector
+ *  @param selector   selector
  *  @param notiName   通知名称
  *  @param notiSender 通知发送者。weak引用
  */
