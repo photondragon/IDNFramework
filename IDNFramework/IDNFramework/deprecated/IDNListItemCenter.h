@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+// 已弃用
 @protocol IDNListItemCenterObserver;
 
 // 功能类似IDNItemCenter，适用于服务器只提供了一次获取整个列表的接口的情况

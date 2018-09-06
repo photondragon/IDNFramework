@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+// 已弃用
 @interface IDNSearchBar : UISearchBar
 
 @property (nonatomic,weak) UIScrollView* containerView;//当设置这个属性时，如果是普通scrollView刷新控件就会成为其子View；如果是tableView，则会成为tableView的tableHeaderView。

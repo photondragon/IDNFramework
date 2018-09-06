@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+// 已弃用
 @interface IDNColorButton : UIButton
 
 @end

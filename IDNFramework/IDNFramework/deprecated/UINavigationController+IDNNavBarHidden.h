@@ -5,6 +5,7 @@
 
 #import <UIKit/UIKit.h>
 
+// 已弃用
 @interface UINavigationController(IDNNavBarHidden)
 
 @property (nonatomic, assign) BOOL idn_controllerBasedNavBarHiddenEnabled;

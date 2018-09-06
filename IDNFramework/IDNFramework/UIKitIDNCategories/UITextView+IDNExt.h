@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 /*
+ 目前使用上有限制：必须选设置delegate，然后才能设置扩展出来的自定义属性
  注意: 当设置了delegate后, 内部会立刻用一个桥接对象取代delegate对象, 所以获取delegate属性得到的对象不是你设置的delegate对象, 但各种通知delegate对象都能正常收到
  文本过滤的实现细节:
  内部使用了一个delegate来桥接外部的delegate.

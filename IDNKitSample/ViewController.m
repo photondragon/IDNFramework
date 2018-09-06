@@ -38,12 +38,12 @@
 
 	_btnTestHighlight.backgroundColorHighlighted = [UIColor redColor];
 	
+	_textView.delegate = self; //目前使用上有限制：必须选设置delegate，然后才能设置扩展出来的自定义属性
 	_textView.textLimit = 10;
-	_textView.delegate = self;
 	_textView.acceptCharacterSet = [NSCharacterSet decimalDigitCharacterSet];
 //	_textView.acceptCharacterSet = nil;
 //	_textView.acceptCharacterSet = [NSCharacterSet decimalDigitCharacterSet];
-	
+
 	_textView.textChangedByUserBlock = ^{
 		NSLog(@"text = %@", _textView.text);
 	};

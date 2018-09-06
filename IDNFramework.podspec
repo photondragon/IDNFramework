@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "IDNFramework"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "An ObjC framework for iOS"
 
   # This description is used to generate tags and improve search results.
@@ -93,7 +93,7 @@ Pod::Spec.new do |s|
   #
 
   s.source_files  = "Classes", "IDNFramework/IDNFramework/**/*.{h,m}"
-  s.exclude_files = "IDNFramework/IDNFramework/IDNFoundationEx/IDNFileDownloader.*"
+  s.exclude_files = "IDNFramework/IDNFramework/IDNFoundationEx/IDNFileDownloader.*", "IDNFramework/IDNFramework/deprecated/SegmentQuery.*"
 
   # s.public_header_files = "Classes/**/*.h"
 
