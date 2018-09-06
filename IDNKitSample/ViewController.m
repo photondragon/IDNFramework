@@ -50,7 +50,7 @@
 	__weak __typeof(self) wself = self;
 	_textView.returnPressedBlock = ^{
 		__typeof(self) sself = wself;
-//		[sself.textView resignFirstResponder];
+		[sself.textView resignFirstResponder];
 	};
 }
 - (IBAction)removeTextView:(id)sender {

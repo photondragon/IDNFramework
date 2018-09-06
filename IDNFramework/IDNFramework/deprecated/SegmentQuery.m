@@ -183,7 +183,8 @@
 						{
 							modified[@(iNew)] = recordnew;
 						}
-						iNew++,iOld++;
+						iNew++;
+						iOld++;
 					}
 				}
 				for (; iNew<count; iNew++) {

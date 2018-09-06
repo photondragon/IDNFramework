@@ -329,7 +329,8 @@
 							else //等于
 							{
 								dicReplaced[@(iOld)] = recordnew;
-								iNew++,iOld++;
+								iNew++;
+								iOld++;
 							}
 						}
 						for (; iNew<count; iNew++) {
